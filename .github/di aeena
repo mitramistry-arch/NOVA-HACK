@@ -1,0 +1,575 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1680" viewBox="0 0 2400 1680"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#0E2C44" flood-opacity="0.08"/></filter><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1769D2"/></marker></defs><rect x="0" y="0" width="2400" height="1680" rx="0" fill="#F3F6F8" stroke="#F3F6F8" stroke-width="0"/><text x="70" y="68" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="800" fill="#102A43" text-anchor="start" letter-spacing="1.4">CONTENT ANCHOR AI</text><text x="70" y="111" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="750" fill="#087F8C" text-anchor="start" letter-spacing=".6">TARGET ARCHITECTURE v2  •  TRUSTED MEMORY + EVIDENCE-GROUNDED ANSWERS</text><text x="70" y="149" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="400" fill="#536779" text-anchor="start">A production-oriented blueprint — separates the user’s AI provider credentials from their storage credentials.</text><rect x="1872" y="48" width="210" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="1977.0" y="69" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PROPOSED TARGET</text><text x="2082" y="105" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="650" fill="#B96A0B" text-anchor="middle">Not all components are implemented today</text><polyline points="590,238 620,238" fill="none" stroke="#1769D2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="1040,238 1060,238" fill="none" stroke="#1769D2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="1500,238 1520,238" fill="none" stroke="#1769D2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="1915,310 1915,330 435,330 435,352" fill="none" stroke="#1769D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><polyline points="1915,330 1250,330 1250,352" fill="none" stroke="#1769D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><polyline points="1915,330 2000,330 2000,352" fill="none" stroke="#1769D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><rect x="70" y="180" width="520" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="70" y="180" width="520" height="9" rx="4" fill="#1769D2" stroke="#1769D2" stroke-width="0"/><text x="94" y="223" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Web experience</text><text x="94" y="250" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Next.js / React UI • desktop + mobile</text><rect x="485" y="197" width="87" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="528.5" y="218" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PLANNED</text><text x="95" y="268" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Workspace · Ingest · Ask · Verify · Audit · Settings</text><rect x="620" y="180" width="420" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="620" y="180" width="420" height="9" rx="4" fill="#087F8C" stroke="#087F8C" stroke-width="0"/><text x="644" y="223" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">API edge</text><text x="644" y="250" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">TLS · request size limits · rate limits</text><rect x="926" y="197" width="96" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="974.0" y="218" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PROPOSED</text><text x="645" y="268" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">CORS, validation, request IDs, abuse controls</text><rect x="1060" y="180" width="440" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1060" y="180" width="440" height="9" rx="4" fill="#B96A0B" stroke="#B96A0B" stroke-width="0"/><text x="1084" y="223" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Identity + tenant context</text><text x="1084" y="250" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Session/API key → user → workspace</text><rect x="1395" y="197" width="87" height="31" rx="15" fill="#FFF2DC" stroke="#FFF2DC" stroke-width="1"/><text x="1438.5" y="218" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#B96A0B" text-anchor="middle">PARTIAL</text><text x="1085" y="268" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Authorize every action and every data query</text><rect x="1520" y="180" width="790" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1520" y="180" width="790" height="9" rx="4" fill="#138A62" stroke="#138A62" stroke-width="0"/><text x="1544" y="223" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">FastAPI application boundary</text><text x="1544" y="250" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Typed routes • domain services • consistent error contract</text><rect x="2169" y="197" width="123" height="31" rx="15" fill="#E6F6EF" stroke="#E6F6EF" stroke-width="1"/><text x="2230.5" y="218" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#138A62" text-anchor="middle">CORE EXISTS</text><text x="1545" y="268" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Modular monolith initially; split deployable services only when needed</text><rect x="362.0" y="316" width="146.0" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="435" y="336" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#1769D2" text-anchor="middle">ingestion route</text><rect x="1160.2" y="316" width="179.6" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="1250" y="336" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#1769D2" text-anchor="middle">ask / verify routes</text><rect x="1906.0" y="316" width="188.0" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="2000" y="336" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#1769D2" text-anchor="middle">workspace / settings</text><rect x="70" y="355" width="730" height="390" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="70" y="355" width="730" height="9" rx="4" fill="#087F8C" stroke="#087F8C" stroke-width="0"/><text x="94" y="398" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">1  Ingestion &amp; memory lifecycle</text><text x="94" y="425" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Synchronous API intake + asynchronous processing</text><rect x="614" y="372" width="168" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="698.0" y="393" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">CORE + HARDENING</text><circle cx="100" cy="449" r="4" fill="#087F8C"/><text x="114" y="455" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">1. Accept text, file, or an authorized connector event</text><circle cx="100" cy="485" r="4" fill="#087F8C"/><text x="114" y="491" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">2. Queue a durable job; record an idempotency key</text><circle cx="100" cy="521" r="4" fill="#087F8C"/><text x="114" y="527" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">3. Parse, normalize, chunk, and retain source provenance</text><circle cx="100" cy="557" r="4" fill="#087F8C"/><text x="114" y="563" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">4. Extract candidate memories through the provider adapter</text><circle cx="100" cy="593" r="4" fill="#087F8C"/><text x="114" y="599" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">5. Validate schema, quotes, source spans, and confidence</text><circle cx="100" cy="629" r="4" fill="#087F8C"/><text x="114" y="635" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">6. Deduplicate; reconcile timestamps and supersession links</text><circle cx="100" cy="665" r="4" fill="#087F8C"/><text x="114" y="671" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">7. Commit source + memory + index references atomically</text><rect x="95" y="700" width="680" height="29" rx="9" fill="#E4F6F5" stroke="#E4F6F5" stroke-width="0"/><text x="112" y="720" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="650" fill="#087F8C" text-anchor="start">Output: versioned memories with source IDs and freshness metadata</text><rect x="825" y="355" width="850" height="390" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="825" y="355" width="850" height="9" rx="4" fill="#1769D2" stroke="#1769D2" stroke-width="0"/><text x="849" y="398" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">2  Ask, retrieve &amp; verify</text><text x="849" y="425" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Evidence-first answering; abstention is a valid outcome</text><rect x="1489" y="372" width="168" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="1573.0" y="393" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">CORE + HARDENING</text><circle cx="855" cy="449" r="4" fill="#1769D2"/><text x="869" y="455" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">1. Normalize the question and resolve workspace / permissions</text><circle cx="855" cy="485" r="4" fill="#1769D2"/><text x="869" y="491" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">2. Apply tenant, access, date, and “as-of” filters before retrieval</text><circle cx="855" cy="521" r="4" fill="#1769D2"/><text x="869" y="527" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">3. Hybrid retrieval: lexical search + vector similarity</text><circle cx="855" cy="557" r="4" fill="#1769D2"/><text x="869" y="563" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">4. Rerank candidates; assemble bounded, source-linked context</text><circle cx="855" cy="593" r="4" fill="#1769D2"/><text x="869" y="599" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">5. Generate a candidate answer using the selected provider</text><circle cx="855" cy="629" r="4" fill="#1769D2"/><text x="869" y="635" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">6. Split claims; check support, contradiction, and freshness</text><circle cx="855" cy="665" r="4" fill="#1769D2"/><text x="869" y="671" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="500" fill="#182B3D" text-anchor="start">7. Decide: Supported / Outdated / Contradicted / Unsupported / Abstain</text><rect x="850" y="700" width="800" height="29" rx="9" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="0"/><text x="867" y="720" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="650" fill="#1769D2" text-anchor="start">Return answer + citations + decision + freshness + confidence + trace ID</text><rect x="1700" y="355" width="610" height="390" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1700" y="355" width="610" height="9" rx="4" fill="#B96A0B" stroke="#B96A0B" stroke-width="0"/><text x="1724" y="398" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">3  Workspace control plane</text><text x="1724" y="425" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">User-facing configuration and lifecycle</text><rect x="2205" y="372" width="87" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="2248.5" y="393" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PLANNED</text><circle cx="1730" cy="449" r="4" fill="#B96A0B"/><text x="1744" y="455" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Workspaces, roles, membership, and ownership</text><circle cx="1730" cy="487" r="4" fill="#B96A0B"/><text x="1744" y="493" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Provider selection, model / agent endpoint, connection test</text><circle cx="1730" cy="525" r="4" fill="#B96A0B"/><text x="1744" y="531" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Storage destination and per-workspace data-location policy</text><circle cx="1730" cy="563" r="4" fill="#B96A0B"/><text x="1744" y="569" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Secret rotation and connection status (never expose secrets)</text><circle cx="1730" cy="601" r="4" fill="#B96A0B"/><text x="1744" y="607" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Export, deletion, retention, and audit-history controls</text><circle cx="1730" cy="639" r="4" fill="#B96A0B"/><text x="1744" y="645" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="500" fill="#182B3D" text-anchor="start">• Usage limits, plan quotas, and administrator policy</text><rect x="1725" y="700" width="560" height="29" rx="9" fill="#FFF2DC" stroke="#FFF2DC" stroke-width="0"/><text x="1742" y="720" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="650" fill="#B96A0B" text-anchor="start">AI credentials and database credentials are separate</text><polyline points="435,745 435,775 1095,775 1095,800" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="1250,745 1250,785 395,785 395,800" fill="none" stroke="#1769D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><polyline points="1250,785 1890,785 1890,800" fill="none" stroke="#1769D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><polyline points="2000,745 2000,775 1890,775 1890,800" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" marker-end="url(#arrow)"/><polyline points="435,775 1095,775" fill="none" stroke="#087F8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="687.0" y="753" width="146.0" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="760" y="773" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#087F8C" text-anchor="middle">enqueue / retry</text><rect x="1515.0" y="765" width="230.0" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="1630" y="785" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#1769D2" text-anchor="middle">tenant-routed data access</text><rect x="70" y="805" width="670" height="195" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="70" y="805" width="670" height="9" rx="4" fill="#1769D2" stroke="#1769D2" stroke-width="0"/><text x="94" y="848" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">AI + embedding provider routers</text><text x="94" y="875" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Separate capabilities behind stable internal contracts</text><rect x="635" y="822" width="87" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="678.5" y="843" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PLANNED</text><circle cx="95" cy="889" r="4" fill="#1769D2"/><text x="109" y="895" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">LLM/agent: OpenAI • Anthropic • Gemini • compatible endpoint</text><circle cx="95" cy="918" r="4" fill="#1769D2"/><text x="109" y="924" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Embeddings: separate provider or local embedder; record model + dimensions</text><circle cx="95" cy="947" r="4" fill="#1769D2"/><text x="109" y="953" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Vault references • retries / timeouts / quota; no silent FakeLLM fallback</text><rect x="765" y="805" width="670" height="195" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="765" y="805" width="670" height="9" rx="4" fill="#087F8C" stroke="#087F8C" stroke-width="0"/><text x="789" y="848" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Durable job infrastructure</text><text x="789" y="875" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Keep slow ingestion and sync work out of request threads</text><rect x="1321" y="822" width="96" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="1369.0" y="843" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PROPOSED</text><circle cx="790" cy="889" r="4" fill="#087F8C"/><text x="804" y="895" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Queue + worker process • progress events • scheduled connector sync</text><circle cx="790" cy="918" r="4" fill="#087F8C"/><text x="804" y="924" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Idempotency • bounded retries • dead-letter queue • cancellation</text><circle cx="790" cy="947" r="4" fill="#087F8C"/><text x="804" y="953" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">At-least-once delivery handled with idempotent writes</text><rect x="1460" y="805" width="850" height="195" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1460" y="805" width="850" height="9" rx="4" fill="#B96A0B" stroke="#B96A0B" stroke-width="0"/><text x="1484" y="848" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Tenant-aware storage router</text><text x="1484" y="875" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Resolve a workspace to an explicitly configured storage adapter</text><rect x="2196" y="822" width="96" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="2244.0" y="843" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">PROPOSED</text><circle cx="1485" cy="889" r="4" fill="#B96A0B"/><text x="1499" y="895" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">SQLite only for local/dev; production default: PostgreSQL + search/vector support</text><circle cx="1485" cy="918" r="4" fill="#B96A0B"/><text x="1499" y="924" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Customer-managed Postgres / object-store adapters only when implemented &amp; tested</text><circle cx="1485" cy="947" r="4" fill="#B96A0B"/><text x="1499" y="953" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="450" fill="#182B3D" text-anchor="start">Enforce tenant scope and transaction semantics in every adapter</text><polyline points="1885,1000 1885,1018 330,1018" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="1885,1018 875,1018" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="1885,1018 1420,1018" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="1885,1018 2015,1018" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="330,1018 330,1038" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="875,1018 875,1038" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="1420,1018 1420,1038" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><polyline points="2015,1018 2015,1038" fill="none" stroke="#B96A0B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/><rect x="1003.4" y="998" width="213.20000000000002" height="30" rx="10" fill="#FFFFFF" stroke="#E8EEF3" stroke-width="1"/><text x="1110" y="1018" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="650" fill="#B96A0B" text-anchor="middle">persist + index + audit</text><rect x="70" y="1040" width="520" height="235" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="70" y="1040" width="520" height="9" rx="4" fill="#173F61" stroke="#173F61" stroke-width="0"/><text x="94" y="1083" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Relational records</text><text x="94" y="1110" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">System of record for ownership and facts</text><rect x="488" y="1057" width="84" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="530.0" y="1078" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">TARGET</text><circle cx="95" cy="1124" r="4" fill="#173F61"/><text x="109" y="1130" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Tenants / workspaces / role bindings</text><circle cx="95" cy="1151" r="4" fill="#173F61"/><text x="109" y="1157" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Sources, versions, chunks, memory facts</text><circle cx="95" cy="1178" r="4" fill="#173F61"/><text x="109" y="1184" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Timestamps, supersession links, provenance</text><circle cx="95" cy="1205" r="4" fill="#173F61"/><text x="109" y="1211" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Job status and connection references</text><circle cx="95" cy="1232" r="4" fill="#173F61"/><text x="109" y="1238" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Never store plaintext API secrets here</text><rect x="620" y="1040" width="510" height="235" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="620" y="1040" width="510" height="9" rx="4" fill="#1769D2" stroke="#1769D2" stroke-width="0"/><text x="644" y="1083" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Retrieval indexes</text><text x="644" y="1110" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Derived, rebuildable search structures</text><rect x="1028" y="1057" width="84" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="1070.0" y="1078" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">TARGET</text><circle cx="645" cy="1124" r="4" fill="#1769D2"/><text x="659" y="1130" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Vector embeddings + metadata filters</text><circle cx="645" cy="1153" r="4" fill="#1769D2"/><text x="659" y="1159" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Lexical / full-text index (BM25 or FTS)</text><circle cx="645" cy="1182" r="4" fill="#1769D2"/><text x="659" y="1188" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Freshness, source-version, and owner filters</text><circle cx="645" cy="1211" r="4" fill="#1769D2"/><text x="659" y="1217" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Re-index from canonical records when needed</text><rect x="1160" y="1040" width="520" height="235" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1160" y="1040" width="520" height="9" rx="4" fill="#087F8C" stroke="#087F8C" stroke-width="0"/><text x="1184" y="1083" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Source object storage</text><text x="1184" y="1110" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Keep original evidence traceable</text><rect x="1578" y="1057" width="84" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="1620.0" y="1078" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">TARGET</text><circle cx="1185" cy="1124" r="4" fill="#087F8C"/><text x="1199" y="1130" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Raw uploaded files and connector snapshots</text><circle cx="1185" cy="1153" r="4" fill="#087F8C"/><text x="1199" y="1159" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Normalized text / chunk references</text><circle cx="1185" cy="1182" r="4" fill="#087F8C"/><text x="1199" y="1188" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Content hash + source metadata + version</text><circle cx="1185" cy="1211" r="4" fill="#087F8C"/><text x="1199" y="1217" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Retention, export, and deletion propagation</text><rect x="1710" y="1040" width="600" height="235" rx="18" fill="#FFFFFF" stroke="#D9E2EA" stroke-width="2" filter="url(#shadow)"/><rect x="1710" y="1040" width="600" height="9" rx="4" fill="#138A62" stroke="#138A62" stroke-width="0"/><text x="1734" y="1083" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="750" fill="#102A43" text-anchor="start">Audit, observability &amp; evaluation</text><text x="1734" y="1110" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="400" fill="#536779" text-anchor="start">Separate operational truth from application content</text><rect x="2208" y="1057" width="84" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="2250.0" y="1078" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">TARGET</text><circle cx="1735" cy="1124" r="4" fill="#138A62"/><text x="1749" y="1130" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Append-only audit events and decision traces</text><circle cx="1735" cy="1153" r="4" fill="#138A62"/><text x="1749" y="1159" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Redacted structured logs, metrics, distributed traces</text><circle cx="1735" cy="1182" r="4" fill="#138A62"/><text x="1749" y="1188" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Provider latency / usage / cost / quota tracking</text><circle cx="1735" cy="1211" r="4" fill="#138A62"/><text x="1749" y="1217" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17" font-weight="450" fill="#182B3D" text-anchor="start">Offline evals: evidence quality, citation, freshness, regressions</text><rect x="70" y="1305" width="2240" height="290" rx="20" fill="#EAF0F5" stroke="#D2DDE7" stroke-width="2"/><text x="95" y="1345" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="21" font-weight="800" fill="#102A43" text-anchor="start" letter-spacing=".7">CROSS-CUTTING CONTROLS</text><text x="2300" y="1345" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="500" fill="#536779" text-anchor="end">Apply to every request, job, provider call, and storage operation</text><rect x="95" y="1365" width="520" height="195" rx="14" fill="#FFFFFF" stroke="#D7E0E8" stroke-width="1"/><rect x="95" y="1365" width="520" height="6" rx="3" fill="#087F8C" stroke="#087F8C" stroke-width="0"/><text x="113" y="1401" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="750" fill="#102A43" text-anchor="start">Tenant isolation &amp; authorization</text><circle cx="115" cy="1431" r="4" fill="#087F8C"/><text x="129" y="1437" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Owner/workspace scope is derived server-side</text><circle cx="115" cy="1462" r="4" fill="#087F8C"/><text x="129" y="1468" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Filter before retrieval; authorize before read/write</text><circle cx="115" cy="1493" r="4" fill="#087F8C"/><text x="129" y="1499" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Defense in depth: DB policies where available</text><rect x="645" y="1365" width="520" height="195" rx="14" fill="#FFFFFF" stroke="#D7E0E8" stroke-width="1"/><rect x="645" y="1365" width="520" height="6" rx="3" fill="#1769D2" stroke="#1769D2" stroke-width="0"/><text x="663" y="1401" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="750" fill="#102A43" text-anchor="start">Secrets &amp; privacy</text><circle cx="665" cy="1431" r="4" fill="#1769D2"/><text x="679" y="1437" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Encrypt provider keys and storage credentials</text><circle cx="665" cy="1462" r="4" fill="#1769D2"/><text x="679" y="1468" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">KMS / envelope encryption in production</text><circle cx="665" cy="1493" r="4" fill="#1769D2"/><text x="679" y="1499" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Redact logs; rotate, revoke, and delete secrets</text><rect x="1195" y="1365" width="520" height="195" rx="14" fill="#FFFFFF" stroke="#D7E0E8" stroke-width="1"/><rect x="1195" y="1365" width="520" height="6" rx="3" fill="#138A62" stroke="#138A62" stroke-width="0"/><text x="1213" y="1401" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="750" fill="#102A43" text-anchor="start">Trust, provenance &amp; decisions</text><circle cx="1215" cy="1431" r="4" fill="#138A62"/><text x="1229" y="1437" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Every claim traces to source version and evidence</text><circle cx="1215" cy="1462" r="4" fill="#138A62"/><text x="1229" y="1468" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Temporal checks, contradiction detection, abstention</text><circle cx="1215" cy="1493" r="4" fill="#138A62"/><text x="1229" y="1499" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Never label unsupported output as verified</text><rect x="1745" y="1365" width="540" height="195" rx="14" fill="#FFFFFF" stroke="#D7E0E8" stroke-width="1"/><rect x="1745" y="1365" width="540" height="6" rx="3" fill="#B96A0B" stroke="#B96A0B" stroke-width="0"/><text x="1763" y="1401" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="19" font-weight="750" fill="#102A43" text-anchor="start">Reliability &amp; release controls</text><circle cx="1765" cy="1431" r="4" fill="#B96A0B"/><text x="1779" y="1437" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Backups and restore drills; schema migrations</text><circle cx="1765" cy="1462" r="4" fill="#B96A0B"/><text x="1779" y="1468" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Contract, integration, security, and E2E tests</text><circle cx="1765" cy="1493" r="4" fill="#B96A0B"/><text x="1779" y="1499" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="450" fill="#182B3D" text-anchor="start">Benchmark quality before changing prompts/models</text><text x="75" y="1635" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="800" fill="#087F8C" text-anchor="start" letter-spacing=".8">DESIGN PRINCIPLE</text><text x="235" y="1635" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="500" fill="#536779" text-anchor="start">Start as a modular monolith + separate worker; keep adapters modular. Do not split into microservices until scale or team boundaries justify it.</text><rect x="1810" y="1608" width="140" height="31" rx="15" fill="#E6F6EF" stroke="#E6F6EF" stroke-width="1"/><text x="1880.0" y="1629" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#138A62" text-anchor="middle">Existing core</text><rect x="1965" y="1608" width="180" height="31" rx="15" fill="#FFF2DC" stroke="#FFF2DC" stroke-width="1"/><text x="2055.0" y="1629" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#B96A0B" text-anchor="middle">Partial / strengthen</text><rect x="2160" y="1608" width="110" height="31" rx="15" fill="#E8F1FF" stroke="#E8F1FF" stroke-width="1"/><text x="2215.0" y="1629" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#1769D2" text-anchor="middle">Planned</text></svg>
+# Content Anchor AI — 10-Phase Production Roadmap and Prompt Pack
+
+**Prepared from:** `nova-production-fixed (1).zip`  
+**Date:** 25 October 2026  
+**Purpose:** Execute the existing Architecture v2 design in ten controlled, testable implementation phases. Use one phase prompt at a time, in order; do not paste all ten prompts into an agent in a single run.
+
+## Current repository snapshot (verified from the supplied ZIP)
+
+- The archive passed ZIP integrity validation.
+- A fresh backend run of `pytest -q -W error::ResourceWarning` passed **492 tests** in this environment.
+- `python -m compileall -q nova benchmark scripts tests` should be re-run by the coding agent as part of Phase 1; the repo's phase-status note reports it passed in the author's environment.
+- The backend already has tenant API-key authentication, provider configuration/test endpoints, encrypted integration secrets, SQLite default storage, tenant-managed PostgreSQL configuration/test/initialization, and data export/delete endpoints.
+- The supported LLM adapter is currently **OpenAI-compatible**, not universal arbitrary-agent access. `agent_id` is currently rejected by the provider config model. Provider support and embedding support are separate concerns.
+- `nova/api/runtime.py` currently instantiates `HashEmbedder()` for production runtime retrieval. `SentenceTransformerEmbedder` exists but is not selected there. HashEmbedder is deterministic/testing-oriented, not a semantic-quality production embedding model.
+- The React + TypeScript + Vite frontend exists for Overview/Ingest/Ask/Verify/Audit-ID lookup. It does not yet provide a memory library, audit list/search, or settings pages for BYOK/storage.
+- The frontend README says hosted browser use requires a same-origin BFF/session boundary. There is no verified `frontend/package-lock.json`; typecheck, lint, frontend tests, production build, built-asset scan, Playwright, visual review and accessibility checks remain unverified in the supplied validation note.
+- Fake benchmark mode is only a smoke test, not evidence of model quality. Real model-evaluation needs a curated dataset and an explicitly configured real provider.
+
+**Interpretation:** 492 passing backend tests are a useful baseline, not production certification. These prompts deliberately treat the UI, BFF, embeddings, external-store integration, and live-provider quality as unverified until the relevant checks are run.
+
+## Recommended execution rules
+
+1. Give the coding agent the repo ZIP/repository and **only Phase 1** first. Review its diff and test report before proceeding.
+2. Keep changes small and phase-scoped. Each phase must leave the repository testable and update docs when behavior/contracts change.
+3. Require the agent to report exact commands and output summaries. “Not run” is not “passed.” Never weaken or delete tests just to get a green run.
+4. Do not put real API keys, database passwords, OIDC secrets, encryption keys, production credentials or customer data into prompts/chat, source code, test fixtures, CI logs or committed files.
+5. Keep production fail-closed; no silent `FakeLLM` fallback; no secrets in browser JavaScript; no tenant identity trusted from browser-controlled headers.
+6. For features that require a business choice or external account, the agent should document the gate and provide setup instructions rather than invent a vendor/account/policy.
+
+## Ten-phase map
+
+1. **Repository baseline, architecture contract, and production gap map** — Establish a trustworthy baseline and reconcile the current implementation with Architecture v2 before adding features.
+2. **Browser identity, backend-for-frontend, and tenant authorization** — Make browser access safe for real users without exposing a shared backend API key or trusting a client-selected tenant.
+3. **BYOK AI provider adapters, secret lifecycle, and usage controls** — Turn existing provider configuration endpoints into a clear, tested, user-facing provider system without pretending that every agent API is interchangeable.
+4. **User-owned storage adapters, migrations, export, and deletion semantics** — Make data destination configuration reliable and transparent, starting from the existing SQLite/PostgreSQL support.
+5. **Production embeddings, retrieval quality, temporal memory, and verification** — Replace test-oriented retrieval assumptions with configurable, versioned embeddings and measurable evidence quality.
+6. **Memory library, audit search, and user data lifecycle APIs** — Expose the information needed by the designed UI through real, tenant-scoped, paginated APIs rather than mock metrics.
+7. **Premium frontend redesign and end-to-end product wiring** — Turn the existing frontend source into the polished, architecture-aligned product shown in the UI concepts.
+8. **Durable ingestion jobs, resilience, observability, and cost controls** — Make ingestion and AI workflows dependable under slow providers, retries, partial failures, and operational incidents.
+9. **End-to-end assurance, model evaluation, dependency hygiene, and CI gates** — Create evidence that the full product works and is reasonably secure—not just that backend unit tests pass.
+10. **Staging deployment, production release, and ongoing operations** — Package and release the application with reliable configuration, rollback, backup/restore, observability and human sign-off.
+
+---
+
+## Phase 1: Repository baseline, architecture contract, and production gap map
+
+**Goal:** Establish a trustworthy baseline and reconcile the current implementation with Architecture v2 before adding features.
+
+**Current-state note:** The provided ZIP is more advanced than the earlier snapshots. A fresh run of `pytest -q -W error::ResourceWarning` passed 492 tests. This does not validate the frontend or prove production readiness. The React/TypeScript/Vite source exists, but there is no verified frontend package lockfile, and npm build/type/lint/component/E2E checks are not validated. Backend BYOK and storage configuration APIs already exist, but their supported capabilities have limits.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 1 task
+
+Perform a code-grounded architecture and release-readiness assessment of this exact repository. Do not start implementing all ten phases at once.
+
+1. Run and record the current baseline: `pytest -q -W error::ResourceWarning`, `python -m compileall -q nova benchmark scripts tests`, and any locally available lint/package checks. Separate passed, failed, blocked, and not-run checks.
+2. Trace request paths through `nova/api/main.py`, `nova/api/runtime.py`, `nova/pipeline.py`, extraction, temporal supersession, retrieval, verification, storage, provider configuration, and audit logging. Map each path to concrete files and tests.
+3. Confirm the current facts before writing the gap map: provider adapter is OpenAI-compatible rather than arbitrary agent support; `agent_id` is currently unsupported; provider and PostgreSQL storage endpoints exist; storage defaults to SQLite if not configured; `Runtime.anchor_for()` currently constructs `HashEmbedder`; the frontend currently has Overview/Ingest/Ask/Verify/Audit-ID lookup but no memory library, audit list, or Settings pages; browser-facing deployment requires a trusted same-origin BFF/session layer; `frontend/package-lock.json` is absent and frontend production checks are unverified.
+4. Create `docs/production-readiness-matrix.md` with P0/P1/P2 issues, evidence (file/line or test name), dependencies, acceptance criteria, and which later phase owns each item. Create `docs/architecture-decisions.md` for unresolved human decisions without inventing answers. Update README status only when facts are verified.
+5. Investigate any mismatch between the supplied architecture diagram and code. Mark components as implemented, partial, planned, or blocked. Do not label HashEmbedder as semantic-quality production embeddings and do not treat the fake benchmark as model-quality evidence.
+6. Fix only a confirmed critical regression that blocks safe later work; if a fix crosses phases or requires a human decision, document it and leave it for its assigned phase.
+
+## Deliverables and acceptance
+
+- The baseline commands and exact outcomes are documented.
+- The gap matrix links each material item to evidence and one phase.
+- There is a dependency order showing why auth/BFF precedes public UI exposure, why storage/provider choices precede end-to-end settings, and why evaluation precedes release.
+- No secrets or user data are added to test artifacts. No test was deleted or weakened.
+- End with a concise production-readiness statement that distinguishes code present from integrations genuinely verified.
+
+### Definition of done
+
+- [ ] Baseline commands and exact outcomes are recorded; unavailable tooling is explicitly labelled, not assumed to pass.
+- [ ] Gap matrix maps current code to the target architecture and assigns each gap to one later phase.
+- [ ] Human decisions and integration prerequisites are separated from coding tasks.
+- [ ] No broad rewrite, fake production feature, or test weakening occurs.
+
+---
+
+## Phase 2: Browser identity, backend-for-frontend, and tenant authorization
+
+**Goal:** Make browser access safe for real users without exposing a shared backend API key or trusting a client-selected tenant.
+
+**Current-state note:** The API currently authenticates server requests through `NOVA_API_KEY` or `NOVA_TENANT_API_KEYS`. Tenant identity is derived from configured keys, and `X-Tenant-ID` is not an authority. The frontend uses same-origin `/api` paths, but the Vite proxy is only for local development. There is no production browser session/BFF layer in the supplied repo.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 2 task
+
+Implement a production-safe browser identity and BFF boundary while preserving service-to-service API-key behavior for existing backend clients.
+
+1. Define an authenticated session flow using a maintained, standards-based OIDC identity integration; do not create a home-grown password system. Keep vendor-specific configuration behind an interface. If the identity vendor is not selected, do not fake production login; document the exact configuration/decision gate.
+2. Add a same-origin BFF/session route that authenticates the browser session, maps the authenticated subject to a tenant and allowed role on the server, and calls the internal Nova API using a server-held tenant credential. Never forward a browser-supplied tenant ID as authority and never put `NOVA_API_KEY`, tenant API keys, provider keys, database passwords, or encryption keys in client code.
+3. Use Secure, HttpOnly, SameSite cookies; session rotation and expiry; logout/revocation; CSRF protection for state-changing requests; strict origin checks; safe redirect allowlists; and conservative request/body/rate limits. Do not persist session tokens or credentials in localStorage/sessionStorage.
+4. Add tenant membership/role checks for ingest, ask, verify, provider configuration, storage configuration, export, deletion, memory browsing, and audit access. Every query/mutation must derive tenant scope from the authenticated server-side identity.
+5. Preserve API-key auth for trusted integrations; clearly separate it from browser session auth. Fail closed when production auth is unconfigured. Keep test/development bypasses opt-in and impossible to enable accidentally in production.
+6. Add tests for anonymous access, expired/invalid sessions, CSRF failure, tenant A/B isolation, forged `X-Tenant-ID`, cross-tenant export/delete, role denial, logout, key non-disclosure, and secure cookie attributes. Use fake identity fixtures only in tests.
+
+## Deliverables and acceptance
+
+- Hosted-browser requests pass through the BFF; the Vite proxy is never positioned as a production gateway.
+- The server maps identity to tenant and never accepts tenant authority from browser-controlled data.
+- Existing API-key clients continue to work with no accidental auth downgrade.
+- Security tests pass and deployment docs list all required OIDC, session, CSRF, cookie, proxy, and secret-manager configuration.
+- Do not deploy or configure an external identity account on the user's behalf; provide a human setup checklist.
+
+### Definition of done
+
+- [ ] No shared backend key appears in browser JS or built assets.
+- [ ] Every user-facing operation uses server-derived tenant scope and role authorization.
+- [ ] CSRF, cookies, redirects, expiry, logout, and cross-tenant negative tests pass.
+- [ ] Production fails closed when the session/BFF configuration is missing.
+
+---
+
+## Phase 3: BYOK AI provider adapters, secret lifecycle, and usage controls
+
+**Goal:** Turn existing provider configuration endpoints into a clear, tested, user-facing provider system without pretending that every agent API is interchangeable.
+
+**Current-state note:** `nova/providers/` already supports an OpenAI-compatible completion adapter and encrypted per-tenant API-key storage via the control store. `GET/PUT/DELETE /provider` and `/provider/test` exist. `FakeLLM` is intended only for explicitly allowed development/testing. `ProviderSettings` explicitly rejects `agent_id`; arbitrary agent protocols are not currently supported.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 3 task
+
+Review and complete Bring Your Own Key (BYOK) for supported AI providers.
+
+1. Audit `nova/providers/config.py`, `service.py`, `openai_compat.py`, `nova/security/secrets.py`, error mapping, usage handling, and current tests. Preserve the existing encryption boundary and make sure status/read endpoints never return a raw secret.
+2. Define an explicit provider adapter protocol and registry. Keep the existing OpenAI-compatible adapter as the first supported path. Add provider-specific adapters only where the provider's actual documented API contract is known and testable. Do not claim that a generic API key grants access to arbitrary agents, private workspaces, or unsupported agent APIs. Document unsupported protocols clearly.
+3. Support safe configure, update, test, disconnect, masked status, timeouts, output/input limits, bounded retries where idempotent, stable public errors, provider capability reporting, and per-tenant usage/cost accounting where provider usage data is actually available. Never invent token counts or prices when the provider does not return them.
+4. Add strict HTTPS/endpoint validation, SSRF defenses, redirect controls, DNS/IP validation consistent with the current security code, TLS hostname verification, and no credential forwarding across redirects. Private endpoints must remain an explicit operator-controlled exception, never a browser toggle.
+5. Ensure provider failures fail explicitly. Production must never silently fall back to `FakeLLM`; missing/misconfigured credentials should return a typed configuration error. Do not log request bodies, provider keys, Authorization headers, or full connection strings.
+6. Add masked provider setup/status/test/disconnect API-contract tests and mock-transport tests for success, throttling, timeouts, malformed responses, prompt/output limits, SSRF bypass attempts, secret redaction, and tenant separation. Add an opt-in manual live smoke script that reads credentials only from an external secret environment and never records them.
+
+## Deliverables and acceptance
+
+- A documented allowlist of supported adapters and the exact interface each supports (completion, JSON output, usage, optional embedding).
+- A real user's provider key can be stored encrypted, tested, used only by that tenant, rotated, and revoked.
+- Provider credentials never appear in status responses, logs, audit data, frontend bundles, or errors.
+- FakeLLM remains an explicit test/development double and cannot be used silently in production.
+
+### Definition of done
+
+- [ ] Supported providers and protocols are documented without promising arbitrary agent access.
+- [ ] Key CRUD/test flows are tenant-scoped, encrypted at rest, masked in responses, and redacted from logs.
+- [ ] Timeout, rate-limit, malformed-response, SSRF and error paths are tested.
+- [ ] No production path silently defaults to FakeLLM.
+
+---
+
+## Phase 4: User-owned storage adapters, migrations, export, and deletion semantics
+
+**Goal:** Make data destination configuration reliable and transparent, starting from the existing SQLite/PostgreSQL support.
+
+**Current-state note:** The repository already has `StorageService`, a control store for connection metadata/secrets, a default SQLite path, tenant-managed PostgreSQL configuration, `storage/test`, `storage/initialize`, `/data/export`, and confirmed `/data` deletion. Disconnecting a PostgreSQL connection config does not delete the external database. PostgreSQL integration has not yet been validated against a real server in this environment.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 4 task
+
+Harden the data storage boundary and prepare it for real customer-owned storage.
+
+1. Trace storage configuration from API request through control-store secret encryption, `StorageService`, `StorageSession`, schema initialization, tenant-scoped repositories, audit retention, export, and deletion. Preserve the distinction between the control database and each tenant's content database.
+2. Define and test a storage adapter contract. Keep SQLite as a local/development option and PostgreSQL as the first externally managed option unless the user explicitly approves another connector. Do not imply that Nova can connect to every vendor database or create/provision external databases. The customer must supply an authorized database, user, permissions, TLS configuration, and reachable network path.
+3. Make configure/test/initialize/reconnect/disconnect/status flows safe and idempotent. Verify that passwords/connection strings are never returned. Validate hostnames and resolved IPs at connection time, prevent DNS rebinding/SSRF and redirects/proxy surprises, require TLS for remote PostgreSQL, and use least-privilege DB operations.
+4. Version schema changes with explicit migrations and rollback/forward-compatibility guidance. Verify tenant ownership columns, indexes, constraints, embedding metadata, and audit retention behavior on all supported stores. Avoid silently falling back to SQLite when a configured remote store fails.
+5. Define exact semantics for disconnect, export, delete-data, and full account/tenant deletion: connection removal must not destroy the user's database; a confirmed data deletion must remove the tenant's Nova-managed records from the configured store; full account removal must also clean control-store configurations/secrets according to documented retention requirements. Add safeguards against accidental cross-tenant or database-wide deletion.
+6. Add integration tests against an actual PostgreSQL service in CI (or mark the phase blocked if no runner/service is available); fake-driver tests alone are insufficient. Test unavailable storage, bad TLS, migrations, rollback/error handling, backup/restore assumptions, export limits, deletion confirmation, and tenant isolation.
+
+## Deliverables and acceptance
+
+- `docs/storage-and-data-lifecycle.md` defines where each class of data lives and what connect/disconnect/export/delete mean.
+- The adapter contract is stable and tenant-aware.
+- Real PostgreSQL tests are run before claiming PostgreSQL production support.
+- No arbitrary endpoint or database credentials are introduced into client-side code.
+
+### Definition of done
+
+- [ ] SQLite/PostgreSQL behavior and unsupported storage types are explicit.
+- [ ] Real PG integration covers migrations, tenant isolation, export/delete and failure recovery.
+- [ ] Disconnect and data deletion have distinct documented, tested meanings.
+- [ ] No silent fallback or secret disclosure exists.
+
+---
+
+## Phase 5: Production embeddings, retrieval quality, temporal memory, and verification
+
+**Goal:** Replace test-oriented retrieval assumptions with configurable, versioned embeddings and measurable evidence quality.
+
+**Current-state note:** The repository contains `HashEmbedder` and an optional `SentenceTransformerEmbedder`, but `Runtime.anchor_for()` currently instantiates `HashEmbedder()` directly. Hybrid retrieval checks embedding model/dimension compatibility, and the temporal and verification modules exist. Fake benchmark scores are smoke signals, not quality evidence.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 5 task
+
+Audit and productionize the memory retrieval and verification path while retaining source-grounded decision semantics.
+
+1. Introduce explicit per-tenant or deployment-configured embedding selection through an embedder factory. Keep HashEmbedder available for deterministic tests only; it must never be described as a semantic-quality production embedder. Support a production-quality option (for example, the existing local SentenceTransformer adapter) and/or an explicit provider embedding adapter. Keep text-generation and embedding credentials/capabilities separate unless a chosen provider genuinely supports both.
+2. Persist and validate model/version/dimension metadata for every vector. Never mix vectors from incompatible models. Add controlled re-embedding/backfill jobs with progress, bounded batches, idempotency, rollback/recovery, and a migration plan for existing `hash-v1-*` records. Do not change an active tenant's model without a visible migration/state transition.
+3. Review hybrid retrieval ranking, candidate limits, recency/temporal logic, session/tenant scoping, duplicate handling, and how historical memories are included. Expose `include_history` consistently across API, core, and UI. Ensure current facts can supersede old facts without destroying audit/source history; late-arriving messages must not incorrectly replace newer facts.
+4. Strengthen claim-level verification so verdicts are grounded in retrieved evidence IDs and source quotes rather than mere existence of an ID. Handle compound claims, prompt-injection text inside sources, conflicting sources, stale evidence, missing evidence and ambiguous subject matches. Return structured evidence and explicit abstention where support is insufficient.
+5. Add a curated, versioned evaluation dataset with expected retrieval IDs, verdicts, temporal behavior and abstention cases. Track retrieval Recall@k/MRR or suitable ranking metrics, claim verdict precision/recall, unsupported-answer rate, contradiction detection, latency, and cost only where measured. Keep deterministic fake smoke tests separate from real model-quality evaluations.
+6. Add migration/compatibility tests covering old embeddings, model changes, dimension mismatch, missing vectors, re-embedding interruption, two-tenant isolation, history toggle, chronology, injection, and evidence-verdict failure cases.
+
+## Deliverables and acceptance
+
+- The production runtime no longer unconditionally chooses HashEmbedder; config and compatibility behavior are explicit.
+- No mixed model/dimension data can silently rank as valid.
+- Temporal history and correction outcomes are reproducible and evidence-backed.
+- Quality reports state dataset/version and do not claim performance from FakeLLM smoke tests.
+
+### Definition of done
+
+- [ ] Embedding selection and migration are configurable and versioned.
+- [ ] Temporal facts and historical retrieval are correctly scoped/tested.
+- [ ] Verdicts are evidence-grounded and abstain safely under uncertainty.
+- [ ] Benchmark metrics are meaningful and fake-mode limitations are explicit.
+
+---
+
+## Phase 6: Memory library, audit search, and user data lifecycle APIs
+
+**Goal:** Expose the information needed by the designed UI through real, tenant-scoped, paginated APIs rather than mock metrics.
+
+**Current-state note:** The API currently exposes ingest, ask, verify, single audit-record lookup by ID, provider/storage management and data export/delete. The frontend correctly avoids pretending a browsable memory library or audit list exists. Storage interfaces expose some in-session/session/subject history primitives, but there is no full memory-library API contract.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 6 task
+
+Design and implement the missing tenant-scoped data APIs needed by the target architecture.
+
+1. Define versioned request/response schemas for listing, searching, reading, filtering and paginating memories; inspect a memory's source and supersession chain; filter current/history/outdated/contradicted/unsupported states where those states exist in the domain model; and list/search audit records with time, operation, decision, and outcome filters.
+2. Use stable keyset/cursor pagination or an explicitly justified safe alternative. Bound page sizes, query lengths, date ranges, filters, exports, and result content. Do not allow negative/unbounded limits. Use stable ordering and explicit response schemas.
+3. Enforce tenant ownership in the repository query itself, not as a frontend filter. Include tests where tenant A tries to view, modify, export, delete or audit-query tenant B's data. Keep error responses non-enumerating where existence leaks could matter.
+4. Provide mutation endpoints only where the product supports them: delete an individual memory, mark reviewed, or initiate a controlled re-embedding/reconciliation flow. Preserve source lineage and audit destructive actions. If user-editable memory corrections could break evidence provenance, require a new version/source or explicit correction event rather than rewriting original evidence silently.
+5. Add an audit list/search endpoint with bounded text and redaction policy; don't expose secrets, raw connection strings or full sensitive payloads by default. Keep exact-ID lookup working for backwards compatibility.
+6. Return truthful aggregate metrics for the workspace only when efficient SQL queries and clearly specified definitions exist. Otherwise omit them; do not fabricate dashboard counts or call unsupported statuses "verified".
+7. Add API contract tests, pagination stability tests, access-control tests, deletion/export tests, retention tests, and OpenAPI/documentation updates. Update the frontend client types only after backend contracts are finalized.
+
+## Deliverables and acceptance
+
+- Memory and audit screens can be powered entirely by actual APIs.
+- All endpoints are authorized, tenant-scoped, bounded, documented and tested.
+- Historical/source lineage remains intact through modifications and deletes.
+- Existing endpoint contracts remain compatible or have a documented, versioned migration.
+
+### Definition of done
+
+- [ ] Memory list/detail/search/history and audit list/search work through real endpoints.
+- [ ] Pagination, filters, limits and authorization have dedicated tests.
+- [ ] Metrics and status labels are based on documented database/query semantics.
+- [ ] Destructive actions preserve audit and retention requirements.
+
+---
+
+## Phase 7: Premium frontend redesign and end-to-end product wiring
+
+**Goal:** Turn the existing frontend source into the polished, architecture-aligned product shown in the UI concepts.
+
+**Current-state note:** React + TypeScript + Vite source exists in `frontend/`. Current navigation includes Overview, Ingest, Ask, Verify and Audit-ID lookup. `App.tsx` has real API-driven workflows and avoids fabricated lists; the UI lacks Memory library, Audit list and Settings/Provider/Storage screens. The frontend lockfile is missing and its full build/test suite is unverified.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 7 task
+
+Implement the premium Content Anchor AI experience based on Architecture v2 and the approved UI mockups, wiring every control to real backend/BFF contracts.
+
+1. Before changing the UI, review all existing components, types, CSS, API client, contract decoders and tests. Preserve working API-driven behavior and accessibility semantics; refactor into smaller components/routes where it improves maintainability, not as a wholesale rewrite.
+2. Use the visual system: warm cream/off-white surfaces, deep navy sidebar, clear blue primary actions, teal for positive trust signals, neutral grays, green/amber/red verdicts, subtle borders/shadows and crisp typography. **Absolutely no purple gradients.** Lighthouse/anchor branding may be used sparingly. Do not use mock analytics to fill empty areas.
+3. Build these screens: Workspace (real backend-derived status only), Ingest (conversation/text/file/source flows that are actually supported), Ask (answer + sources + current/history controls where API supports them), Verify (claim-level verdicts + evidence and rationale), Memories (search/filter/history/source/supersession), Audit (search/filter/details), Settings > AI Provider (BYOK configure/test/masked status/disconnect), Settings > Storage (SQLite/PostgreSQL status/config/test/initialize/disconnect with clear data-ownership warnings), plus privacy/data export/delete controls and account/session controls provided by the BFF.
+4. Provide responsive desktop/tablet/mobile layouts, accessible keyboard flow and focus states, screen-reader labels/live announcements, reduced motion, readable verdict labels that do not rely on color alone, consistent loading/empty/error/success states, confirmation for destructive actions, unsaved-change handling, and safe retries. Never surface raw backend exception details.
+5. Implement exact TS types and runtime decoders for new API contracts; use server-provided data. Provider names/model capabilities must come from the configured allowlist/status, not invented provider lists. Mask keys and never place credentials in browser storage or client logs.
+6. Generate and commit `frontend/package-lock.json` using npm in a network-enabled, reproducible environment; don't hand-write it. Run `npm ci`, typecheck, lint, Vitest tests, Vite build, asset-secret scan, and Playwright tests. Fix true failures; do not weaken tests to pass. If registry/network is not available, report frontend release validation as blocked and leave the lockfile unclaimed.
+7. Review the actual built UI at desktop and mobile sizes and compare against the visual reference. Keep navigation and features honest: no dead buttons, fake data, or screens that merely look connected.
+
+## Deliverables and acceptance
+
+- A coherent production-quality design system and all agreed screens.
+- Every displayed datum/action is backed by a real API/BFF response or is explicitly a static explanation/placeholder clearly labelled as such.
+- No secret appears in JS assets, source maps, local/session storage, screenshots or test logs.
+- Full frontend quality commands and browser/accessibility review results are recorded.
+
+### Definition of done
+
+- [ ] UI includes Workspace, Ingest, Ask, Verify, Memories, Audit and Settings with provider/storage subpages.
+- [ ] Visual palette matches cream/white, navy, blue, teal; no purple gradients.
+- [ ] All data and state changes are connected to authenticated API contracts; no fake metrics.
+- [ ] npm lock, build, typecheck, lint, unit tests, E2E and asset scan pass.
+
+---
+
+## Phase 8: Durable ingestion jobs, resilience, observability, and cost controls
+
+**Goal:** Make ingestion and AI workflows dependable under slow providers, retries, partial failures, and operational incidents.
+
+**Current-state note:** The existing runtime is a modular Python application with per-request storage sessions and provider clients. The intended design recommends a modular monolith plus a separate worker where durable background work is needed; avoid adopting distributed infrastructure without scale evidence.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 8 task
+
+Improve operational reliability without turning the first production release into an unnecessarily complex microservice system.
+
+1. Identify operations that are too slow or failure-prone for synchronous HTTP (large ingestion, embedding backfills, imports, bulk verification). Define durable job records and a worker process for these tasks. Do not use an in-memory queue for work that must survive restarts. Reuse the supported storage abstraction where safe; document any infrastructure requirement before adding it.
+2. Add idempotency keys or deterministic job IDs, bounded retries with backoff/jitter for retry-safe operations, dead-letter/failed status, cancellation where safe, progress reporting, timeouts, concurrency limits and per-tenant quotas. Avoid duplicate memories/audit events after retry. Do not retry non-idempotent provider calls blindly.
+3. Add structured logs with request/job/tenant pseudonymous IDs, correlation IDs, redaction, and no prompt/source/secret dumps. Add metrics for request rate, latency, error codes, provider failure/latency, queue depth, ingestion outcomes, retrieval latency, embedding errors and measured token/cost usage. Never emit labels containing raw user text or credentials.
+4. Add graceful shutdown and cleanup for storage/provider sessions, startup recovery of interrupted jobs, readiness checks for required control/storage dependencies, and graceful degradation that is explicit to the caller. A configured remote database/provider failure must not quietly use fake AI or another tenant's store.
+5. Add retention controls for logs/jobs and safe audit retention separate from product memory retention. Add operational runbooks for queue backlog, provider outage, DB outage, bad deployment, and key rotation.
+6. Test process restart during work, duplicate job submission, partial batch failure, provider timeout/throttle, remote DB outage, queue recovery, retention, graceful shutdown, log redaction, and tenant fairness. Only add Redis/Kafka/etc. if the design has a concrete measured requirement and safe local fallback/development story.
+
+## Deliverables and acceptance
+
+- Long-running jobs are durable and idempotent, or the phase records why a particular operation safely remains synchronous.
+- Operators can identify failures without logging sensitive customer content.
+- Timeouts, retry policies, resource limits and failure semantics are documented and tested.
+- Architecture remains a maintainable modular monolith plus worker unless evidence justifies further services.
+
+### Definition of done
+
+- [ ] Long tasks survive process restarts and retries do not duplicate effects.
+- [ ] Logs/metrics are useful but do not expose private text or secrets.
+- [ ] Health/readiness and outage behavior match actual dependencies.
+- [ ] Resource limits, timeouts, shutdown and job retention are tested.
+
+---
+
+## Phase 9: End-to-end assurance, model evaluation, dependency hygiene, and CI gates
+
+**Goal:** Create evidence that the full product works and is reasonably secure—not just that backend unit tests pass.
+
+**Current-state note:** The supplied backend suite passes 492 tests. CI already includes Ruff, Python 3.11/3.12/3.13 test matrix, fake benchmark smoke, and package checking. Frontend lock/build/E2E checks are not verified yet. The manual benchmark workflow permits `real` but documents that it is not implemented and fails intentionally; fake benchmark output is not model quality evidence.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 9 task
+
+Build a complete assurance plan and make CI enforce the checks that can run deterministically on pull requests.
+
+1. Establish a test matrix for Python 3.11–3.13 and the supported Node version; run Ruff lint/format, unit/integration tests, ResourceWarning-as-error, compile, wheel/sdist builds, clean runtime install, frontend `npm ci`/typecheck/lint/component tests/build/asset checks, and Playwright E2E. Ensure the workflow uses least-privilege permissions, pinned/reasonable action versions, safe shell input handling, concurrency, and dependency caching without leaking secrets.
+2. Add real PostgreSQL service integration for storage, migrations, retention, data export/deletion, error recovery, and cross-tenant isolation. Keep optional external-provider smoke tests manual and secret-gated; PRs must never require production keys or send untrusted PR code to credentialed providers.
+3. Add threat-driven tests for prompt injection/untrusted source content, evidence ID spoofing, claim splitting/truncation, SSRF mixed DNS/public-private rebinding, redirects/proxy environment, invalid TLS, brute force/rate limits, CSRF, session fixation, secret leakage, overlong bodies, malformed JSON, data export/delete boundaries, and audit privacy. Include two-tenant tests for every user data endpoint.
+4. Separate deterministic benchmark smoke from real model-quality evaluation. For real evaluation, use a reviewed/versioned ground-truth dataset and explicit manually enabled provider configuration; report retrieval metrics, groundedness/verdict quality, abstention accuracy, contradiction detection, latency and measured cost. Do not put real keys into public artifacts or upload raw sensitive test data.
+5. Add dependency and container scanning where available; validate package contents and built frontend assets; verify generated files, databases, secrets, .env, local benchmark results and source maps are not tracked. Add test for exact API contracts and backward compatibility.
+6. Produce `docs/quality-and-security-evidence.md` listing each check, command, environment, result, date/revision and any exclusions. A skipped/unavailable test is a blocker or explicit risk, never a pass. Do not set an arbitrary coverage target instead of meaningful scenarios.
+
+## Deliverables and acceptance
+
+- CI is green on the declared matrix, with frontend + backend checks.
+- Real PostgreSQL integration is tested in CI or clearly marked as a release blocker.
+- Fake benchmark remains only a smoke signal; real model evaluation is distinct, reproducible and secret-safe.
+- Security/evaluation evidence can be reviewed by a human before a release.
+
+### Definition of done
+
+- [ ] Backend, frontend, package and E2E CI checks are all represented and passing.
+- [ ] Security tests exercise tenant isolation, SSRF, credentials, sessions, deletion and injection.
+- [ ] Real provider evaluation is opt-in, dataset-versioned, and not confused with fake smoke.
+- [ ] Report distinguishes executed/passed, failed, skipped and unavailable.
+
+---
+
+## Phase 10: Staging deployment, production release, and ongoing operations
+
+**Goal:** Package and release the application with reliable configuration, rollback, backup/restore, observability and human sign-off.
+
+**Current-state note:** The repo documents local backend/frontend setup and health/readiness endpoints, but no deployment target is specified. A real hosted frontend is blocked until BFF/session auth is implemented and configured. External PostgreSQL, real provider, npm build/E2E, and deployment-specific behavior have not been verified by this audit.
+
+### Copy-ready prompt
+
+You are working inside the existing Nova / Content Anchor AI repository. Read AGENTS.md, CLAUDE.md, README.md, docs/release-checklist.md, and the relevant source files before editing. Treat source code as truth when docs disagree; update stale docs. Work only within this phase's scope. Do not rewrite the project from scratch, change unrelated modules, remove features or tests merely to make checks pass, weaken security checks, or claim a test passed unless you ran it. Never place credentials in source, prompts, logs, fixtures, browser bundles, or committed .env files. Do not invent live users, memory counts, cost metrics, provider connections, or integration success. Do not expose a backend API key to browser JavaScript. Keep FakeLLM strictly for explicit development/test use; never silently fall back to it in production. Keep the UI palette premium cream/white, navy, blue, and teal with appropriate neutral/green/amber/red statuses; **never use purple gradients**. If a provider, identity vendor, deployment target, credential, business policy, or other human-controlled choice is missing, document the decision needed and implement a safe provider-neutral boundary instead of guessing. At the end, run relevant tests, report exact commands/results, list changed files, identify unresolved risks, and state what the human must do next.
+
+## Phase 10 task
+
+Prepare a repeatable staging-to-production release. Do not deploy to or mutate a production environment unless the repository owner explicitly authorizes that action and the required human-owned accounts/secrets already exist.
+
+1. Propose a portable, reproducible runtime package (container or clearly documented supported process) for the FastAPI application, frontend/BFF, and durable worker. Do not guess a cloud vendor. Keep provider/database credentials out of image layers and build args. Pin runtime versions, run as non-root, use read-only filesystem where practical, health probes, graceful shutdown and explicit resource limits.
+2. Add deployment configuration/examples for the selected target only after documenting the target decision. Separate local, staging and production configuration; fail startup for missing/weak secrets, public development mode, unsafe private endpoint overrides, missing session/issuer setup, or unsupported production provider settings. Do not expose internal readiness diagnostics publicly if that creates risk.
+3. Provide versioned database migrations and a release sequence with preflight checks, migration ordering, compatibility window, rollback/forward-fix strategy, worker restart plan, and handling of partially completed jobs. Include a smoke test for health/readiness, auth, one ingest, one ask, one verify, provider status, storage connection, memory browse, audit lookup/list, export/delete in an isolated test tenant.
+4. Document TLS termination, domain/redirect URI requirements, CORS/same-origin expectations, rate limits, network egress/SSRF controls, secret manager, encryption-key backup/rotation, PostgreSQL least privilege, backup/PITR, recovery time/objectives, restore drills, retention/deletion, log access, alert routing, and incident response.
+5. Add deployment runbooks and operators' documentation: setup, migration, secrets rotation, external-store outage, provider outage/cost runaway, data export/delete, tenant offboarding, backup restoration, security incident, rollback and release verification. Define measurable SLOs only with owner-approved targets; suggest candidate defaults but mark them for human approval.
+6. Deploy to staging only if credentials and explicit access are supplied. Run smoke tests using test tenants and authorized test keys; do not use real customer data by default. Do not automatically promote to production. Produce a release-readiness report with blockers and human sign-off items.
+
+## Deliverables and acceptance
+
+- Reproducible package/deployment manifests and a runbook exist for the chosen target.
+- Secrets are injected at runtime and not committed/baked into artifacts.
+- Backup restore, migration/rollback, staging smoke, monitoring and incident procedures are tested or clearly marked blocked.
+- Production release remains gated on the human checklist; never claim production-ready solely because CI is green.
+
+### Definition of done
+
+- [ ] A repeatable build and staging deployment path is documented/validated.
+- [ ] Migration, rollback, backup/restore and incident runbooks exist.
+- [ ] Production release is blocked if auth, secret management, provider/storage, frontend, or restore tests are not verified.
+- [ ] Human owner gives explicit go/no-go approval; the coding agent does not deploy unilaterally.
+
+---
+
+
+# AGENTS.md — Content Anchor AI Engineering Rules
+
+These rules apply to every coding agent working in this repository. They supplement the phase-specific prompts in the production roadmap. If a phase prompt conflicts with a security, data-integrity, or repository-preservation rule below, follow the safer rule and document the conflict.
+
+## 1. Mission and working repository
+
+- Build the existing **Content Anchor AI / Nova** repository toward the Architecture v2 design and the 10-phase production roadmap. Do not rewrite the product from scratch.
+- Work in the repository and remote already provided by the human. **Never create a new repository, fork, replacement project, or parallel copy as a substitute.** Do not change the remote URL or default branch without explicit human approval.
+- Before editing, run `git status --short --branch`, `git remote -v`, and `git log -5 --oneline`. Confirm the repository, branch, and working-tree state.
+- Preserve every pre-existing user change. Never run destructive commands such as `git reset --hard`, `git clean -fd`, blanket checkout/restore, or history rewriting to make the tree clean. Do not overwrite a dirty file without first understanding and preserving its changes.
+- If the environment does not contain the provided Git repository or its `.git` directory, do **not** initialize a new repository. Stop and report that the connected repository is needed before claiming that changes were committed.
+- Do not add unrelated dependencies, refactor unrelated modules, or change public contracts without a phase requirement and migration/test plan.
+
+## 2. Mandatory 10-phase workflow
+
+Execute the phases in the order defined by `Production_Roadmap_10_Phases.md`:
+
+1. Repository baseline, architecture contract, and production gap map.
+2. Browser identity, backend-for-frontend (BFF), and tenant authorization.
+3. BYOK AI provider adapters, secret lifecycle, and usage controls.
+4. User-owned storage adapters, migrations, export, and deletion semantics.
+5. Production embeddings, retrieval quality, temporal memory, and verification.
+6. Memory library, audit search, and user data lifecycle APIs.
+7. Premium frontend redesign and end-to-end product wiring.
+8. Durable ingestion jobs, resilience, observability, and cost controls.
+9. End-to-end assurance, model evaluation, dependency hygiene, and CI gates.
+10. Staging deployment, production release, ongoing operations, and the final root README.
+
+For each phase, follow this exact loop:
+
+1. Read this file, `CLAUDE.md`, the roadmap, the assigned phase prompt, relevant docs, source, and tests.
+2. Inspect the current implementation and branch state. Write a short phase checklist based on that phase's stated deliverables and acceptance criteria.
+3. Implement only the assigned phase. Do not start work belonging to a later phase just because it looks convenient. Small prerequisite changes are allowed only when required for the current phase and must be explained.
+4. Add or update tests for the change and the regression it prevents. Update phase-specific technical docs when contracts, configuration, limitations, or behavior change.
+5. Run the required relevant tests and checks; then inspect `git diff --check`, `git diff --stat`, and the full diff. Review for security, tenant isolation, accidental secrets, unrelated edits, and deleted/relaxed tests.
+6. Mark the phase **COMPLETE** only when every engineering acceptance criterion for that phase is met and verified. Record any human-only launch action separately; never mislabel an unrun check as passed.
+7. Commit the phase as one or more focused commits to the existing repository/branch, using a message like `phase-3: secure BYOK provider lifecycle`. Never bundle unfinished work from a later phase into the commit.
+8. Record the commit hash, changed files, exact commands/results, residual risks, and human action items in the phase status/report.
+9. **Only after the phase is complete, validated, and committed may you move to the next phase.** Continue sequentially without asking for approval between phases when all gates pass and no human decision is needed. If a phase is blocked by a required decision, account, service, or failed acceptance test, stop at that phase; do not silently skip it or label it complete.
+
+Do not implement all ten phases in one uncontrolled batch. Never claim that a phase is done based only on code written or unit tests passing.
+
+### Commit and remote rules
+
+- Commit completed phase work to the already-provided repository; do not create another repository.
+- Commit only reviewed, phase-scoped changes. Do not commit `.env`, credentials, tokens, database dumps, user data, build artifacts, generated caches, or unrelated user edits.
+- Do not amend or rewrite published history. Never force-push. Push only to the existing authorized remote when the connected environment supports it and the task is authorized to sync; if only local commits are possible, state that clearly.
+- If a commit fails, do not claim it succeeded. Fix only the relevant issue, retry safely, and report the outcome.
+
+## 3. Phase completion and quality gates
+
+A phase is not complete unless all of the following are true:
+
+- Its stated implementation and documentation deliverables are present.
+- Tests cover the new behavior, permissions, failures, and relevant regressions.
+- No existing test was deleted, weakened, skipped, or made less strict simply to get a green run. Any test change must test the corrected contract, not hide a failure.
+- Relevant checks pass, or any unavailable check is explicitly marked **BLOCKED / NOT RUN** with the reason and recovery step. A blocked required acceptance criterion means the phase remains blocked.
+- The working diff contains no accidental files, secrets, generated output, unrelated formatting churn, or undocumented public API changes.
+- The phase has a commit and a concise status report.
+
+Use the repository's declared toolchain. Where available, run at least:
+
+```bash
+ruff check .
+ruff format --check .
+pytest -ra
+python -m compileall -q nova benchmark scripts tests
+python -m build
+python scripts/check_wheel.py dist/*.whl
+```
+
+For frontend work, run the scripts declared in `frontend/package.json`, including `npm ci`, typecheck, lint, unit/component tests, production build, and Playwright/E2E tests. Use the committed lockfile and do not hand-write or guess a lockfile. If registry access or dependencies are unavailable, report checks as blocked rather than passed. Run the full appropriate regression suite before phase commit, not just a single new test.
+
+Keep `ResourceWarning` as an error. Do not silence warnings, relax quality thresholds, remove assertions, or replace real integration checks with mocks to make CI green. Mocks are useful but do not prove compatibility with a real PostgreSQL server, browser, provider, identity system, or deployment environment.
+
+## 4. Security, privacy, and tenant isolation
+
+- Fail closed in production. Missing/invalid authentication, encryption configuration, or required provider/storage configuration must fail safely and visibly. Never silently switch providers or storage destinations on failure.
+- Tenant identity must be established by trusted server-side authentication and authorization. Never trust a browser-provided tenant header or user ID as proof of ownership. Enforce tenant scope at the store/query boundary for reads, writes, exports, deletes, embeddings, audit records, and background jobs.
+- Never expose backend API keys, provider secrets, database credentials, encryption keys, session secrets, or privileged tokens in browser code, Vite variables, local/session storage, source maps, API responses, logs, screenshots, docs, fixtures, or commits.
+- Store provider and storage secrets encrypted at rest using the repository's secret-handling boundary. Return masked metadata only. Support safe rotation and revocation; avoid logging request bodies, authorization headers, user content, or connection strings.
+- Keep outbound HTTP protections (DNS/IP validation, SSRF defenses, TLS verification, redirect restrictions, timeouts, and proxy behavior) intact. Do not allow arbitrary endpoints or private-network access merely to make a connection test work.
+- A configured remote PostgreSQL store must not silently fall back to SQLite when unavailable. Require TLS and the documented host/network restrictions. Never imply that the app can create or access a user's database without separately supplied authorization and network access.
+- Distinguish **disconnect**, **export**, **delete this product's records**, and **delete a tenant/account**. Never drop a whole customer database unless an explicitly designed, confirmed, authorized operation requires it.
+- Treat conversation text, retrieved memories, source documents, and model outputs as untrusted data. Defend against prompt injection; do not grant model-generated instructions authority over policies, storage selection, tenant ownership, or tool permissions.
+- Use parameterized SQL, bounded inputs, typed errors, safe retries, least privilege, and redacted audit events. Do not swallow broad exceptions or return stack traces/internal connection details to clients.
+
+## 5. AI provider, embeddings, memory, and evidence rules
+
+- The currently supported provider adapter is OpenAI-compatible; do not claim universal arbitrary-agent access. A user's API key does not automatically grant access to all of that user's agents, accounts, vector stores, or private resources. Add an adapter only when its actual API contract is understood and tested.
+- Treat provider generation and embeddings as separate capabilities. Check each provider's support and limits explicitly. Do not silently use a generation API key as an embedding endpoint.
+- `FakeLLM` is a development/test double. It must never be a silent production fallback or be presented to users as a real model. Provider failure must be explicit and typed. Retain deterministic fake components for tests.
+- `HashEmbedder` is deterministic/testing-oriented, not evidence of production semantic retrieval quality. Before production, use an explicitly configured embedding implementation with model/version/dimension metadata, compatibility checks, re-embedding/migration strategy, bounded cost, and tests.
+- Preserve source provenance and verbatim source quotes for stored memories. A quote's existence alone is not proof that a claim is entailed. Validate claim/evidence relationships and model outputs in code, not only in prompts.
+- Absence of evidence means **unsupported**, not false. Preserve the distinction among supported, outdated, contradicted, and unsupported. Historical evidence may be considered only when explicitly requested and supported by validated temporal/supersession links.
+- Enforce size/count/time/token budgets and validate parsed model output before trusting it. Model-provided IDs, verdicts, tenant IDs, SQL, URLs, or actions are untrusted.
+- Never invent memory counts, usage, costs, source coverage, confidence, quality scores, or provider connection status. Only show real values returned by a real system; otherwise label the value as unavailable/demo/sample.
+
+## 6. Frontend and product design requirements
+
+- The target interface is a premium, accessible knowledge workspace: **warm cream/white surfaces, deep navy navigation, blue and teal primary accents, neutral borders, and restrained green/amber/red status colors. NEVER use purple gradients.**
+- Core navigation/screens: Workspace, Ingest, Ask, Verify, Memories, Audit, and Settings. Settings must distinguish AI provider credentials from storage connection details and clearly indicate which integration is connected, unverified, unavailable, or disconnected.
+- Design for desktop, tablet, and mobile. Maintain keyboard support, visible focus, accessible labels/announcements, reduced-motion support, and status text that does not rely on color alone.
+- Every visible action must work or be explicitly disabled with a reason. No decorative buttons pretending to submit, test, save, delete, export, or connect.
+- Connect screens to real API responses. Use clear loading, empty, error, retry, and success states. Do not fabricate activity feeds, analytics, memory browsers, settings, or historical data when an API does not exist.
+- A hosted browser app requires a trusted same-origin BFF/session layer, secure cookies, CSRF protections, and server-side mapping of identity to permitted tenant credentials. The loopback-only Vite proxy is for local development, not public hosting.
+- Keep UI visuals consistent with Architecture v2 and the provided mockup while allowing usability/accessibility to take priority over decorative fidelity.
+
+## 7. Documentation rules, including the final README
+
+- Keep technical docs, API contracts, environment examples, migration notes, phase reports, and release checks updated as their behavior changes. Do not defer necessary safety/setup documentation until the final phase.
+- **Do not perform the final rewrite of the root `README.md` during Phases 1–9.** This repository already has a baseline README; preserve it during earlier phases and write interim technical details in focused files under `docs/`.
+- **Phase 10 must deliver the final, production-quality root `README.md`.** Review and replace/update the baseline as necessary; do not delete the README in earlier phases. The final README must accurately cover: product scope and limitations; architecture diagram/reference; supported features; supported AI-provider and storage adapters; prerequisite versions; local backend and frontend setup; safe environment configuration; migrations; authentication/BFF deployment; BYOK setup; user-owned storage setup and required permissions; tests/CI; deployment and rollback; backup/restore; export/deletion semantics; security/privacy considerations; troubleshooting; and links to the release checklist and operational docs.
+- Never document a capability as available until it exists and passes the relevant tests. Clearly label planned, unsupported, human-gated, and environment-dependent behavior.
+- Keep `.env.example` secret-free and synchronized with actual config names. Never put working secrets in documentation.
+
+## 8. Phase-specific emphasis
+
+- **Phase 1:** establish baseline and an evidence-based readiness/gap matrix; do not start implementing all later phases.
+- **Phase 2:** implement real browser identity/session and BFF/tenant mapping before enabling a hosted frontend.
+- **Phase 3:** complete supported provider adapters and the full encrypted key lifecycle; no arbitrary-agent claims or production FakeLLM fallback.
+- **Phase 4:** define storage adapter and lifecycle semantics; test against a real PostgreSQL service before claiming production PostgreSQL support.
+- **Phase 5:** configure production-quality embeddings, retrieval evaluation, temporal/history behavior, and evidence verification.
+- **Phase 6:** build tenant-scoped, paginated memory/audit APIs that support actual UI features and safe export/deletion.
+- **Phase 7:** finish the frontend, all routes and settings, responsive/accessibility checks, and real API wiring; no fake dashboard values.
+- **Phase 8:** make ingestion/jobs resilient to slow providers, duplicate delivery, retry, timeout, and partial failure; add operational telemetry and cost controls.
+- **Phase 9:** run the complete backend/frontend/security/integration/evaluation matrix; keep failures visible and fix root causes.
+- **Phase 10:** stage and validate deployment, verify migrations/rollback and backup/restore, complete the release checklist, write the final README, document operational runbooks, and obtain explicit human release approval.
+
+## 9. Human-only actions and approval gates
+
+A coding agent must not invent or independently decide the following. Ask the human or leave an explicit action item when it is required:
+
+- Creating/billing provider accounts; supplying real provider API keys; granting permissions to private agents/workspaces.
+- Providing encryption/session/OIDC secrets, approving a secrets manager, or changing production key-rotation policy.
+- Creating customer-owned PostgreSQL instances/users, authorizing network access, selecting a cloud/host, or approving external data access.
+- Choosing retention/deletion policies, legal/privacy terms, budget ceilings, model/vendor policy, data residency, or customer-facing claims.
+- Purchasing domains/certificates/services, changing DNS, production firewall/egress rules, or configuring billing/monitoring alerts.
+- Approving destructive data deletion, irreversible migrations, schema/data cutovers, production rollout, or rollback.
+- Performing the final live smoke test with actual customer/provider credentials and explicitly approving production release.
+
+When a human action is needed, provide the exact decision/input required, why it is needed, safe setup instructions, and what remains blocked. Never request that the user paste secrets into chat or commit them to the repository.
+
+## 10. Required end-of-phase report
+
+At the end of each phase, report concisely:
+
+1. Phase name and status: `COMPLETE` or `BLOCKED` (never imply a blocked phase is complete).
+2. What changed and why; list changed files.
+3. Exact test/build/lint commands and pass/fail/blocked results.
+4. Commit hash and branch; state whether a remote push occurred or was unavailable.
+5. Known limitations, unverified checks, and security risks.
+6. Human-only actions, if any, and whether they block the next phase.
+
+Be candid. “Not run” is not “passed.” A green unit-test suite is not production certification.
