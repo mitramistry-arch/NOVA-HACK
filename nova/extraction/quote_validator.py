@@ -2,7 +2,7 @@
 
 import hashlib
 
-from nova.core.schemas import Memory, Message, MemoryStatus
+from nova.core.schemas import Memory, MemoryStatus, Message
 from nova.core.text import normalize
 from nova.extraction.semantics import rejection_reason
 

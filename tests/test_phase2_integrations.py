@@ -130,7 +130,8 @@ def test_secret_is_tenant_scoped_rotatable_and_deletable(tmp_path: Path) -> None
         store.get_secret("t2", "k")
     # a ciphertext copied across tenants cannot be decrypted
     store.db.execute(
-        "INSERT INTO secrets SELECT 't2', name, ciphertext, mask, created_at, updated_at FROM secrets"
+        "INSERT INTO secrets SELECT 't2', name, ciphertext, mask, created_at, updated_at"
+        " FROM secrets"
     )
     with pytest.raises(SecretDecryptionError):
         store.get_secret("t2", "k")

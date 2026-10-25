@@ -20,4 +20,7 @@ Rules:
 - source_quote must appear verbatim in the source message.
 - Return ONLY valid JSON, no markdown formatting or commentary."""
 
-REPAIR_PROMPT = """The previous output was invalid JSON. Return strictly a valid JSON array matching the requested schema with no commentary or markdown fences."""
+REPAIR_PROMPT = (
+    "The previous output was invalid JSON. Return strictly a valid JSON array "
+    "matching the requested schema with no commentary or markdown fences."
+)

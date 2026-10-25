@@ -90,8 +90,6 @@ def test_fabricated_quote_dropped() -> None:
     assert dropped == 1
 
 
-
-
 def test_source_message_id_ambiguous_when_metadata_differs() -> None:
     """A duplicate source ID with a different role or timestamp must not prove a memory."""
     msg = _make_msg("msg-shared", "We selected PostgreSQL for production.")

@@ -13,8 +13,8 @@ from benchmark import runner
 from benchmark.counting_llm import CountingLLM
 from benchmark.metrics import (
     check_correctness,
-    compute_cost,
     compute_correct_abstention,
+    compute_cost,
     compute_metrics,
     compute_unsupported_claim_rate,
 )
@@ -81,7 +81,9 @@ def test_workflow_run_blocks_never_interpolate_expressions() -> None:
             ):
                 body.append(lines[j])
                 j += 1
-            assert "${{" not in "\n".join(body), f"expression interpolated in run block at line {i + 1}"
+            assert "${{" not in "\n".join(body), (
+                f"expression interpolated in run block at line {i + 1}"
+            )
             i = j
         else:
             i += 1
@@ -356,7 +358,9 @@ def test_fake_and_real_namespaces_differ(tmp_path: Path) -> None:
     assert CachingLLM(FakeLLM(), tmp_path, provider="anthropic").namespace == "real"
 
 
-@pytest.mark.parametrize("garbage", ["not json{", "[]", '{"key": "wrong", "response": "x"}', '{"key": 1}', ""])
+@pytest.mark.parametrize(
+    "garbage", ["not json{", "[]", '{"key": "wrong", "response": "x"}', '{"key": 1}', ""]
+)
 def test_corrupted_cache_entry_is_a_miss(tmp_path: Path, garbage: str) -> None:
     """Unreadable or mismatched entries are recomputed and healed."""
     cache = CachingLLM(FakeLLM(default_response="fresh"), tmp_path)
@@ -406,7 +410,9 @@ class _CountingAnchor:
     def ingest(self, session_id: str, messages: list[Message]) -> None:
         return None
 
-    def ask(self, question: str, draft_answer: str | None = None, include_history: bool = False) -> Any:
+    def ask(
+        self, question: str, draft_answer: str | None = None, include_history: bool = False
+    ) -> Any:
         from nova.core.schemas import Decision
 
         self.flags.append(include_history)

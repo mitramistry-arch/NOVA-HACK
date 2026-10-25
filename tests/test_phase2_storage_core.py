@@ -464,17 +464,22 @@ def test_migrates_legacy_v1_database(tmp_path: Path) -> None:
           value TEXT NOT NULL, reason TEXT, source_msg_id TEXT NOT NULL, source_quote TEXT NOT NULL,
           session_id TEXT NOT NULL, timestamp TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'current',
           supersedes_id TEXT, confidence REAL NOT NULL DEFAULT 1.0, embedding BLOB);
-        INSERT INTO memories VALUES ('a','decision','db','MySQL',NULL,'m','q','s','2026-01-01T10:00:00',
+        INSERT INTO memories VALUES ('a','decision','db','MySQL',NULL,'m','q','s',
+          '2026-01-01T10:00:00',
           'superseded',NULL,1.0,NULL);
-        INSERT INTO memories VALUES ('b','decision','db','PG',NULL,'m','q','s','2026-01-01T11:00:00+00:00',
+        INSERT INTO memories VALUES ('b','decision','db','PG',NULL,'m','q','s',
+          '2026-01-01T11:00:00+00:00',
           'current','a',1.0,x'0000803f');
-        INSERT INTO memories VALUES ('c','decision','db','bad',NULL,'m','q','s','2026-01-01T12:00:00',
+        INSERT INTO memories VALUES ('c','decision','db','bad',NULL,'m','q','s',
+          '2026-01-01T12:00:00',
           'current','ghost',1.0,NULL);
-        CREATE TABLE audit_log (id TEXT PRIMARY KEY, timestamp TEXT NOT NULL, question TEXT NOT NULL,
+        CREATE TABLE audit_log (id TEXT PRIMARY KEY, timestamp TEXT NOT NULL,
+          question TEXT NOT NULL,
           answer TEXT NOT NULL, retrieved_ids TEXT NOT NULL, verdicts TEXT NOT NULL,
           decision_action TEXT NOT NULL, latency_ms REAL NOT NULL, prompt_tokens INTEGER NOT NULL,
           completion_tokens INTEGER NOT NULL);
-        INSERT INTO audit_log VALUES ('r1','2026-01-01T00:00:00+00:00','q','a','[]','[]','answer',1.0,0,0);
+        INSERT INTO audit_log VALUES
+          ('r1','2026-01-01T00:00:00+00:00','q','a','[]','[]','answer',1.0,0,0);
         """
     )
     conn.commit()

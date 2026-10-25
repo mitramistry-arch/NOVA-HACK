@@ -204,7 +204,9 @@ def build_buried_fact(
     for f_i in range(num_fillers):
         if d_idx < len(distractor_depths) and f_i == distractor_depths[d_idx]:
             t_cursor += timedelta(minutes=rng.randint(2, 5))
-            msgs.append(_make_msg(f"msg_{case_id}_{m_idx}", sess_id, distractor_texts[d_idx], t_cursor))
+            msgs.append(
+                _make_msg(f"msg_{case_id}_{m_idx}", sess_id, distractor_texts[d_idx], t_cursor)
+            )
             m_idx += 1
             d_idx += 1
 
@@ -438,7 +440,9 @@ def build_contradicting_draft(
 
     draft_val = rng.choice([domain["old_value"], domain["wrong_value"]])
     draft = rng.choice(CONTRADICTING_DRAFT_ANSWERS).format(label=domain["label"], value=draft_val)
-    action = DecisionAction.CORRECT if draft_val == domain["old_value"] else DecisionAction.FLAG_CONFLICT
+    action = (
+        DecisionAction.CORRECT if draft_val == domain["old_value"] else DecisionAction.FLAG_CONFLICT
+    )
 
     return Case(
         id=case_id,
@@ -599,9 +603,7 @@ def build_cross_session(
         scenario=Scenario.CROSS_SESSION,
         split=split,
         sessions=[s1_msgs, s2_msgs, s3_msgs],
-        context_dropped=compute_context_dropped(
-            [s1_msgs, s2_msgs, s3_msgs], planted_id
-        ),
+        context_dropped=compute_context_dropped([s1_msgs, s2_msgs, s3_msgs], planted_id),
         question=question,
         draft_answer=None,
         include_history=False,
@@ -660,7 +662,9 @@ def build_valid_answer(
         msgs.append(_make_msg(f"msg_{case_id}_{m_idx}", sess_id, d_text, t_cursor))
         m_idx += 1
 
-    draft = rng.choice(VALID_DRAFT_TEMPLATES).format(label=domain["label"], value=domain["fact_value"])
+    draft = rng.choice(VALID_DRAFT_TEMPLATES).format(
+        label=domain["label"], value=domain["fact_value"]
+    )
 
     return Case(
         id=case_id,

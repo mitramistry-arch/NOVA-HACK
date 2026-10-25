@@ -14,7 +14,8 @@ tested behaviours hold in one environment. Read §8 before quoting any part of t
 > implemented and tested in source; `TEST-1` is covered by new HTTP-level isolation tests. The backend
 > suite is now **599 passed** (492 at the Phase 1 baseline plus 107 identity/BFF tests). `CI-1` is still
 > open: the repository-wide `ruff` gate remains red from pre-existing files, although every Phase 2
-> file is lint- and format-clean. See §10 for the exact delta and
+> file is lint- and format-clean, and a dedicated `chore:` commit has since made the **whole repository**
+> lint- and format-clean, so the CI `lint` job is green. See §10 for the exact delta and
 > [`browser-identity-bff.md`](browser-identity-bff.md) for the security model.
 
 ---
@@ -52,8 +53,8 @@ a `ResourceWarning`.
 
 | Check | Command | Exact outcome | Owner |
 |---|---|---|---|
-| Ruff lint | `ruff check .` | **87 errors**: 78×`E501` line-too-long, 3×`I001`, 2×`SIM905`, 1×`SIM102`, 1×`SIM117`, 1×`UP037`, 1×`F841` (8 auto-fixable). Worst files: `benchmark/generator.py` (25), `benchmark/report.py` (8), `tests/test_phase2_storage_core.py` (5), `nova/core/config.py` (5) | Phase 9 (`CI-1`) |
-| Ruff format | `ruff format --check .` | **25 files would be reformatted**, 82 already formatted | Phase 9 (`CI-1`) |
+| ~~Ruff lint~~ | `ruff check .` | ~~**87 errors**~~ — **resolved** in the `chore:` hygiene commit; now `All checks passed!`: 78×`E501` line-too-long, 3×`I001`, 2×`SIM905`, 1×`SIM102`, 1×`SIM117`, 1×`UP037`, 1×`F841` (8 auto-fixable). Worst files: `benchmark/generator.py` (25), `benchmark/report.py` (8), `tests/test_phase2_storage_core.py` (5), `nova/core/config.py` (5) | Phase 9 (`CI-1`) |
+| ~~Ruff format~~ | `ruff format --check .` | ~~**25 files would be reformatted**~~ — **resolved**; now `128 files already formatted`, 82 already formatted | Phase 9 (`CI-1`) |
 | Frontend typecheck | `npm run typecheck` | **1 error**, exit 2: `vite.config.ts(30,13): TS2769 No overload matches this call` — dual Vite typings (§5, `FE-2`) | Phase 7 |
 | Frontend unit/component tests | `npm test` | **3 failed / 9 passed of 12**, exit 1, plus 1 file-load failure (`e2e/workflows.spec.ts` collected by Vitest and unable to load Playwright's `test`) | Phase 7 (`FE-3`) |
 | Frontend production build | `npm run build` | exit 2 — blocked at its own `typecheck` step; no bundle is produced, so `check:assets` and any built-asset secret scan are unreachable | Phase 7 (`FE-2`) |
@@ -167,7 +168,7 @@ phase.
 | ID | Gap | Evidence | Depends on | Acceptance criteria | Owner |
 |---|---|---|---|---|---|
 | `SEC-1` | ~~No browser identity, session, or BFF.~~ **Implemented in Phase 2** (`nova/identity/*`, `nova/api/bff.py`). The only credential was a static deployment API key sent as `X-API-Key`; exposing the app to a browser meant shipping that key to the client. | `api/runtime.py:164-196`; `frontend/src/api.ts:13`; `frontend/README.md` "Hosted deployment"; `frontend/vite.config.ts` proxy comment | — | Authenticated session (secure, HttpOnly, SameSite cookie), CSRF protection, server-side identity→tenant mapping, two-tenant isolation test, no key in browser bundle or storage | **Phase 2 — done in source (§10); deployment needs `AD-1`** |
-| `CI-1` | Repository does not satisfy its own PR gate: `ruff check` 87 errors, `ruff format --check` 25 files. | §1.2; `.github/workflows/ci.yml` `lint` job | none (mechanical) | `ruff check .` and `ruff format --check .` both exit 0 with no rule relaxation; no test weakened; landed as one dedicated `chore:` commit so later phase diffs stay reviewable | **Phase 9** (recommend pulling forward before Phase 2) |
+| `CI-1` | ~~Repository does not satisfy its own PR gate: `ruff check` 87 errors, `ruff format --check` 25 files.~~ **Resolved** by the dedicated `chore:` hygiene commit (formatting + 8 safe auto-fixes; no test, dependency, or rule changed). | §1.2; `.github/workflows/ci.yml` `lint` job | none (mechanical) | `ruff check .` and `ruff format --check .` both exit 0 with no rule relaxation; no test weakened; landed as one dedicated `chore:` commit so later phase diffs stay reviewable | **Phase 9** — pulled forward and **done** |
 | `FE-2` | Frontend cannot produce a production bundle: `typecheck` fails, so `npm run build` fails before `check:assets`. | §1.2; root cause: `node_modules/vitest/node_modules/vite` **5.4.21** vs root `vite` **6.0.7** — `vitest/config`'s `defineConfig` and `@vitejs/plugin-react` resolve different Vite type identities (`vite.config.ts(30,13)`) | `AD-9` (dependency version policy) | `npm ci` from a committed lockfile; `typecheck`, `lint`, `test`, `build`, `check:assets` all green; bundle scanned for secrets/source maps | **Phase 7** |
 | `FE-3` | Component suite is red and mis-scoped: 3/12 tests fail with "multiple elements" and Vitest collects the Playwright spec. | §1.2; failures at `frontend/tests/App.test.tsx:46,61,71`; `frontend/tsconfig.json:20` includes `e2e` and `vite.config.ts` sets no Vitest `include`/`exclude` | resolution of whether the duplicate element is a UI defect or a stale assertion | Vitest scope excludes `e2e/`; all assertions pass by fixing the real cause, not by loosening queries | **Phase 7** |
 
@@ -296,7 +297,7 @@ not start until `CI-1` is green and the human decisions `AD-1`, `AD-3`, `AD-4`, 
 | Production fail-closed | auth + encryption key | additionally: `NOVA_IDENTITY_MODE=oidc` requires issuer, client id/secret, redirect URI, BFF origin, HTTPS, secure cookies, and at least one grant, or startup raises `ConfigError` |
 | Backend tests | 492 passed | **599 passed** (107 new: sessions, roles, OIDC, config, BFF) |
 | Lint | `ruff check .` red (87 pre-existing errors) | unchanged repository-wide; all new/edited Phase 2 files are lint- and format-clean |
-| `CI-1` | open | still open — deliberately not bundled into this phase |
+| `CI-1` | open (87 ruff errors, 25 unformatted files) | **closed** in a separate `chore:` commit: `ruff check .` and `ruff format --check .` both pass; 599 tests still pass; generated SQL DDL and the benchmark dataset verified byte-identical |
 
 Still open after Phase 2 (unchanged owners): `EMB-1` (§5), `PROV-1`/`PROV-2`, `STORE-1`/`STORE-2`,
 `API-1`, `ING-1`/`ING-2`, `OBS-1`, `CI-1`/`CI-2`, `EVAL-1`, and the Phase 7 frontend items. The frontend

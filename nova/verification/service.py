@@ -79,7 +79,9 @@ class AnchorVerifier:
                     accepted = True
                     break
             adjusted.append(
-                verdict.model_copy(update={"label": VerdictLabel.SUPPORTED}) if accepted else verdict
+                verdict.model_copy(update={"label": VerdictLabel.SUPPORTED})
+                if accepted
+                else verdict
             )
         return adjusted
 
@@ -139,9 +141,7 @@ class AnchorVerifier:
                     "value": memory.value,
                     "source_quote": memory.source_quote,
                     "status": (
-                        "[superseded]"
-                        if memory.status is MemoryStatus.SUPERSEDED
-                        else "current"
+                        "[superseded]" if memory.status is MemoryStatus.SUPERSEDED else "current"
                     ),
                     "supersedes_id": memory.supersedes_id,
                 }

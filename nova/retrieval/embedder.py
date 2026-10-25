@@ -17,7 +17,10 @@ class EmbeddingError(Exception):
 
 @runtime_checkable
 class Embedder(Protocol):
-    """Protocol for vector embedders; ``model_id`` identifies the model/version that makes vectors."""
+    """Protocol for vector embedders.
+
+    ``model_id`` identifies the model/version that makes vectors.
+    """
 
     model_id: str
 

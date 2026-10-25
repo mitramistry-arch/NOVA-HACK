@@ -78,8 +78,7 @@ def decide(
 ) -> Decision:
     """Pick the action by priority contradicted > outdated > unsupported > supported."""
     verdicts = [
-        validate_verdict(verdict, memories, include_history=include_history)
-        for verdict in verdicts
+        validate_verdict(verdict, memories, include_history=include_history) for verdict in verdicts
     ]
     if not verdicts:
         return Decision(action=DecisionAction.ABSTAIN, verdicts=[], final_answer=ABSTAIN_TEXT)

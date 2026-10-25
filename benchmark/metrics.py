@@ -87,8 +87,7 @@ def compute_recall(pairs: list[tuple[Case, Result]]) -> float | None:
     subset = [
         p
         for p in pairs
-        if p[0].scenario
-        in (Scenario.BURIED_FACT, Scenario.PARAPHRASED, Scenario.CROSS_SESSION)
+        if p[0].scenario in (Scenario.BURIED_FACT, Scenario.PARAPHRASED, Scenario.CROSS_SESSION)
     ]
     if not subset:
         return None
@@ -105,9 +104,7 @@ def compute_accuracy_after_context_loss(pairs: list[tuple[Case, Result]]) -> flo
 
 def compute_contradiction_precision(pairs: list[tuple[Case, Result]]) -> float | None:
     """Compute precision of contradiction detection across all cases."""
-    pred_pos = [
-        p for p in pairs if normalize_action(p[1].action) in ("flag_conflict", "correct")
-    ]
+    pred_pos = [p for p in pairs if normalize_action(p[1].action) in ("flag_conflict", "correct")]
     if not pred_pos:
         return None
     tp = sum(1 for c, _ in pred_pos if c.scenario == Scenario.CONTRADICTING_DRAFT)
@@ -119,9 +116,7 @@ def compute_contradiction_recall(pairs: list[tuple[Case, Result]]) -> float | No
     act_pos = [p for p in pairs if p[0].scenario == Scenario.CONTRADICTING_DRAFT]
     if not act_pos:
         return None
-    tp = sum(
-        1 for _, r in act_pos if normalize_action(r.action) in ("flag_conflict", "correct")
-    )
+    tp = sum(1 for _, r in act_pos if normalize_action(r.action) in ("flag_conflict", "correct"))
     return tp / len(act_pos)
 
 
@@ -157,9 +152,7 @@ def compute_false_warning_rate(pairs: list[tuple[Case, Result]]) -> float | None
     valid_cases = [p for p in pairs if p[0].scenario == Scenario.VALID_ANSWER]
     if not valid_cases:
         return None
-    warned = sum(
-        1 for _, r in valid_cases if normalize_action(r.action) not in ("answer", "error")
-    )
+    warned = sum(1 for _, r in valid_cases if normalize_action(r.action) not in ("answer", "error"))
     return warned / len(valid_cases)
 
 

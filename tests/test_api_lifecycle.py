@@ -54,9 +54,8 @@ def test_production_startup_fails_closed_without_authentication(
     monkeypatch.setenv("NOVA_ENV", "production")
     monkeypatch.delenv("NOVA_API_KEY", raising=False)
     monkeypatch.delenv("NOVA_TENANT_API_KEYS", raising=False)
-    with pytest.raises(ConfigError, match="API authentication"):
-        with TestClient(app):
-            pytest.fail("production startup unexpectedly succeeded")
+    with pytest.raises(ConfigError, match="API authentication"), TestClient(app):
+        pytest.fail("production startup unexpectedly succeeded")
     assert not db_env.exists()
 
 
@@ -68,13 +67,15 @@ def test_development_startup_allows_no_api_key(db_env: Path) -> None:
         assert response.status_code == 200
 
 
-def test_shared_api_key_cannot_select_other_tenant(db_env: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_shared_api_key_cannot_select_other_tenant(
+    db_env: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     """A deployment-wide key is not an authority to impersonate arbitrary tenants."""
     key = "shared-test-api-key"
     monkeypatch.setenv("NOVA_API_KEY", key)
+    from nova.api.errors import PublicError
     from nova.api.runtime import resolve_tenant
     from nova.core.config import Settings
-    from nova.api.errors import PublicError
 
     settings = Settings(environment="test", api_key=key)
     assert resolve_tenant(settings, key, None) == "default"
@@ -99,6 +100,7 @@ def test_tenant_specific_key_owns_exactly_one_tenant() -> None:
 
 def test_runtime_closes_control_database_on_shutdown(db_env: Path) -> None:
     """Normal app shutdown releases the shared control database connection."""
+
     async def enter_and_exit() -> None:
         async with app.router.lifespan_context(app):
             runtime = api_main.get_runtime()

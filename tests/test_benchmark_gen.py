@@ -109,10 +109,24 @@ def test_validation_catches_leaked_key_fact() -> None:
         id=case_id,
         scenario=Scenario.BURIED_FACT,
         split=split,
-        sessions=[[
-            Message(id="msg_source", session_id="s1", role="user", text="DB is PostgreSQL 16.2", timestamp=now),
-            Message(id="msg_filler", session_id="s1", role="user", text="Leaking PostgreSQL 16.2 here", timestamp=now),
-        ]],
+        sessions=[
+            [
+                Message(
+                    id="msg_source",
+                    session_id="s1",
+                    role="user",
+                    text="DB is PostgreSQL 16.2",
+                    timestamp=now,
+                ),
+                Message(
+                    id="msg_filler",
+                    session_id="s1",
+                    role="user",
+                    text="Leaking PostgreSQL 16.2 here",
+                    timestamp=now,
+                ),
+            ]
+        ],
         context_dropped=True,
         question="What is the db?",
         expected=Expected(
@@ -136,10 +150,12 @@ def test_validation_catches_duplicate_message_ids() -> None:
         id=case_id,
         scenario=Scenario.BURIED_FACT,
         split=split,
-        sessions=[[
-            Message(id="dup_id", session_id="s1", role="user", text="first", timestamp=now),
-            Message(id="dup_id", session_id="s1", role="user", text="second", timestamp=now),
-        ]],
+        sessions=[
+            [
+                Message(id="dup_id", session_id="s1", role="user", text="first", timestamp=now),
+                Message(id="dup_id", session_id="s1", role="user", text="second", timestamp=now),
+            ]
+        ],
         context_dropped=True,
         question="What is it?",
         expected=Expected(action=DecisionAction.ABSTAIN),
@@ -160,7 +176,9 @@ def test_validation_catches_invalid_split() -> None:
         id=case_id,
         scenario=Scenario.UNANSWERABLE,
         split=wrong_split,
-        sessions=[[Message(id="msg_1", session_id="s1", role="user", text="neutral", timestamp=now)]],
+        sessions=[
+            [Message(id="msg_1", session_id="s1", role="user", text="neutral", timestamp=now)]
+        ],
         context_dropped=True,
         question="What is the framework?",
         expected=Expected(action=DecisionAction.ABSTAIN),

@@ -62,8 +62,7 @@ def split_claims(llm: LLMClient, answer: str) -> list[str]:
     except (json.JSONDecodeError, ValidationError):
         response_data = json.dumps(response, ensure_ascii=False)
         retry_prompt = (
-            f"{SPLIT_REPAIR_PROMPT}\n\nInvalid response as a JSON string:\n"
-            f"{response_data}"
+            f"{SPLIT_REPAIR_PROMPT}\n\nInvalid response as a JSON string:\n{response_data}"
         )
         repaired = llm.complete(retry_prompt, json=True)
         try:

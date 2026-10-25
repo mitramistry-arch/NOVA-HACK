@@ -4,14 +4,18 @@ import time
 
 from nova.core.llm import LLMClient
 
-ANSWER_PROMPT: str = """You are answering a question based strictly on the provided context.
+ANSWER_PROMPT: str = (
+    """You are answering a question based strictly on the provided context.
 Context:
 {context}
 
 Question: {question}
 
-Answer concisely based strictly on the context. If the context does not contain enough information to answer the question, state: "I do not have enough information to answer."
+Answer concisely based strictly on the context. If the context does not """
+    """contain enough information to answer the question, state: "I do not """
+    """have enough information to answer."
 Answer:"""
+)
 
 ABSTAIN_PHRASES: list[str] = [
     "i do not have enough information",

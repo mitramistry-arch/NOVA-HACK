@@ -84,9 +84,9 @@ def resolve_public_addresses(host: str, *, allow_private: bool = False) -> list[
     clean = host.strip().strip("[]").lower()
     if not clean or len(clean) > 253 or any(c.isspace() or c in "/\\@?#" for c in clean):
         raise UnsafeEndpointError("invalid host")
-    if clean in _BLOCKED_HOSTNAMES or clean.endswith((".local", ".internal", ".localhost")):
-        if not allow_private:
-            raise UnsafeEndpointError("endpoint host is not allowed")
+    blocked = clean in _BLOCKED_HOSTNAMES or clean.endswith((".local", ".internal", ".localhost"))
+    if blocked and not allow_private:
+        raise UnsafeEndpointError("endpoint host is not allowed")
     if allow_private:
         return None
 

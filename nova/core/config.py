@@ -53,7 +53,9 @@ def _parse_tenant_keys(raw: str | None) -> dict[str, str]:
         tenant, sep, key = part.strip().partition(":")
         if not sep or not tenant or not key:
             if part.strip():
-                raise ConfigError("NOVA_TENANT_API_KEYS must use tenant:key pairs separated by commas")
+                raise ConfigError(
+                    "NOVA_TENANT_API_KEYS must use tenant:key pairs separated by commas"
+                )
             continue
         if key in mapping:
             raise ConfigError("NOVA_TENANT_API_KEYS contains a duplicate API key")
@@ -88,7 +90,7 @@ class Settings(BaseModel):
     audit_retention_days: int | None = Field(default=90)
 
     @classmethod
-    def from_env(cls) -> "Settings":
+    def from_env(cls) -> Settings:
         """Load settings from environment variables, rejecting malformed values."""
         retention = _env_int("NOVA_AUDIT_RETENTION_DAYS", 90)
         if os.getenv("DATABASE_URL"):
@@ -146,8 +148,10 @@ class Settings(BaseModel):
 
                 try:
                     AesGcmCipher(self.encryption_key, self.encryption_keys_previous)
-                except SecretStoreUnavailableError as exc:
-                    problems.append("NOVA_ENCRYPTION_KEY or NOVA_ENCRYPTION_KEYS_PREVIOUS is invalid")
+                except SecretStoreUnavailableError:
+                    problems.append(
+                        "NOVA_ENCRYPTION_KEY or NOVA_ENCRYPTION_KEYS_PREVIOUS is invalid"
+                    )
         if env in {"production", "prod"} and self.allow_fake_llm:
             problems.append("NOVA_ALLOW_FAKE_LLM is not permitted in production")
         if problems:
@@ -160,7 +164,11 @@ class Settings(BaseModel):
             raise ConfigError("NOVA_ENV must be production, development, local, or test")
         if self.api_key and self.tenant_api_keys:
             raise ConfigError("Configure either NOVA_API_KEY or NOVA_TENANT_API_KEYS, not both")
-        keys = list(self.tenant_api_keys) if self.tenant_api_keys else ([self.api_key] if self.api_key else [])
+        keys = (
+            list(self.tenant_api_keys)
+            if self.tenant_api_keys
+            else ([self.api_key] if self.api_key else [])
+        )
         if not keys and env not in _DEVELOPMENT_ENVS:
             raise ConfigError(
                 "API authentication is not configured; set NOVA_API_KEY or NOVA_TENANT_API_KEYS"

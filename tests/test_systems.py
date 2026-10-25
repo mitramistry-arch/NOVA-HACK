@@ -23,9 +23,25 @@ def _create_sample_case(num_fillers: int = 50, planted_idx: int = 0) -> tuple[Ca
     for i in range(num_fillers):
         t = base_time + timedelta(minutes=i * 2)
         if i == planted_idx:
-            msgs.append(Message(id=planted_id, session_id="s1", role="user", text=f"The database is {key_fact}.", timestamp=t))
+            msgs.append(
+                Message(
+                    id=planted_id,
+                    session_id="s1",
+                    role="user",
+                    text=f"The database is {key_fact}.",
+                    timestamp=t,
+                )
+            )
         else:
-            msgs.append(Message(id=f"msg_{i}", session_id="s1", role="user", text=f"Neutral message index {i}.", timestamp=t))
+            msgs.append(
+                Message(
+                    id=f"msg_{i}",
+                    session_id="s1",
+                    role="user",
+                    text=f"Neutral message index {i}.",
+                    timestamp=t,
+                )
+            )
 
     case = Case(
         id="case_sys_test_01",
@@ -34,7 +50,9 @@ def _create_sample_case(num_fillers: int = 50, planted_idx: int = 0) -> tuple[Ca
         sessions=[msgs],
         context_dropped=True,
         question="What is the database?",
-        expected=Expected(action=DecisionAction.ANSWER, key_fact=key_fact, source_msg_id=planted_id),
+        expected=Expected(
+            action=DecisionAction.ANSWER, key_fact=key_fact, source_msg_id=planted_id
+        ),
     )
     return case, planted_id, key_fact
 
@@ -123,7 +141,9 @@ def test_rag_system_retrieval_and_result() -> None:
 class StubAnchor:
     """Stub implementation of Anchor interface for benchmark testing."""
 
-    def __init__(self, action: DecisionAction = DecisionAction.ANSWER, answer: str = "PostgreSQL 16.2") -> None:
+    def __init__(
+        self, action: DecisionAction = DecisionAction.ANSWER, answer: str = "PostgreSQL 16.2"
+    ) -> None:
         """Initialize stub anchor."""
         self.action = action
         self.answer = answer

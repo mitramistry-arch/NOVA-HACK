@@ -87,8 +87,8 @@ reference ZIPs' independent test counts are historical and do not establish the 
 
 Current environment limitations must be reported accurately. Measured on 2026-10-25 with an isolated
 Python 3.11 venv: `ruff` and `build` install and run, `python -m build` and `scripts/check_wheel.py`
-pass, but `ruff check .` (87 errors) and `ruff format --check .` (25 files) fail, so the CI `lint` job
-is red at this revision. `pytest` passes 492 tests. The frontend installs from the registry, and
+pass, and `ruff check .` / `ruff format --check .` both pass, so the CI `lint` job is green at this
+revision (a 2027 setuptools `project.license` deprecation warning remains). `pytest` passes 492 tests. The frontend installs from the registry, and
 `npm run lint` passes, but `npm run typecheck`, `npm test`, and `npm run build` fail. Python 3.12/3.13,
 real PostgreSQL, real provider calls, and Playwright remain unverified. A passing pytest run does not
 equal production certification. See `docs/production-readiness-matrix.md`.
