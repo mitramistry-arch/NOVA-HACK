@@ -10,6 +10,13 @@ truth** and the disagreement is recorded in §6.
 This document is an honest snapshot, not a certification. A green test suite proves only that the
 tested behaviours hold in one environment. Read §8 before quoting any part of this file.
 
+> **Status update (Phase 4, 2026-10-25).** Storage now has a versioned schema (SQLite v3 /
+> PostgreSQL v2) with a single-transaction migration that refuses newer schemas, explicit
+> export/delete-records/delete-account semantics with content-free deletion receipts, and hard
+> bounds on every read path. `STORE-2` is closed; `STORE-1` still needs a human run against a real
+> TLS PostgreSQL (the contract test exists and skips without one). See §12 and
+> [`storage.md`](storage.md).
+>
 > **Status update (Phase 3, 2026-10-25).** Provider adapters now sit behind a registry with declared
 > capabilities, bounded retries with backoff, and labelled usage/cost. `PROV-1` is closed;
 > `PROV-2` (a real key, a recorded round trip) remains human-only. See §11 and
@@ -184,8 +191,8 @@ phase.
 | `EMB-1` | Production runtime uses `HashEmbedder`; no configured, versioned production embedding model. Retrieval quality is therefore unmeasured and cannot be described as semantic. | `api/runtime.py:152`; `retrieval/embedder.py:68,115` | — | Explicitly configured embedder with model id/version/dimension, compatibility + re-embed migration path, bounded cost, retrieval-quality metric on a held-out split | **Phase 5** |
 | `PROV-1` | Only one provider adapter; `agent_id` intentionally unsupported; `anthropic_api_key` is read but has no adapter. Provider *capability* claims must stay narrow. | `providers/config.py:20,44-47`; `core/config.py:108` | `AD-3` | Documented supported matrix; each added adapter has a real integration test against its API contract; no universal-agent claim | **Closed in Phase 3 for the existing adapter** — `docs/providers.md` states the supported matrix and exclusions; capabilities are declared per kind (`providers/capabilities.py`) and reported by `GET /provider`; the registry (`providers/registry.py`) is the only place a kind maps to a class. Each *future* adapter still owes its own contract test |
 | `PROV-2` | No verified real-provider round trip exists (all provider tests use mock transports/fakes). | `tests/test_phase2_integrations.py`, `tests/test_provider_adapters.py`, `tests/test_security_net.py` | `AD-3` (key) | One recorded successful real completion *and* one recorded failure-mode run per supported adapter, executed by a human with a key | **Open — human-only.** Phase 3 added deterministic retry/capability/usage tests but cannot substitute for a real round trip; runbook in `docs/providers.md` §2 |
-| `STORE-1` | PostgreSQL compatibility is asserted only through a psycopg-shaped fake over SQLite. TLS requirement, migrations, and cross-tenant isolation are unproven on a real server. | `tests/test_phase2_integrations.py::test_sql_store_logic_runs_through_postgres_adapter` | `AD-4` (server) | Contract suite green against a real TLS PostgreSQL; migration up/down; two-tenant isolation; no silent fallback | **Phase 4** |
-| `STORE-2` | Data-lifecycle semantics are only partly surfaced: `DELETE /data` erases this product's records, `DELETE /storage` only forgets the connection, and there is no "delete the tenant/account" operation or documented retention policy. | `main.py:259-266`; `store/service.py:102-108, 194-208` | `AD-5` (retention policy) | Written, user-visible semantics for disconnect vs. export vs. delete-records vs. delete-account, each with tests | **Phase 4** |
+| `STORE-1` | PostgreSQL compatibility is asserted only through a psycopg-shaped fake over SQLite. TLS requirement, migrations, and cross-tenant isolation are unproven on a real server. | `tests/test_phase4_storage.py::test_postgres_contract_matches_sqlite` | `AD-4` (server) | Contract suite green against a real TLS PostgreSQL; migration up/down; two-tenant isolation; no silent fallback | **Phase 4: partly closed — still open, human-only.** A real-server contract test now exists and is opt-in via `NOVA_TEST_POSTGRES_DSN` (migrate → insert → purge → receipt); it **skips** here because no server exists, so no real-round-trip evidence is claimed. Down-migrations are deliberately not implemented; rollback is backup-restore, documented in `docs/storage.md` §4 |
+| `STORE-2` | Data-lifecycle semantics are only partly surfaced: `DELETE /data` erases this product's records, `DELETE /storage` only forgets the connection, and there is no "delete the tenant/account" operation or documented retention policy. | `store/session.py` (`purge`), `store/receipts.py`, `main.py` (`/data`, `/data/deletions`) | `AD-5` (retention policy) | Written, user-visible semantics for disconnect vs. export vs. delete-records vs. delete-account, each with tests | **Closed in Phase 4** for the semantics: all four operations are documented in `docs/storage.md` §6 and tested, deletion writes a content-free receipt, and account-scope erasure purges receipts too. The *retention policy itself* (`AD-5`) remains an operator decision |
 | `API-1` | No memory library API and no audit list/search API; `recent()`/`export()` exist internally but are unexposed. UI cannot show real memories or activity without fabricating them. | `main.py` route table; `audit/logger.py:150,178`; `GET /memories`, `GET /audit` → 404 | Phase 2 auth (tenant-scoped reads) | Tenant-scoped, paginated, bounded list + search endpoints for memories and audit, with contract tests and an OpenAPI document | **Phase 6** |
 | `ING-1` | Ingest is synchronous inside the request; no durable job, retry, or queue. A slow provider blocks the HTTP request and a partial failure leaves no resumable state. | `main.py:178-180`; `pipeline.py:42-124` (no job store anywhere in `nova/`) | Phase 2 | Durable job record, idempotency key, bounded retries with typed failures, progress/status endpoint, restart-safe resume | **Phase 8** |
 | `ING-2` | Message-level ingest idempotency does not survive a request: `_ingested_msg_ids` is per-`Anchor`, and a new `Anchor` is built per request, so re-posting the same messages re-runs extraction and re-spends provider tokens (memory-level dedupe via deterministic ids still prevents duplicate rows). | `pipeline.py:35,55,90`; `api/runtime.py:147-161` | Phase 8 job/state design | Re-ingest of identical messages performs **0** extraction calls, proven by a test that counts provider invocations across two HTTP requests | **Phase 8** |
@@ -325,3 +332,22 @@ still calls `/api/*`; switching it to `/api/bff/*` and the remaining screens bel
 | Backend tests | 599 passed | **642 passed** (43 new adapter/retry/capability/usage tests) |
 | `PROV-1` | open | **closed** for the existing adapter (documented matrix + declared capabilities + registry isolation) |
 | `PROV-2` | open | **still open, human-only**: no real provider key exists in this environment; a recorded successful completion and a recorded failure-mode run are required |
+
+
+---
+
+## 12. Phase 4 delta (storage, migrations, export and deletion)
+
+| Item | Before | After |
+|---|---|---|
+| Storage boundary | `Database` ABC + `StorageSession`, but lifecycle reads were partly unbounded and deletion had no audit trail | Unchanged abstractions, **extended**: `limit` + `StoreLimitError` on every growing read; `deletion_receipts` repository added alongside memories/audit; nothing outside `nova/store/` imports a concrete store |
+| Schema versions | SQLite v2 / PostgreSQL v1, no guard against a newer database | SQLite **v3** / PostgreSQL **v2** (additive receipts table + two indexes); `known_version()`/`migration_plan()`/`current_version()`; a newer schema raises `SchemaVersionError` (503) and writes nothing |
+| Migration safety | one transaction, but a half-applied step was untested | Tests prove rollback for a failing step *and* for a step that fails after creating a table; re-run is a no-op; v1 → v3 legacy upgrade keeps rows and repairs invalid links |
+| Rollback guidance | none | `docs/storage.md` §4: backup before upgrade, interrupted/failed recovery, restore-to-roll-back; no down-migrations by design |
+| Deletion | memories + audit erased by one operation; nothing recorded | `scope=records` (keeps a content-free receipt) vs `scope=account` (purges receipts, optional tombstone); atomic — a receipt failure rolls the deletion back; actor + request id recorded, never content |
+| Export | memories + audit, fixed `limit` | adds `deletion_receipts`, `schema_version`, `counts`, `returned`, `truncated`; refuses limits above `MAX_EXPORT_ROWS` |
+| Bounded reads | `candidates()` and `missing_embeddings()` could return everything; audit `recent()` silently clamped | Hard bounds in `nova/store/limits.py`; exceeding a bound raises `query_limit_exceeded` (422) instead of truncating; export states truncation explicitly |
+| Indexes | `(tenant, subject, status)`, `(tenant, session)`, `(tenant, superseded_by)`, `audit(tenant, timestamp)` | plus `memories(tenant_id, timestamp, id)` and `deletion_receipts(tenant_id, deleted_at)` |
+| Backend tests | 642 passed | **676 passed, 1 skipped** (34 new storage tests; the skip is the opt-in real-PostgreSQL contract suite) |
+| `STORE-1` | open | **open, human-only** — real-server contract test added, not run |
+| `STORE-2` | open | **closed** for lifecycle semantics; retention *policy* (`AD-5`) still an operator decision |

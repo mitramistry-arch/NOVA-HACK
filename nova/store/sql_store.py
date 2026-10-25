@@ -8,8 +8,14 @@ from typing import Any
 from nova.core.policy import CHAINED_TYPES
 from nova.core.schemas import EmbeddingRecord, Memory, MemoryStatus, MemoryType
 from nova.core.tenant import DEFAULT_TENANT, validate_tenant_id
-from nova.store.base import StoreError, SupersessionError
+from nova.store.base import StoreError, StoreLimitError, SupersessionError
 from nova.store.database import Database, Row
+from nova.store.limits import (
+    MAX_CANDIDATE_ROWS,
+    MAX_EMBEDDING_BATCH,
+    MAX_EXPORT_ROWS,
+    MAX_SESSION_ROWS,
+)
 from nova.store.timeutil import format_ts, parse_ts
 
 _MAX_CHAIN_WALK = 10_000
@@ -195,21 +201,32 @@ class SqlMemoryStore:
         )
         return [self._row_to_memory(r) for r in rows]
 
-    def list_by_session(self, session_id: str) -> list[Memory]:
-        """List all memories for a session ordered by timestamp, then id."""
+    def list_by_session(self, session_id: str, limit: int = MAX_SESSION_ROWS) -> list[Memory]:
+        """List a session's memories ordered by timestamp then id; bounded, never truncated."""
+        if limit > MAX_SESSION_ROWS:
+            raise StoreLimitError(MAX_SESSION_ROWS)
         rows = self.db.query(
             "SELECT * FROM memories WHERE tenant_id = ? AND session_id = ? "
-            "ORDER BY timestamp ASC, id ASC",
-            (self.tenant_id, session_id),
+            "ORDER BY timestamp ASC, id ASC LIMIT ?",
+            (self.tenant_id, session_id, limit + 1),
         )
+        if len(rows) > limit:
+            raise StoreLimitError(limit)
         return [self._row_to_memory(r) for r in rows]
 
     def candidates(
         self,
         include_history: bool = False,
         session_id: str | None = None,
+        limit: int = MAX_CANDIDATE_ROWS,
     ) -> list[tuple[Memory, EmbeddingRecord | None]]:
-        """Return retrieval candidates with their stored embeddings, in a stable order."""
+        """Return retrieval candidates with embeddings, in a stable order.
+
+        The scan is bounded: exceeding ``limit`` raises ``StoreLimitError`` instead of silently
+        dropping rows, so a growing tenant surfaces a scoping problem rather than wrong answers.
+        """
+        if limit > MAX_CANDIDATE_ROWS:
+            raise StoreLimitError(MAX_CANDIDATE_ROWS)
         sql = "SELECT * FROM memories WHERE tenant_id = ?"
         params: list[Any] = [self.tenant_id]
         if not include_history:
@@ -217,10 +234,12 @@ class SqlMemoryStore:
         if session_id is not None:
             sql += " AND session_id = ?"
             params.append(session_id)
-        sql += " ORDER BY timestamp ASC, id ASC"
-        return [
-            (self._row_to_memory(r), self._row_embedding(r)) for r in self.db.query(sql, params)
-        ]
+        sql += " ORDER BY timestamp ASC, id ASC LIMIT ?"
+        params.append(limit + 1)
+        rows = self.db.query(sql, params)
+        if len(rows) > limit:
+            raise StoreLimitError(limit)
+        return [(self._row_to_memory(r), self._row_embedding(r)) for r in rows]
 
     def missing_embeddings(
         self,
@@ -228,17 +247,21 @@ class SqlMemoryStore:
         dim: int,
         limit: int | None = None,
     ) -> list[Memory]:
-        """Return memories with no embedding, or one from a different model/dimension."""
-        sql = (
+        """Return memories with no embedding, or one from a different model/dimension.
+
+        ``limit`` defaults to, and may not exceed, ``MAX_EMBEDDING_BATCH`` so a backfill pass stays
+        bounded; the caller loops until the list comes back empty.
+        """
+        effective = MAX_EMBEDDING_BATCH if limit is None else limit
+        if effective > MAX_EMBEDDING_BATCH:
+            raise StoreLimitError(MAX_EMBEDDING_BATCH)
+        rows = self.db.query(
             "SELECT * FROM memories WHERE tenant_id = ? AND (embedding IS NULL "
             "OR embedding_model IS NULL OR embedding_model <> ? OR embedding_dim <> ?) "
-            "ORDER BY timestamp ASC, id ASC"
+            "ORDER BY timestamp ASC, id ASC LIMIT ?",
+            (self.tenant_id, model, dim, effective),
         )
-        params: list[Any] = [self.tenant_id, model, dim]
-        if limit is not None:
-            sql += " LIMIT ?"
-            params.append(limit)
-        return [self._row_to_memory(r) for r in self.db.query(sql, params)]
+        return [self._row_to_memory(r) for r in rows]
 
     def count(self) -> int:
         """Return the number of memories owned by this tenant."""
@@ -357,7 +380,10 @@ class SqlMemoryStore:
             )
             return self.db.execute("DELETE FROM memories WHERE tenant_id = ?", (self.tenant_id,))
 
-    def export(self, limit: int = 10_000) -> list[Memory]:
+    def export(self, limit: int = MAX_EXPORT_ROWS) -> list[Memory]:
+        """Return up to ``limit`` memories, oldest first; over-limit requests are rejected."""
+        if limit > MAX_EXPORT_ROWS:
+            raise StoreLimitError(MAX_EXPORT_ROWS)
         """Return up to ``limit`` of this tenant's memories (embeddings excluded)."""
         rows = self.db.query(
             "SELECT * FROM memories WHERE tenant_id = ? ORDER BY timestamp ASC, id ASC LIMIT ?",

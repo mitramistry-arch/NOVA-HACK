@@ -46,6 +46,7 @@ from nova.store.postgres import (
     PostgresSettings,
     open_postgres,
 )
+from nova.store.schema import SCHEMA_VERSION
 from nova.store.sql_store import SqlMemoryStore
 from nova.store.sqlite_store import SqliteMemoryStore
 from nova.temporal.supersession import apply
@@ -944,7 +945,7 @@ def test_default_sqlite_lifecycle_export_and_delete(tmp_path: Path) -> None:
     assert rt.storage.delete_data("t1") == {"memories": 1, "audit_records": 1}
     assert rt.storage.export("t1")["memories"] == []
     assert len(rt.storage.export("t2")["memories"]) == 1  # type: ignore[arg-type]
-    assert rt.storage.initialize("t1") == 2
+    assert rt.storage.initialize("t1") == SCHEMA_VERSION
     assert rt.storage.test("t1").ok
 
 

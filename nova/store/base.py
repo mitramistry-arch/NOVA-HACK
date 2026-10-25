@@ -21,3 +21,29 @@ class StorageUnavailableError(StoreError):
         super().__init__(message)
         self.code = code
         self.public_message = message
+
+
+class SchemaVersionError(StoreError):
+    """Raised when the stored schema version is newer than this server understands."""
+
+    code = "schema_version_unsupported"
+    public_message = "The database schema version is not supported by this server."
+
+
+class SchemaMigrationError(StoreError):
+    """Raised when a migration cannot be applied; the database is left unchanged."""
+
+    code = "schema_migration_failed"
+    public_message = "The database migration failed; no changes were applied."
+
+
+class StoreLimitError(StoreError):
+    """Raised when a query would return more rows than the configured hard limit."""
+
+    code = "query_limit_exceeded"
+    public_message = "The query would return too many rows; narrow the request."
+
+    def __init__(self, limit: int) -> None:
+        """Create the error naming the hard limit that was exceeded."""
+        super().__init__(f"query exceeds the hard limit of {limit} rows")
+        self.limit = limit

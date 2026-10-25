@@ -15,13 +15,15 @@ from nova.core.config import Settings
 from nova.providers.config import ConnectionTestResult
 from nova.security.net import UnsafeEndpointError, validate_host
 from nova.security.secrets import ControlStore, SecretNotFoundError
-from nova.store.base import StorageUnavailableError, StoreError
+from nova.store.base import StorageUnavailableError, StoreError, StoreLimitError
+from nova.store.limits import MAX_EXPORT_ROWS
 from nova.store.postgres import (
     PostgresConfigRequest,
     PostgresSettings,
     open_postgres,
     schema_ready,
 )
+from nova.store.receipts import DeletionScope
 from nova.store.schema import open_sqlite
 from nova.store.session import StorageSession
 
@@ -199,8 +201,56 @@ class StorageService:
         finally:
             session.close()
 
-    def export(self, tenant_id: str, limit: int = 10_000) -> dict[str, object]:
-        """Return the tenant's data as JSON-ready content (bounded)."""
+    def purge(
+        self,
+        tenant_id: str,
+        *,
+        scope: DeletionScope = "records",
+        actor: str = "system",
+        request_id: str | None = None,
+        retain_receipt: bool = True,
+    ) -> dict[str, object]:
+        """Erase tenant data at the requested scope and report a content-free receipt."""
+        session = self.open(tenant_id)
+        try:
+            receipt = session.purge(
+                scope=scope,
+                actor=actor,
+                request_id=request_id,
+                retain_receipt=retain_receipt,
+            )
+        finally:
+            session.close()
+        if receipt is None:
+            return {
+                "scope": scope,
+                "receipt_id": None,
+                "receipt_retained": False,
+                "memories": 0,
+                "audit_records": 0,
+                "receipts_deleted": 0,
+            }
+        return {
+            "scope": receipt.scope,
+            "receipt_id": receipt.id,
+            "receipt_retained": True,
+            "memories": receipt.memories_deleted,
+            "audit_records": receipt.audit_deleted,
+            "receipts_deleted": receipt.receipts_deleted,
+        }
+
+    def receipts(self, tenant_id: str, limit: int = 20) -> list[dict[str, object]]:
+        """Return this tenant's deletion receipts, newest first."""
+        session = self.open(tenant_id)
+        try:
+            return [r.model_dump(mode="json") for r in session.receipts.recent(limit)]
+        finally:
+            session.close()
+
+    def export(self, tenant_id: str, limit: int = MAX_EXPORT_ROWS) -> dict[str, object]:
+        """Return the tenant's data as JSON-ready content (bounded, with counts)."""
+        if limit > MAX_EXPORT_ROWS:
+            raise StoreLimitError(MAX_EXPORT_ROWS)
         session = self.open(tenant_id)
         try:
             return session.export_tenant_data(limit)
