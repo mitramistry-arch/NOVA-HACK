@@ -1,6 +1,8 @@
 """OpenAI-compatible Chat Completions adapter implementing the LLMClient protocol."""
 
 import logging
+import time
+from collections.abc import Callable
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -17,6 +19,8 @@ from nova.providers.errors import (
     ProviderTimeoutError,
     ProviderUnavailableError,
 )
+from nova.providers.retry import RetryPolicy, call_with_retries
+from nova.providers.usage import UsageReport
 from nova.security.net import (
     PinnedHTTPTransport,
     UnsafeEndpointError,
@@ -25,6 +29,18 @@ from nova.security.net import (
 )
 
 logger = logging.getLogger("nova.providers")
+
+
+def _retry_after_seconds(resp: httpx.Response) -> float | None:
+    """Parse a numeric Retry-After header; HTTP-date forms are ignored rather than guessed."""
+    raw = resp.headers.get("retry-after")
+    if not raw:
+        return None
+    try:
+        value = float(raw.strip())
+    except ValueError:
+        return None
+    return value if value >= 0 else None
 
 
 class OpenAICompatibleLLM:
@@ -38,6 +54,8 @@ class OpenAICompatibleLLM:
         allow_private: bool = False,
         transport: httpx.BaseTransport | None = None,
         max_output_tokens: int | None = None,
+        sleep: Callable[[float], None] = time.sleep,
+        monotonic: Callable[[], float] = time.monotonic,
     ) -> None:
         """Validate the endpoint (SSRF rules) and prepare an HTTP client without redirects."""
         try:
@@ -68,13 +86,22 @@ class OpenAICompatibleLLM:
             trust_env=False,
         )
         self.usage = UsageTally()
+        self.last_usage = UsageReport.unavailable()
+        self._sleep = sleep
+        self._monotonic = monotonic
+        self.retry_policy = RetryPolicy(
+            max_attempts=settings.max_attempts,
+            base_delay_s=settings.retry_base_delay_s,
+            max_delay_s=settings.retry_max_delay_s,
+            total_timeout_s=settings.total_timeout_s,
+        )
 
     def close(self) -> None:
         """Close the HTTP client."""
         self._client.close()
 
     def complete(self, prompt: str, *, json: bool = False) -> str:
-        """Send one chat completion request and return the assistant text."""
+        """Send a chat completion, retrying transient failures within the configured budget."""
         if len(prompt) // 3 + 1 > self._settings.max_prompt_tokens:
             raise ProviderBudgetError("prompt exceeds the configured prompt token budget")
         payload: dict[str, Any] = {
@@ -85,6 +112,15 @@ class OpenAICompatibleLLM:
         }
         if json:
             payload["response_format"] = {"type": "json_object"}
+        return call_with_retries(
+            lambda: self._post(payload),
+            self.retry_policy,
+            sleep=self._sleep,
+            monotonic=self._monotonic,
+        )
+
+    def _post(self, payload: dict[str, Any]) -> str:
+        """Perform one HTTP attempt; transient failures surface as typed provider errors."""
         try:
             resp = self._client.post(
                 f"{self._base_url}/chat/completions",
@@ -98,13 +134,15 @@ class OpenAICompatibleLLM:
         return self._parse(resp)
 
     def _parse(self, resp: httpx.Response) -> str:
+        self.last_usage = UsageReport.unavailable()
         status = resp.status_code
+        retry_after = _retry_after_seconds(resp)
         if status in (401, 403):
             raise ProviderAuthError(f"HTTP {status}")
         if status == 429:
-            raise ProviderRateLimitError("HTTP 429")
+            raise ProviderRateLimitError("HTTP 429", retry_after_s=retry_after)
         if status >= 500 or 300 <= status < 400:
-            raise ProviderUnavailableError(f"HTTP {status}")
+            raise ProviderUnavailableError(f"HTTP {status}", retry_after_s=retry_after)
         if status >= 400:
             raise ProviderResponseError(f"HTTP {status}")
         try:
@@ -119,4 +157,10 @@ class OpenAICompatibleLLM:
             pt, ct = usage.get("prompt_tokens"), usage.get("completion_tokens")
             if isinstance(pt, int) and isinstance(ct, int):
                 self.usage.add(pt, ct)
+                self.last_usage = UsageReport.from_provider(
+                    pt,
+                    ct,
+                    input_cost_per_1k=self._settings.input_cost_per_1k,
+                    output_cost_per_1k=self._settings.output_cost_per_1k,
+                )
         return content
