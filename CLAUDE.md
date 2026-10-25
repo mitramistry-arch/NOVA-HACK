@@ -85,12 +85,18 @@ python scripts/check_wheel.py dist/*.whl
 uses Python 3.11, 3.12, and 3.13; benchmark smoke and isolated wheel install are part of CI. The
 reference ZIPs' independent test counts are historical and do not establish the integrated result.
 
-Current environment limitations must be reported accurately. At last check, `ruff` and `build` were not installed in the working environment, and the package index was unreachable. Use CI or install `[dev]` before claiming lint, formatting, or standard build commands succeeded. A passing pytest run does not equal production certification.
+Current environment limitations must be reported accurately. Measured on 2026-10-25 with an isolated
+Python 3.11 venv: `ruff` and `build` install and run, `python -m build` and `scripts/check_wheel.py`
+pass, but `ruff check .` (87 errors) and `ruff format --check .` (25 files) fail, so the CI `lint` job
+is red at this revision. `pytest` passes 492 tests. The frontend installs from the registry, and
+`npm run lint` passes, but `npm run typecheck`, `npm test`, and `npm run build` fail. Python 3.12/3.13,
+real PostgreSQL, real provider calls, and Playwright remain unverified. A passing pytest run does not
+equal production certification. See `docs/production-readiness-matrix.md`.
 See `docs/release-checklist.md` for the deployment gate.
 
 ## Phase status and remaining review
 
-This is a merged working tree, not an assertion that all phases are complete. Backend tests cover behavior exercised in this environment; production readiness still needs the complete release checklist and target-deployment validation. A React/TypeScript Phase 5 frontend source tree is now present under `frontend/` with typed API calls, accessible workflow screens, component tests, and Playwright smoke tests. It has not yet been installed, built, linted, type-checked, or run in a browser because the package registry was unreachable; a verified dependency lockfile is therefore also outstanding. In particular:
+This is a merged working tree, not an assertion that all phases are complete. Backend tests cover behavior exercised in this environment; production readiness still needs the complete release checklist and target-deployment validation. A React/TypeScript Phase 5 frontend source tree is now present under `frontend/` with typed API calls, accessible workflow screens, component tests, and Playwright smoke tests. Dependencies install from the registry and lint passes, but type-checking fails on a duplicated Vite/Vitest type identity, three component tests fail, the production build stops at type-checking, Playwright has not been executed, and no dependency lockfile is committed. In particular:
 
 - Run Ruff lint and formatting after the final merge; fix issues rather than loosening rules.
 - Generate and commit `frontend/package-lock.json` using a successful `npm install`, then run frontend typecheck, lint, component tests, production build, and Playwright E2E (including the local FastAPI contract smoke test). Do not call Phase 5 complete until these pass.

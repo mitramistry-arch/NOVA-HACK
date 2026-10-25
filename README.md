@@ -29,7 +29,15 @@ or unauthenticated production configuration.
 
 A React + TypeScript + Vite UI is available in `frontend/` for the supported ingest, ask, verify, and audit-ID workflows. See [`frontend/README.md`](frontend/README.md) for setup and its security boundary. The current API does not support a browser-accessible memory library or audit listing, so the UI does not invent those features. `FakeLLM` remains the default development/testing integration and is labeled as such.
 
-The frontend dependencies could not be installed in the offline authoring environment; until the dependency lockfile is generated and the frontend build, lint, type-check, component tests, and Playwright suite pass, Phase 5 is not release-ready. Hosted browser deployment also requires a trusted same-origin BFF/session layer that maps an authenticated user to a tenant-specific backend credential. No server API key may be exposed to the browser.
+Frontend checks were re-measured in an environment with package-registry access: `npm install` and
+`npm run lint` succeed, but `npm run typecheck` fails on a duplicated Vite/Vitest type identity
+(`vite.config.ts`), `npm test` reports 3 failing component tests out of 12, and `npm run build`
+therefore stops before the built-asset check. There is still no committed `frontend/package-lock.json`
+and Playwright has not been executed. Phase 5 is not release-ready. Hosted browser deployment also
+requires a trusted same-origin BFF/session layer that maps an authenticated user to a tenant-specific
+backend credential. No server API key may be exposed to the browser. See
+[`docs/production-readiness-matrix.md`](docs/production-readiness-matrix.md) for the measured baseline
+and the per-phase gap map.
 
 ## Configuration
 
