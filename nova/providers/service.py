@@ -7,6 +7,7 @@ import httpx
 
 from nova.core.config import Settings
 from nova.core.llm import FakeLLM, LLMClient
+from nova.providers.capabilities import ProviderCapability, capabilities_for, require
 from nova.providers.config import (
     PROVIDER_KEY_SECRET,
     ConnectionTestResult,
@@ -16,7 +17,7 @@ from nova.providers.config import (
     parse_stored,
 )
 from nova.providers.errors import ProviderConfigError, ProviderError, ProviderNotConfiguredError
-from nova.providers.openai_compat import OpenAICompatibleLLM
+from nova.providers.registry import build_adapter
 from nova.security.net import UnsafeEndpointError, validate_https_url
 from nova.security.secrets import ControlStore, SecretNotFoundError
 
@@ -67,6 +68,7 @@ class ProviderService:
             max_prompt_tokens=cfg.max_prompt_tokens,
             has_api_key=mask is not None,
             api_key_mask=mask,
+            capabilities=sorted(capability.value for capability in capabilities_for(cfg.kind)),
         )
 
     def configure(self, tenant_id: str, req: ProviderConfigRequest) -> ProviderStatus:
@@ -104,7 +106,8 @@ class ProviderService:
             key = self.control.get_secret(tenant_id, PROVIDER_KEY_SECRET)
         except SecretNotFoundError as e:
             raise ProviderNotConfiguredError("provider api key is missing") from e
-        return OpenAICompatibleLLM(
+        require(cfg.kind, ProviderCapability.GENERATION)
+        return build_adapter(
             cfg,
             key,
             allow_private=self.settings.allow_private_endpoints,
@@ -119,7 +122,7 @@ class ProviderService:
         A candidate's key is used for this call only and is never stored.
         """
         started = time.perf_counter()
-        llm: OpenAICompatibleLLM | None = None
+        llm: LLMClient | None = None
         try:
             if candidate is not None:
                 cfg = candidate.settings_only()
@@ -134,7 +137,8 @@ class ProviderService:
                     raise ProviderNotConfiguredError("tenant has no provider configuration")
                 cfg = parse_stored(body)
                 key = self.control.get_secret(tenant_id, PROVIDER_KEY_SECRET)
-            llm = OpenAICompatibleLLM(
+            require(cfg.kind, ProviderCapability.GENERATION)
+            llm = build_adapter(
                 cfg,
                 key,
                 allow_private=self.settings.allow_private_endpoints,
@@ -152,8 +156,9 @@ class ProviderService:
             logger.info("provider test failed: %s", e.code)
             return ConnectionTestResult(ok=False, code=e.code, message=e.public_message)
         finally:
-            if llm is not None:
-                llm.close()
+            closer = getattr(llm, "close", None)
+            if callable(closer):
+                closer()
         return ConnectionTestResult(
             ok=True,
             code="ok",

@@ -7,9 +7,10 @@ class ProviderError(Exception):
     code = "provider_error"
     public_message = "The AI provider request failed."
 
-    def __init__(self, message: str | None = None) -> None:
+    def __init__(self, message: str | None = None, *, retry_after_s: float | None = None) -> None:
         """Create the error; ``message`` is internal detail (never include secrets)."""
         super().__init__(message or self.public_message)
+        self.retry_after_s = retry_after_s
 
 
 class ProviderNotConfiguredError(ProviderError):

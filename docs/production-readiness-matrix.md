@@ -10,6 +10,11 @@ truth** and the disagreement is recorded in §6.
 This document is an honest snapshot, not a certification. A green test suite proves only that the
 tested behaviours hold in one environment. Read §8 before quoting any part of this file.
 
+> **Status update (Phase 3, 2026-10-25).** Provider adapters now sit behind a registry with declared
+> capabilities, bounded retries with backoff, and labelled usage/cost. `PROV-1` is closed;
+> `PROV-2` (a real key, a recorded round trip) remains human-only. See §11 and
+> [`providers.md`](providers.md).
+>
 > **Status update (Phase 2, 2026-10-25).** `SEC-1` — the missing browser identity/BFF boundary — is now
 > implemented and tested in source; `TEST-1` is covered by new HTTP-level isolation tests. The backend
 > suite is now **599 passed** (492 at the Phase 1 baseline plus 107 identity/BFF tests). `CI-1` is still
@@ -177,8 +182,8 @@ phase.
 | ID | Gap | Evidence | Depends on | Acceptance criteria | Owner |
 |---|---|---|---|---|---|
 | `EMB-1` | Production runtime uses `HashEmbedder`; no configured, versioned production embedding model. Retrieval quality is therefore unmeasured and cannot be described as semantic. | `api/runtime.py:152`; `retrieval/embedder.py:68,115` | — | Explicitly configured embedder with model id/version/dimension, compatibility + re-embed migration path, bounded cost, retrieval-quality metric on a held-out split | **Phase 5** |
-| `PROV-1` | Only one provider adapter; `agent_id` intentionally unsupported; `anthropic_api_key` is read but has no adapter. Provider *capability* claims must stay narrow. | `providers/config.py:20,44-47`; `core/config.py:82` | `AD-3` | Documented supported matrix; each added adapter has a real integration test against its API contract; no universal-agent claim | **Phase 3** |
-| `PROV-2` | No verified real-provider round trip exists (all provider tests use mock transports/fakes). | `tests/test_phase2_integrations.py`, `tests/test_security_net.py` | `AD-3` (key) | One recorded successful real completion *and* one recorded failure-mode run per supported adapter, executed by a human with a key | **Phase 3** |
+| `PROV-1` | Only one provider adapter; `agent_id` intentionally unsupported; `anthropic_api_key` is read but has no adapter. Provider *capability* claims must stay narrow. | `providers/config.py:20,44-47`; `core/config.py:108` | `AD-3` | Documented supported matrix; each added adapter has a real integration test against its API contract; no universal-agent claim | **Closed in Phase 3 for the existing adapter** — `docs/providers.md` states the supported matrix and exclusions; capabilities are declared per kind (`providers/capabilities.py`) and reported by `GET /provider`; the registry (`providers/registry.py`) is the only place a kind maps to a class. Each *future* adapter still owes its own contract test |
+| `PROV-2` | No verified real-provider round trip exists (all provider tests use mock transports/fakes). | `tests/test_phase2_integrations.py`, `tests/test_provider_adapters.py`, `tests/test_security_net.py` | `AD-3` (key) | One recorded successful real completion *and* one recorded failure-mode run per supported adapter, executed by a human with a key | **Open — human-only.** Phase 3 added deterministic retry/capability/usage tests but cannot substitute for a real round trip; runbook in `docs/providers.md` §2 |
 | `STORE-1` | PostgreSQL compatibility is asserted only through a psycopg-shaped fake over SQLite. TLS requirement, migrations, and cross-tenant isolation are unproven on a real server. | `tests/test_phase2_integrations.py::test_sql_store_logic_runs_through_postgres_adapter` | `AD-4` (server) | Contract suite green against a real TLS PostgreSQL; migration up/down; two-tenant isolation; no silent fallback | **Phase 4** |
 | `STORE-2` | Data-lifecycle semantics are only partly surfaced: `DELETE /data` erases this product's records, `DELETE /storage` only forgets the connection, and there is no "delete the tenant/account" operation or documented retention policy. | `main.py:259-266`; `store/service.py:102-108, 194-208` | `AD-5` (retention policy) | Written, user-visible semantics for disconnect vs. export vs. delete-records vs. delete-account, each with tests | **Phase 4** |
 | `API-1` | No memory library API and no audit list/search API; `recent()`/`export()` exist internally but are unexposed. UI cannot show real memories or activity without fabricating them. | `main.py` route table; `audit/logger.py:150,178`; `GET /memories`, `GET /audit` → 404 | Phase 2 auth (tenant-scoped reads) | Tenant-scoped, paginated, bounded list + search endpoints for memories and audit, with contract tests and an OpenAPI document | **Phase 6** |
@@ -302,3 +307,21 @@ not start until `CI-1` is green and the human decisions `AD-1`, `AD-3`, `AD-4`, 
 Still open after Phase 2 (unchanged owners): `EMB-1` (§5), `PROV-1`/`PROV-2`, `STORE-1`/`STORE-2`,
 `API-1`, `ING-1`/`ING-2`, `OBS-1`, `CI-1`/`CI-2`, `EVAL-1`, and the Phase 7 frontend items. The frontend
 still calls `/api/*`; switching it to `/api/bff/*` and the remaining screens belong to Phase 7.
+
+---
+
+## 11. Phase 3 delta (provider adapters, BYOK, usage controls)
+
+| Item | Before | After |
+|---|---|---|
+| Provider abstraction | `ProviderService` hard-coded `OpenAICompatibleLLM` in three places | `providers/registry.py` is the only mapping from `ProviderKind` to a class; the service depends on the registry and the `LLMClient` protocol |
+| Capabilities | none declared; "provider" implicitly meant generation | `providers/capabilities.py`: `generation` and `embeddings` are separate; the Chat Completions adapter declares **generation only**; `GET /provider` reports the declared list; an undeclared capability is a `ProviderConfigError` before any call |
+| Failures | one attempt, then a typed error | bounded retries (`max_attempts` 1–5) with exponential backoff, ±25 % jitter, `Retry-After` honoured, and a monotonic total-time budget; only 429/timeout/5xx are retried — auth, 4xx, budget, and config errors fail immediately |
+| Usage | `UsageTally` counted provider-reported tokens | unchanged counting, plus `providers/usage.py` provenance (`provider` / `estimate` / `unavailable`) per call, reset per response so stale numbers cannot leak forward |
+| Cost | none | optional, **only** from operator-configured prices, always flagged `cost_is_estimate`; no price means `null`, never `0` |
+| Cancellation | not present | **not claimed** — the request path is synchronous; documented in `docs/providers.md` §5 with the bounding mechanisms (per-attempt timeout, total retry budget, disconnect) |
+| Test doubles | ad-hoc inline fakes | `tests/provider_fakes.py` (scripted transport, recording sleep, fake clock) — test-only, never shipped; `FakeLLM` stays gated by `NOVA_ALLOW_FAKE_LLM` and refused in production |
+| Provider docs | none | `docs/providers.md`: supported matrix, BYOK flow, env vars, limits, failure/retry table, usage labelling, extension path |
+| Backend tests | 599 passed | **642 passed** (43 new adapter/retry/capability/usage tests) |
+| `PROV-1` | open | **closed** for the existing adapter (documented matrix + declared capabilities + registry isolation) |
+| `PROV-2` | open | **still open, human-only**: no real provider key exists in this environment; a recorded successful completion and a recorded failure-mode run are required |

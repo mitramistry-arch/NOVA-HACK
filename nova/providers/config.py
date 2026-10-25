@@ -39,11 +39,21 @@ class ProviderSettings(BaseModel):
     timeout_s: float = Field(default=30.0, ge=1.0, le=120.0)
     max_output_tokens: int = Field(default=1024, ge=1, le=MAX_OUTPUT_TOKENS_LIMIT)
     max_prompt_tokens: int = Field(default=16_000, ge=1, le=MAX_PROMPT_TOKENS_LIMIT)
+    max_attempts: int = Field(default=3, ge=1, le=5)
+    retry_base_delay_s: float = Field(default=0.25, ge=0.0, le=5.0)
+    retry_max_delay_s: float = Field(default=2.0, ge=0.0, le=30.0)
+    total_timeout_s: float = Field(default=30.0, gt=0.0, le=300.0)
+    input_cost_per_1k: float | None = Field(default=None, ge=0.0, le=1000.0)
+    output_cost_per_1k: float | None = Field(default=None, ge=0.0, le=1000.0)
 
     @model_validator(mode="after")
     def _kind_rules(self) -> "ProviderSettings":
         if self.agent_id is not None:
             raise ValueError("agent_id is not supported by the openai_compatible adapter")
+        if self.retry_max_delay_s < self.retry_base_delay_s:
+            raise ValueError("retry_max_delay_s must be at least retry_base_delay_s")
+        if (self.input_cost_per_1k is None) != (self.output_cost_per_1k is None):
+            raise ValueError("configure both input_cost_per_1k and output_cost_per_1k, or neither")
         return self
 
     @property
@@ -74,6 +84,7 @@ class ProviderStatus(BaseModel):
     max_prompt_tokens: int | None = None
     has_api_key: bool = False
     api_key_mask: str | None = None
+    capabilities: list[str] = Field(default_factory=list)
 
 
 class ConnectionTestResult(BaseModel):
