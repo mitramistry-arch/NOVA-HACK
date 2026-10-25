@@ -1,6 +1,23 @@
 # Phase 5 implementation and validation status
 
-**Status: source implementation present; release validation blocked.** This document records the checks run against the integrated repository and does not equate source presence or passing backend tests with a production-ready web release.
+> **Historical snapshot — not a current status, and not the roadmap's Phase 5.**
+> This file predates the ten-phase roadmap and uses the repository's own earlier phase numbering.
+> Roadmap **Phase 5** is `EMB-1` (production embeddings and retrieval quality), which is unrelated.
+>
+> Every number below was true **when it was written**, and three of its claims have since been
+> superseded:
+> - "492 tests" → the backend suite is now **676 passed, 1 skipped** (skip: opt-in real-PostgreSQL
+>   contract test). See `docs/phase-4-report.md`.
+> - "ruff ... and `python -m build` are unavailable locally" → both run here; the lint gate was made
+>   green in commit `b1f94d1` (`CI-1`) and `python -m build` + `scripts/check_wheel.py` pass.
+> - "the environment cannot resolve the npm package registry" → dependencies do install; the real
+>   frontend findings were a `vite` dependency-graph typecheck/build failure and 3 of 12 Vitest
+>   failures, recorded in `docs/production-readiness-matrix.md` §1.
+>
+> Current status lives in [`production-readiness-matrix.md`](production-readiness-matrix.md) and the
+> per-phase reports. This page is kept unchanged below as the historical record.
+
+**Status at this snapshot: source implementation present; release validation blocked.** This document records the checks run against the integrated repository and does not equate source presence or passing backend tests with a production-ready web release.
 
 ## Implemented in source
 
@@ -21,7 +38,7 @@
 - Node runtime smoke of the transpiled API client: valid payload accepted, malformed payload rejected with a contract error, and network failure classified safely.
 - FastAPI HTTP smoke: `/healthz` returned the documented liveness payload and `/verify` returned the expected decision contract.
 - Anchor fake benchmark smoke: zero system errors. Its expected scores are zero in this mode because fake extraction deliberately emits an empty list; this validates error-free execution only and is **not** a quality benchmark.
-- Python wheel and source distribution built through the installed setuptools backend. The wheel-content guard passed, and an extracted source distribution independently passed all **492 tests** with `ResourceWarning` promoted to errors. The source distribution manifest includes scripts, frontend source, and the GitHub workflow files read by regression tests; the Python wheel intentionally contains backend Python modules only.
+- Python wheel and source distribution built through the installed setuptools backend. The wheel-content guard passed, and an extracted source distribution independently passed all **492 tests** with `ResourceWarning` promoted to errors (492 was the suite size at this snapshot; see the banner above). The source distribution manifest includes scripts, frontend source, and the GitHub workflow files read by regression tests; the Python wheel intentionally contains backend Python modules only.
 - `git diff --check`: passed.
 
 ## Release blockers / unverified checks
