@@ -206,7 +206,7 @@ phase.
 |---|---|---|---|
 | `DOC-1` | The target architecture PDF still says "the repository is still empty, so nothing here is implemented yet" and names files that do not exist (`nova/store/pg_store.py`, `docker-compose.yml`, `docs/ARCHITECTURE.md`). A reader can mistake the target for the state. | `context_anchor_architecture.pdf` p.4, p.6; `ls nova/store`, `ls` | Phase 1 (this matrix, §4) / Phase 10 for a machine-readable `docs/ARCHITECTURE.md` |
 | `DOC-2` | `CLAUDE.md` states ruff/build "were not installed"; they install and run here, and build passes. `README.md` states frontend dependencies "could not be installed"; they install, and the outcome is now measured. | `CLAUDE.md` "Current environment limitations"; `README.md:32` | Phase 1 (README paragraph updated; `CLAUDE.md` corrected) |
-| `DOC-3` | `.env.example` omits `NOVA_LLM_PROVIDER` / `NOVA_LLM_MODEL`, which `Settings.from_env()` reads and `validate_supported()` constrains to `fake`. | `core/config.py:96-97,139`; `.env.example` | Phase 3 (replace or remove the dead knob) |
+| `DOC-3` | `.env.example` omits `NOVA_LLM_PROVIDER` / `NOVA_LLM_MODEL`, which `Settings.from_env()` reads and `validate_supported()` constrains to `fake`. | `core/config.py:96-97,139`; `.env.example` | **Closed (chore)** — was Phase 3 (replace or remove the dead knob). Both knobs are now documented in `.env.example` as legacy-and-must-stay-`fake`, and `Settings` carries an inline note that provider selection is per tenant. The values are documented rather than deleted because tests and operators legitimately pin the default. |
 | `DOC-4` | Two different `AGENTS.md` documents describe this work: the repository's short `TOKEN RULES` file and the fuller 10-section rules supplied with the roadmap. They conflict (e.g. reply length, per-phase reporting). | repo `AGENTS.md` vs. supplied `AGENTS.md` | `AD-11` (human) |
 | `DOC-5` | The `for_di_arena/` folder the human referenced (target architecture + UI + roadmap) is **not present** in this checkout or in git history. If it exists locally it was never committed. | `find . -iname '*for_di*'` → none; `git log --all --oneline` → single commit | `AD-12` (human) |
 | `DEP-1` | `project.license` uses the legacy TOML table form; the build emits a setuptools deprecation warning with a 2027 deadline. | `pyproject.toml` `license = { text = "Proprietary" }`; build output | Phase 9 |
@@ -225,7 +225,9 @@ phase.
 3. `docs/phase-5-validation-status.md` is still accurate about *which* checks were previously
    unverified, but its central blocker ("the environment cannot resolve the npm package registry") no
    longer holds here. Its release-blocker list is superseded by §1.3; the file is left intact as a
-   historical record, and this matrix is the current status.
+   historical record, and this matrix is the current status. **Updated (chore):** the page now opens
+   with an explicit historical banner that flags its three superseded claims (test count, ruff/build
+   availability, npm reachability) and states that it is not the roadmap's Phase 5.
 4. The architecture PDF's status sentence ("nothing here is implemented yet") describes the empty
    repository the design was written against → **historical**; §4 replaces it with a measured map.
 5. The PDF names `nova/store/pg_store.py`; the code has `nova/store/postgres.py` + `sql_store.py` →

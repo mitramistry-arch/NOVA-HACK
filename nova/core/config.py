@@ -77,6 +77,9 @@ class Settings(BaseModel):
     tenant_api_keys: dict[str, str] = Field(default_factory=dict, repr=False)
     db_path: str = Field(default="nova.db")
     control_db_path: str = Field(default="nova_control.db")
+    # Legacy single-tenant knobs: providers are configured per tenant (see nova/providers/*), and
+    # validate_supported() rejects any llm_provider other than "fake". Kept so the value is
+    # explicit in configuration rather than silently ignored.
     llm_provider: str = Field(default="fake")
     llm_model: str = Field(default="fake-model")
     openai_api_key: str | None = Field(default=None, repr=False)
