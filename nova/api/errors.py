@@ -35,7 +35,13 @@ from nova.security.secrets import (
     SecretNotFoundError,
     SecretStoreUnavailableError,
 )
-from nova.store.base import EmbeddingCompatibilityError, StorageUnavailableError, StoreError
+from nova.store.base import (
+    EmbeddingCompatibilityError,
+    SchemaVersionError,
+    StorageUnavailableError,
+    StoreError,
+    StoreLimitError,
+)
 from nova.verification.claim_splitter import VerificationError
 
 logger = logging.getLogger("nova.api")
@@ -107,6 +113,10 @@ def map_exception(exc: BaseException) -> Mapped:
         return Mapped(502, "embedding_failed", "Embedding generation failed.")
     if isinstance(exc, RetrievalError | InvalidTenantError):
         return Mapped(400, "invalid_request", "The request parameters are invalid.")
+    if isinstance(exc, SchemaVersionError):
+        return Mapped(503, exc.code, exc.public_message)
+    if isinstance(exc, StoreLimitError):
+        return Mapped(422, exc.code, exc.public_message)
     if isinstance(exc, StoreError):
         return Mapped(500, "StoreError", "A storage error occurred.")
     if isinstance(exc, AuditError):

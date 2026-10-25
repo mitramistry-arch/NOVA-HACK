@@ -28,13 +28,14 @@ from nova.core.config import get_settings
 from nova.core.schemas import DecisionAction, Verdict
 from nova.core.tenant import DEFAULT_TENANT, validate_tenant_id
 from nova.security.redact import redact
-from nova.store.base import StoreError
+from nova.store.base import StoreError, StoreLimitError
 from nova.store.database import Database, SqliteDatabase
+from nova.store.limits import MAX_RECENT_AUDIT_ROWS
 from nova.store.schema import migrate
 from nova.store.timeutil import format_ts, parse_ts
 
 MAX_TEXT = 2000
-MAX_RECENT = 1000
+MAX_RECENT = MAX_RECENT_AUDIT_ROWS  # single bound shared with the store limits
 
 _COLS = (
     "id, timestamp, question, answer, retrieved_ids, verdicts, decision_action, "
@@ -148,15 +149,17 @@ class SqlAuditStore:
         return rows[0] if rows else None
 
     def recent(self, n: int = 20) -> list[AuditRecord]:
-        """Return up to n of this tenant's records, newest first."""
+        """Return up to n of this tenant's records, newest first (bounded, never unbounded)."""
         if n <= 0:
             return []
+        if n > MAX_RECENT_AUDIT_ROWS:
+            raise StoreLimitError(MAX_RECENT_AUDIT_ROWS)
         order = self.db.order_column
         sql = (
             f"SELECT {_COLS} FROM audit_log WHERE tenant_id = ? "
             f"ORDER BY timestamp DESC, {order} DESC LIMIT ?"
         )
-        return self._query(sql, (self.tenant_id, min(n, MAX_RECENT)))
+        return self._query(sql, (self.tenant_id, n))
 
     def purge_older_than(self, cutoff: datetime) -> int:
         """Delete this tenant's records older than ``cutoff``; returns the number removed."""
@@ -167,6 +170,13 @@ class SqlAuditStore:
             )
         except StoreError as e:
             raise AuditError(f"Failed to purge audit log: {e}") from e
+
+    def count(self) -> int:
+        """Return how many audit records this tenant has."""
+        rows = self.db.query(
+            "SELECT COUNT(*) AS c FROM audit_log WHERE tenant_id = ?", (self.tenant_id,)
+        )
+        return int(rows[0]["c"])
 
     def delete_all(self) -> int:
         """Erase this tenant's entire audit log; returns the number removed."""

@@ -4,7 +4,7 @@ import logging
 import threading
 from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
@@ -101,6 +101,15 @@ def get_tenant(
     return resolve_tenant(get_settings(), x_api_key, x_tenant_id)
 
 
+def get_actor(request: Request) -> str:
+    """Return a non-secret label for who is acting: session subject, else the tenant API key."""
+    principal = getattr(request.state, "principal", None)
+    subject = getattr(principal, "subject", None)
+    if isinstance(subject, str) and subject.strip():
+        return f"session:{subject.strip()}"[:200]
+    return "tenant_api_key"
+
+
 def get_anchor(tenant: Annotated[str, Depends(get_tenant)]) -> Iterator[Anchor]:
     """Yield a tenant-scoped Anchor and release its connections after the response."""
     with get_runtime().anchor_for(tenant) as anchor:
@@ -190,6 +199,7 @@ def create_app() -> FastAPI:
         return _handle(request, exc)
 
     Tenant = Annotated[str, Depends(get_tenant)]
+    Actor = Annotated[str, Depends(get_actor)]
     AnchorDep = Annotated[Anchor, Depends(get_anchor)]
 
     @application.post("/ingest", response_model=IngestReport)
@@ -271,15 +281,36 @@ def create_app() -> FastAPI:
     def data_export(
         tenant: Tenant, limit: Annotated[int, Query(ge=1, le=10_000)] = 10_000
     ) -> dict[str, object]:
+        """Export this tenant's records (bounded; the response says whether it was truncated)."""
         return get_runtime().storage.export(tenant, limit)
 
     @application.delete("/data")
-    def data_delete(tenant: Tenant, confirm: str = "") -> dict[str, int]:
+    def data_delete(
+        tenant: Tenant,
+        actor: Actor,
+        confirm: str = "",
+        scope: Literal["records", "account"] = "records",
+        retain_receipt: bool = True,
+    ) -> dict[str, object]:
+        """Erase tenant data. ``records`` keeps a content-free receipt; ``account`` purges them."""
         if confirm != DELETE_CONFIRMATION:
             raise PublicError(
                 400, "confirmation_required", f"Pass confirm={DELETE_CONFIRMATION} to delete data."
             )
-        return get_runtime().storage.delete_data(tenant)
+        return get_runtime().storage.purge(
+            tenant,
+            scope=scope,
+            actor=actor,
+            request_id=current_request_id(),
+            retain_receipt=retain_receipt,
+        )
+
+    @application.get("/data/deletions")
+    def data_deletions(
+        tenant: Tenant, limit: Annotated[int, Query(ge=1, le=200)] = 20
+    ) -> list[dict[str, object]]:
+        """List this tenant's deletion receipts: counts and actor only, never deleted content."""
+        return get_runtime().storage.receipts(tenant, limit)
 
     # ---- health -------------------------------------------------------------------------
     @application.get("/healthz")

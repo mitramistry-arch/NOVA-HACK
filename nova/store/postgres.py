@@ -15,11 +15,11 @@ from nova.security.net import UnsafeEndpointError, resolve_public_address
 from nova.security.redact import redact
 from nova.store.base import StorageUnavailableError, StoreError
 from nova.store.database import Database, Row
-from nova.store.schema import SCHEMA_VERSION, migrate
+from nova.store.schema import POSTGRES_SCHEMA_VERSION, SCHEMA_VERSION, migrate
 
 logger = logging.getLogger("nova.store.postgres")
 
-PG_SCHEMA_VERSION = 1
+PG_SCHEMA_VERSION = POSTGRES_SCHEMA_VERSION
 SslMode = Literal["require", "verify-ca", "verify-full"]
 
 
