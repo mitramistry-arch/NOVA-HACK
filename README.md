@@ -35,7 +35,11 @@ Frontend checks were re-measured in an environment with package-registry access:
 therefore stops before the built-asset check. There is still no committed `frontend/package-lock.json`
 and Playwright has not been executed. Phase 5 is not release-ready. Hosted browser deployment also
 requires a trusted same-origin BFF/session layer that maps an authenticated user to a tenant-specific
-backend credential. No server API key may be exposed to the browser. See
+backend credential. No server API key may be exposed to the browser. That layer now exists in source
+(Phase 2): set `NOVA_IDENTITY_MODE=oidc` to mount `/api/bff` with vendor-neutral OIDC sign-in,
+opaque sessions, CSRF protection, and role-based tenant authorization. It is inert by default and
+requires deployment-specific identity configuration before it can be used; see
+[`docs/browser-identity-bff.md`](docs/browser-identity-bff.md). See
 [`docs/production-readiness-matrix.md`](docs/production-readiness-matrix.md) for the measured baseline
 and the per-phase gap map.
 

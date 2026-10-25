@@ -15,6 +15,9 @@ from nova.core.config import Settings
 from nova.core.llm import LLMClient
 from nova.core.tenant import DEFAULT_TENANT, InvalidTenantError, validate_tenant_id
 from nova.extraction.extractor import LLMExtractor
+from nova.identity.config import IdentitySettings
+from nova.identity.service import IdentityService, backend_credentials
+from nova.identity.session import SessionStore
 from nova.pipeline import Anchor
 from nova.providers.service import ProviderService
 from nova.retrieval.embedder import HashEmbedder
@@ -68,9 +71,12 @@ class Runtime:
         *,
         transport: httpx.BaseTransport | None = None,
         connect_fn: Any = None,
+        identity_settings: IdentitySettings | None = None,
     ) -> None:
-        """Open the control store and build the provider and storage services."""
+        """Open the control store and build the provider, storage, and identity services."""
         self.settings = settings
+        self.identity_settings = identity_settings or IdentitySettings.from_env()
+        self.identity: IdentityService | None = None
         cipher: AesGcmCipher | None = None
         if settings.encryption_key:
             try:
@@ -81,9 +87,33 @@ class Runtime:
         try:
             self.providers = ProviderService(self.control, settings, transport=transport)
             self.storage = StorageService(self.control, settings, connect_fn=connect_fn)
+            self.identity = self._build_identity()
         except BaseException:
             self.control.close()
             raise
+
+    def _build_identity(self) -> IdentityService | None:
+        """Build the browser identity service, failing closed when it is misconfigured."""
+        if not self.identity_settings.browser_enabled:
+            return None
+        self.identity_settings.validate_for_environment(self.settings.environment)
+        sessions = SessionStore(
+            self.control.db,
+            absolute_ttl=self.identity_settings.absolute_ttl,
+            idle_ttl=self.identity_settings.idle_ttl,
+        )
+        logger.info(
+            "browser identity enabled",
+            extra={
+                "issuer": self.identity_settings.issuer,
+                "cookie_secure": self.identity_settings.cookie_secure,
+            },
+        )
+        return IdentityService(
+            self.identity_settings,
+            sessions,
+            tenant_credentials=backend_credentials(self.settings),
+        )
 
     def close(self) -> None:
         """Release the control database connection."""
@@ -107,6 +137,12 @@ class Runtime:
         except StoreError:
             checks["storage"] = "fail"
         return checks
+
+    def purge_expired_sessions(self, now: datetime | None = None) -> int:
+        """Delete expired and revoked browser sessions from the control store."""
+        if self.identity is None:
+            return 0
+        return self.identity.sessions.purge_expired()
 
     def purge_expired_audit(self, now: datetime | None = None) -> int:
         """Prune expired audit records in shared SQLite and configured tenant stores."""

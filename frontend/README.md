@@ -32,7 +32,9 @@ For local development only, the Vite Node process can add `X-API-Key` from its o
 
 ## Hosted deployment and authentication
 
-The backend uses static API-key authentication, not browser sessions. **Do not set `VITE_API_KEY`, put keys in local/session storage, or include deployment API keys in client JavaScript or source maps.** A hosted frontend must be behind a trusted same-origin backend-for-frontend/reverse proxy that authenticates the user with a real session and maps that identity to an authorized tenant-specific backend credential. The proxy must not trust a client-supplied `X-Tenant-ID`; tenant mapping is server-side. Until that deployment layer exists, a browser-facing production deployment is not supported.
+The backend uses static API-key authentication, not browser sessions. **Do not set `VITE_API_KEY`, put keys in local/session storage, or include deployment API keys in client JavaScript or source maps.** A hosted frontend must be behind a trusted same-origin backend-for-frontend/reverse proxy that authenticates the user with a real session and maps that identity to an authorized tenant-specific backend credential. The proxy must not trust a client-supplied `X-Tenant-ID`; tenant mapping is server-side.
+
+The backend now provides that boundary in source (Phase 2): with `NOVA_IDENTITY_MODE=oidc` it mounts `/api/bff/*` with OIDC sign-in, `__Host-` opaque session cookies, CSRF checks, and per-role tenant authorization. See [`../docs/browser-identity-bff.md`](../docs/browser-identity-bff.md). It stays inert until an operator configures an identity provider, and this frontend still calls `/api/*`; switching its API root to `/api/bff` is Phase 7 wiring. Until that is done and reviewed, a browser-facing production deployment is not supported.
 
 Set the public API base URL through the server/reverse-proxy routing, not a secret. Requests use same-origin credentials and `/api` paths; no API key is accepted by frontend code.
 

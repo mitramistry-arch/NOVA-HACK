@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, StrictBool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from nova.api.bff import build_bff_router
 from nova.api.errors import PublicError, map_exception
 from nova.api.limits import MAX_MESSAGES, Answer, Identifier, Question
 from nova.api.middleware import BodyLimitMiddleware, RequestContextMiddleware, current_request_id
@@ -20,6 +21,8 @@ from nova.audit.logger import AuditError, AuditRecord
 from nova.core.config import configure_logging, get_settings
 from nova.core.schemas import Decision, IngestReport, Message
 from nova.extraction.extractor import ExtractionError
+from nova.identity.config import IdentitySettings
+from nova.identity.errors import IdentityError
 from nova.pipeline import Anchor
 from nova.providers.config import ConnectionTestResult, ProviderConfigRequest, ProviderStatus
 from nova.providers.errors import ProviderError
@@ -68,13 +71,16 @@ def get_runtime() -> Runtime:
     """Return the shared Runtime, rebuilding it if the environment configuration changed."""
     settings = get_settings()
     settings.validate_supported()
+    identity_settings = IdentitySettings.from_env()
     with _runtime_lock:
         current = _state.get("runtime")
-        if current is not None and current.settings != settings:
+        if current is not None and (
+            current.settings != settings or current.identity_settings != identity_settings
+        ):
             current.close()
             current = None
         if current is None:
-            current = Runtime(settings)
+            current = Runtime(settings, identity_settings=identity_settings)
             _state["runtime"] = current
         return current
 
@@ -132,12 +138,20 @@ def create_app() -> FastAPI:
         except (StoreError, AuditError):
             logger.warning("audit retention purge failed at startup", exc_info=True)
         try:
+            runtime.purge_expired_sessions()
+        except StoreError:
+            logger.warning("expired session purge failed at startup", exc_info=True)
+        try:
             yield
         finally:
             close_runtime()
 
     application = FastAPI(title="Nova API Gateway", lifespan=lifespan)
     settings = get_settings()
+    identity_settings = IdentitySettings.from_env()
+    if identity_settings.browser_enabled:
+        identity_settings.validate_for_environment(settings.environment)
+        application.include_router(build_bff_router(), prefix="/api")
     application.add_middleware(BodyLimitMiddleware, max_bytes=settings.max_body_bytes)
     application.add_middleware(RequestContextMiddleware)
 
@@ -152,6 +166,7 @@ def create_app() -> FastAPI:
         AuditError,
         EmbeddingError,
         RetrievalError,
+        IdentityError,
         NotImplementedError,
     ):
         application.add_exception_handler(exc_type, _handle)
