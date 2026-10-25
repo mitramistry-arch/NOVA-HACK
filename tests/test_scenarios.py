@@ -126,7 +126,21 @@ def test_builder_paraphrased() -> None:
     assert case.expected.action == DecisionAction.ANSWER
 
     source_msg = next(m for s in case.sessions for m in s if m.id == case.expected.source_msg_id)
-    stopwords = {"which", "what", "is", "the", "a", "an", "for", "in", "on", "at", "to", "of", "and"}
+    stopwords = {
+        "which",
+        "what",
+        "is",
+        "the",
+        "a",
+        "an",
+        "for",
+        "in",
+        "on",
+        "at",
+        "to",
+        "of",
+        "and",
+    }
     planted_words = {w.lower().strip(".,?!") for w in source_msg.text.split()} - stopwords
     question_words = {w.lower().strip(".,?!") for w in case.question.split()} - stopwords
     overlap = planted_words & question_words

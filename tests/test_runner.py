@@ -26,7 +26,13 @@ def _make_case(
     msgs = [
         Message(id=planted_id, session_id="s1", role="user", text=text, timestamp=now),
         *[
-            Message(id=f"fill_{case_id}_{i}", session_id="s1", role="user", text=f"Neutral {i}.", timestamp=now)
+            Message(
+                id=f"fill_{case_id}_{i}",
+                session_id="s1",
+                role="user",
+                text=f"Neutral {i}.",
+                timestamp=now,
+            )
             for i in range(3)
         ],
     ]
@@ -38,7 +44,9 @@ def _make_case(
         context_dropped=context_dropped,
         question="What is the database?",
         expected=Expected(
-            action=DecisionAction.ANSWER if scenario != Scenario.UNANSWERABLE else DecisionAction.ABSTAIN,
+            action=DecisionAction.ANSWER
+            if scenario != Scenario.UNANSWERABLE
+            else DecisionAction.ABSTAIN,
             key_fact=key_fact,
             source_msg_id=planted_id if key_fact else None,
         ),
@@ -46,6 +54,7 @@ def _make_case(
 
 
 # ─── CachingLLM ──────────────────────────────────────────────────────────────
+
 
 def test_caching_llm_writes_and_reads_cache(tmp_path: Path) -> None:
     """Verify CachingLLM writes response to disk and returns it on second call."""
@@ -90,6 +99,7 @@ def test_caching_llm_different_prompts_separate_files(tmp_path: Path) -> None:
 
 # ─── _filter_cases ───────────────────────────────────────────────────────────
 
+
 def test_filter_cases_dev(tmp_path: Path) -> None:
     """Verify filter returns only dev cases when split='dev'."""
     cases = [
@@ -112,6 +122,7 @@ def test_filter_cases_none_returns_all(tmp_path: Path) -> None:
 
 
 # ─── run_benchmark outputs ───────────────────────────────────────────────────
+
 
 def test_run_benchmark_writes_csv_and_markdown(tmp_path: Path) -> None:
     """Verify run_benchmark writes results.csv, summary.md, and failures.md."""
@@ -152,9 +163,16 @@ def test_results_csv_has_expected_columns(tmp_path: Path) -> None:
         headers = reader.fieldnames or []
 
     required = {
-        "case_id", "scenario", "split", "system",
-        "expected_action", "got_action", "answer",
-        "latency_ms", "prompt_tokens", "completion_tokens",
+        "case_id",
+        "scenario",
+        "split",
+        "system",
+        "expected_action",
+        "got_action",
+        "answer",
+        "latency_ms",
+        "prompt_tokens",
+        "completion_tokens",
     }
     assert required.issubset(set(headers))
 

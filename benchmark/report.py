@@ -104,19 +104,39 @@ def _collect_failures(
                 "retrieved_ids": result.retrieved_ids[:5],
             }
 
-            if case.scenario == Scenario.BURIED_FACT and not check_correctness(case, result) and len(failures["missed_buried_fact"]) < max_per_cat:
+            if (
+                case.scenario == Scenario.BURIED_FACT
+                and not check_correctness(case, result)
+                and len(failures["missed_buried_fact"]) < max_per_cat
+            ):
                 failures["missed_buried_fact"].append(base)
 
-            if case.scenario == Scenario.DECISION_REVERSED and not check_correctness(case, result) and len(failures["missed_reversal"]) < max_per_cat:
+            if (
+                case.scenario == Scenario.DECISION_REVERSED
+                and not check_correctness(case, result)
+                and len(failures["missed_reversal"]) < max_per_cat
+            ):
                 failures["missed_reversal"].append(base)
 
-            if case.scenario == Scenario.UNANSWERABLE and action != "abstain" and len(failures["false_abstain"]) < max_per_cat:
+            if (
+                case.scenario == Scenario.UNANSWERABLE
+                and action != "abstain"
+                and len(failures["false_abstain"]) < max_per_cat
+            ):
                 failures["false_abstain"].append(base)
 
-            if case.scenario == Scenario.CONTRADICTING_DRAFT and action not in ("flag_conflict", "correct") and len(failures["missed_contradiction"]) < max_per_cat:
+            if (
+                case.scenario == Scenario.CONTRADICTING_DRAFT
+                and action not in ("flag_conflict", "correct")
+                and len(failures["missed_contradiction"]) < max_per_cat
+            ):
                 failures["missed_contradiction"].append(base)
 
-            if case.scenario == Scenario.VALID_ANSWER and action != "answer" and len(failures["false_warning"]) < max_per_cat:
+            if (
+                case.scenario == Scenario.VALID_ANSWER
+                and action != "answer"
+                and len(failures["false_warning"]) < max_per_cat
+            ):
                 failures["false_warning"].append(base)
 
             if (
@@ -147,9 +167,13 @@ def write_report(
     run_dir = Path(run_dir)
 
     lines = ["# Benchmark Summary\n"]
-    lines.append(f"- **Seed**: {seed}  **n**: {n}  **split**: {split or 'all'}  **llm**: {llm_mode}")
+    lines.append(
+        f"- **Seed**: {seed}  **n**: {n}  **split**: {split or 'all'}  **llm**: {llm_mode}"
+    )
     if llm_mode.startswith("fake"):
-        lines.append("- **Note**: FAKE LLM responses. These numbers are NOT a real-model evaluation.")
+        lines.append(
+            "- **Note**: FAKE LLM responses. These numbers are NOT a real-model evaluation."
+        )
     if limit:
         lines.append(f"  **limit**: {limit}")
     lines.append("")
@@ -243,7 +267,9 @@ def write_report(
         fail_lines.append(f"Total shown: {len(items)}\n")
         for entry in items:
             fail_lines.append(f"- **case_id**: `{entry['case_id']}`  system=`{entry['system']}`")
-            fail_lines.append(f"  - expected: `{entry['expected_key_fact']}` (action={entry['expected_action']})")
+            fail_lines.append(
+                f"  - expected: `{entry['expected_key_fact']}` (action={entry['expected_action']})"
+            )
             fail_lines.append(f"  - got: `{entry['answer'][:120]}` (action={entry['got_action']})")
             if entry["retrieved_ids"]:
                 ids_str = ", ".join(f"`{i}`" for i in entry["retrieved_ids"])

@@ -207,7 +207,9 @@ def resolve_tenant(settings: Settings, api_key: str | None, tenant_header: str |
     try:
         settings.validate_auth_configuration()
     except ValueError as exc:
-        raise PublicError(503, "auth_not_configured", "API authentication is not safely configured.") from exc
+        raise PublicError(
+            503, "auth_not_configured", "API authentication is not safely configured."
+        ) from exc
 
     supplied = api_key or ""
     if settings.tenant_api_keys:
@@ -223,7 +225,9 @@ def resolve_tenant(settings: Settings, api_key: str | None, tenant_header: str |
         if not hmac.compare_digest(settings.api_key.encode(), supplied.encode()):
             raise PublicError(401, "unauthorized", "Invalid or missing API key")
         if tenant_header and tenant_header != DEFAULT_TENANT:
-            raise PublicError(403, "tenant_key_mismatch", "This API key is restricted to the default tenant.")
+            raise PublicError(
+                403, "tenant_key_mismatch", "This API key is restricted to the default tenant."
+            )
         return DEFAULT_TENANT
 
     try:

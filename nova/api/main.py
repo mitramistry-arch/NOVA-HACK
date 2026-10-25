@@ -131,7 +131,9 @@ def create_app() -> FastAPI:
         settings.validate_supported()
         configure_logging(settings)
         if not settings.api_key and not settings.tenant_api_keys:
-            logger.warning("Nova API is running without authentication in %s mode", settings.environment)
+            logger.warning(
+                "Nova API is running without authentication in %s mode", settings.environment
+            )
         runtime = get_runtime()
         try:
             runtime.purge_expired_audit()

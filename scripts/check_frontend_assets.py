@@ -53,12 +53,20 @@ def check_assets(root: str | Path, *, environment: dict[str, str] | None = None)
             continue
         relative_path = path.relative_to(directory)
         if API_KEY_HEADER.search(content):
-            errors.append(f"browser bundle must not set or mention a server API-key header: {relative_path}")
+            errors.append(
+                f"browser bundle must not set or mention a server API-key header: {relative_path}"
+            )
         if BROWSER_STORAGE_WRITE.search(content):
-            errors.append(f"browser bundle must not persist credentials or user content in browser storage: {relative_path}")
+            errors.append(
+                "browser bundle must not persist credentials or user content in "
+                f"browser storage: {relative_path}"
+            )
         for secret in secrets:
             if secret in content:
-                errors.append(f"a configured secret value appears in a frontend asset: {path.relative_to(directory)}")
+                errors.append(
+                    "a configured secret value appears in a frontend asset: "
+                    f"{path.relative_to(directory)}"
+                )
                 break
     return errors
 
@@ -66,7 +74,10 @@ def check_assets(root: str | Path, *, environment: dict[str, str] | None = None)
 def main(argv: list[str] | None = None) -> int:
     args = sys.argv[1:] if argv is None else argv
     if len(args) != 1:
-        print("Usage: python scripts/check_frontend_assets.py <frontend-dist-directory>", file=sys.stderr)
+        print(
+            "Usage: python scripts/check_frontend_assets.py <frontend-dist-directory>",
+            file=sys.stderr,
+        )
         return 2
     errors = check_assets(args[0])
     if errors:

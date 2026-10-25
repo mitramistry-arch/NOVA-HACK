@@ -67,9 +67,7 @@ def validate_verdict(
     counts = Counter(memory.id for memory in memories)
     by_id = {memory.id: memory for memory in memories if counts[memory.id] == 1}
     cited = [
-        by_id[memory_id]
-        for memory_id in dict.fromkeys(verdict.memory_ids)
-        if memory_id in by_id
+        by_id[memory_id] for memory_id in dict.fromkeys(verdict.memory_ids) if memory_id in by_id
     ]
 
     if verdict.label is VerdictLabel.UNSUPPORTED:

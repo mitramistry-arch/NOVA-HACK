@@ -35,16 +35,12 @@ def test_production_requires_encryption_key() -> None:
 
 
 def test_production_accepts_strong_key_and_valid_encryption() -> None:
-    settings = Settings(
-        environment="production", api_key="a" * 40, encryption_key=generate_key()
-    )
+    settings = Settings(environment="production", api_key="a" * 40, encryption_key=generate_key())
     settings.validate_supported()
 
 
 def test_shared_and_tenant_specific_keys_are_mutually_exclusive() -> None:
-    settings = Settings(
-        environment="test", api_key="shared", tenant_api_keys={"key": "tenant-a"}
-    )
+    settings = Settings(environment="test", api_key="shared", tenant_api_keys={"key": "tenant-a"})
     with pytest.raises(ConfigError, match="either"):
         settings.validate_auth_configuration()
 
@@ -72,15 +68,15 @@ def test_parse_tenant_key_map_and_reject_duplicates() -> None:
 
 
 @pytest.mark.parametrize("raw", ["maybe", "2", "enabled", "Falsey"])
-def test_boolean_environment_parser_is_strict(
-    monkeypatch: pytest.MonkeyPatch, raw: str
-) -> None:
+def test_boolean_environment_parser_is_strict(monkeypatch: pytest.MonkeyPatch, raw: str) -> None:
     monkeypatch.setenv("TEST_BOOL", raw)
     with pytest.raises(ConfigError, match="boolean"):
         _env_bool("TEST_BOOL")
 
 
-def test_boolean_environment_parser_accepts_explicit_values(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_boolean_environment_parser_accepts_explicit_values(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.setenv("TEST_BOOL", "off")
     assert _env_bool("TEST_BOOL", True) is False
     monkeypatch.setenv("TEST_BOOL", "YES")

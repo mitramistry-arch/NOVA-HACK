@@ -20,7 +20,9 @@ def _addr(ip: str) -> tuple[Any, ...]:
     return (socket.AF_INET, socket.SOCK_STREAM, 6, "", (ip, 0))
 
 
-def test_dns_resolution_is_single_snapshot_and_deduplicated(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_dns_resolution_is_single_snapshot_and_deduplicated(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     """Only one DNS snapshot is used to create the vetted socket-address list."""
     calls: list[str] = []
 

@@ -186,7 +186,8 @@ def _migrate_sqlite_v2(db: Database) -> None:
             " verdicts, decision_action, latency_ms, prompt_tokens, completion_tokens)"
             " SELECT ?, id, timestamp, question, answer, retrieved_ids, verdicts, decision_action,"
             " latency_ms,"
-            " CASE WHEN prompt_tokens = 0 AND completion_tokens = 0 THEN NULL ELSE prompt_tokens END,"
+            " CASE WHEN prompt_tokens = 0 AND completion_tokens = 0 THEN NULL"
+            " ELSE prompt_tokens END,"
             " CASE WHEN prompt_tokens = 0 AND completion_tokens = 0 THEN NULL"
             " ELSE completion_tokens END FROM audit_log_legacy",
             (DEFAULT_TENANT,),

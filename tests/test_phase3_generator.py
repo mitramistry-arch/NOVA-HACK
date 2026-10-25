@@ -105,7 +105,9 @@ def test_compute_context_dropped_boundaries() -> None:
     now = datetime(2026, 10, 1, tzinfo=UTC)
     from nova.core.schemas import Message
 
-    msgs = [Message(id=f"m{i}", session_id="s", role="user", text="t", timestamp=now) for i in range(30)]
+    msgs = [
+        Message(id=f"m{i}", session_id="s", role="user", text="t", timestamp=now) for i in range(30)
+    ]
     assert compute_context_dropped([msgs], "m10") is False
     assert compute_context_dropped([msgs], "m9") is True
     assert compute_context_dropped([msgs], None) is False
@@ -186,7 +188,9 @@ class _Retriever:
 
 
 class _OutdatedJudge:
-    def judge_claims(self, question: str, claims: list[str], memories: list[Memory]) -> list[Verdict]:
+    def judge_claims(
+        self, question: str, claims: list[str], memories: list[Memory]
+    ) -> list[Verdict]:
         return [Verdict(claim=c, label=VerdictLabel.OUTDATED, memory_ids=["old"]) for c in claims]
 
 
@@ -206,7 +210,10 @@ def _verifier(llm: FakeLLM | None = None) -> tuple[AnchorVerifier, _Retriever]:
 def test_current_question_flags_old_value_as_outdated() -> None:
     """Without the historical flag, a superseded value is corrected."""
     verifier, _ = _verifier()
-    assert verifier.verify("What is the database?", "It is MySQL 8.4.").action is DecisionAction.CORRECT
+    assert (
+        verifier.verify("What is the database?", "It is MySQL 8.4.").action
+        is DecisionAction.CORRECT
+    )
 
 
 def test_historical_question_accepts_superseded_value() -> None:

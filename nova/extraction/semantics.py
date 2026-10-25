@@ -56,7 +56,9 @@ _PRE_REPLACED = re.compile(
     r"switch(?:ed)? (?:away )?from|migrat(?:e|ed|ing) (?:away )?from|"
     r"mov(?:e|ed|ing) (?:away )?from|away from|out of)\b((?:\s+[a-z0-9']+){0,3})\s*$"
 )
-_REPLACED_BREAKERS = frozenset("with by for over to and but then into in".split())
+_REPLACED_BREAKERS = frozenset(
+    ["with", "by", "for", "over", "to", "and", "but", "then", "into", "in"]
+)
 _POST_NEGATOR = re.compile(
     r"^\s*(?:(?:is|are|was|were|will be|would be|be|been|has been|have been)\s+"
     r"(?:not|never|no longer|deprecated|dropped|removed|abandoned|out|rejected|ruled out|"

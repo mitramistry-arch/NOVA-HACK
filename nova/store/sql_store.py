@@ -301,7 +301,7 @@ class SqlMemoryStore:
         return rows[0] if rows else None
 
     def link_chain(self, ordered_ids: list[str]) -> int:
-        """Make ``ordered_ids`` one chain: each supersedes its predecessor; only the last is current.
+        """Chain ``ordered_ids``: each supersedes its predecessor; only the last is current.
 
         The ids must be the complete chain for one subject in strictly ascending
         (timestamp, id) order. Returns the number of supersession links newly created.

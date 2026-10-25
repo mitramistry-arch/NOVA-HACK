@@ -18,10 +18,12 @@ DOMAINS: list[dict] = [
         "wrong_value": "MongoDB 7.0",
         "planted_template": "We confirmed that the primary database is {value}.",
         "old_template": "We initially decided that the primary database is {value}.",
-        "reversed_template": "Correction: we reversed that decision, so the primary database is now {value}.",
+        "reversed_template": "Correction: we reversed that decision, so the primary database "
+        "is now {value}.",
         "question": "What is the primary database?",
         "current_question": "What is the current primary database?",
-        "cross_session_question": "What was confirmed as the primary database in the earlier discussion?",
+        "cross_session_question": "What was confirmed as the primary database in the earlier "
+        "discussion?",
         "paraphrase_planted": "The engineering team chose {value} for the main persistence layer.",
         "paraphrase_question": "Which relational engine stores core records?",
         "distractors": [
@@ -39,11 +41,14 @@ DOMAINS: list[dict] = [
         "wrong_value": "7070",
         "planted_template": "We agreed that the telemetry port is {value}.",
         "old_template": "We initially designated the telemetry port as {value}.",
-        "reversed_template": "Correction: we reversed that choice, and the telemetry port is now {value}.",
+        "reversed_template": "Correction: we reversed that choice, and the telemetry port is "
+        "now {value}.",
         "question": "What is the telemetry port?",
         "current_question": "What is the current telemetry port?",
-        "cross_session_question": "What was agreed as the telemetry port in the earlier discussion?",
-        "paraphrase_planted": "Network engineers bound {value} for incoming diagnostic transmissions.",
+        "cross_session_question": "What was agreed as the telemetry port in the earlier "
+        "discussion?",
+        "paraphrase_planted": "Network engineers bound {value} for incoming diagnostic "
+        "transmissions.",
         "paraphrase_question": "Which socket number listens for remote health signals?",
         "distractors": [
             "The service healthcheck port is set to 8081.",
@@ -60,11 +65,14 @@ DOMAINS: list[dict] = [
         "wrong_value": "Triple-DES",
         "planted_template": "The security review established that the payload cipher is {value}.",
         "old_template": "We initially selected {value} as the payload cipher.",
-        "reversed_template": "Correction: we changed our encryption standard, so the payload cipher is now {value}.",
+        "reversed_template": "Correction: we changed our encryption standard, so the payload "
+        "cipher is now {value}.",
         "question": "What is the payload cipher?",
         "current_question": "What is the current payload cipher?",
-        "cross_session_question": "What was established as the payload cipher in the earlier discussion?",
-        "paraphrase_planted": "Cryptographic policy mandates {value} across outbound wire envelopes.",
+        "cross_session_question": "What was established as the payload cipher in the earlier "
+        "discussion?",
+        "paraphrase_planted": "Cryptographic policy mandates {value} across outbound wire "
+        "envelopes.",
         "paraphrase_question": "Which symmetric standard protects binary packet payloads?",
         "distractors": [
             "The digest calculation uses SHA3-512 for checksums.",
@@ -81,10 +89,12 @@ DOMAINS: list[dict] = [
         "wrong_value": "temp-scratch-bucket",
         "planted_template": "We decided that the archive bucket is {value}.",
         "old_template": "We previously specified the archive bucket as {value}.",
-        "reversed_template": "Correction: we updated our cloud config, and the archive bucket is now {value}.",
+        "reversed_template": "Correction: we updated our cloud config, and the archive bucket "
+        "is now {value}.",
         "question": "What is the archive bucket?",
         "current_question": "What is the current archive bucket?",
-        "cross_session_question": "What was designated as the archive bucket in the earlier discussion?",
+        "cross_session_question": "What was designated as the archive bucket in the earlier "
+        "discussion?",
         "paraphrase_planted": "All quarterly snapshots migrate to storage target {value}.",
         "paraphrase_question": "Where are dormant historical backups preserved remotely?",
         "distractors": [
@@ -92,7 +102,11 @@ DOMAINS: list[dict] = [
             "Raw application audit logs stream to nova-audit-logs-eu.",
             "Nightly database dumps are staged in nova-db-backups-daily.",
         ],
-        "distractor_values": ["nova-static-assets-us", "nova-audit-logs-eu", "nova-db-backups-daily"],
+        "distractor_values": [
+            "nova-static-assets-us",
+            "nova-audit-logs-eu",
+            "nova-db-backups-daily",
+        ],
     },
     {
         "subject": "auth_token_format",
@@ -102,12 +116,16 @@ DOMAINS: list[dict] = [
         "wrong_value": "OAuth1.0a",
         "planted_template": "The identity team confirmed the auth token format is {value}.",
         "old_template": "We previously decided the auth token format would be {value}.",
-        "reversed_template": "Correction: we updated security requirements; the auth token format is now {value}.",
+        "reversed_template": "Correction: we updated security requirements; the auth token "
+        "format is now {value}.",
         "question": "What is the auth token format?",
         "current_question": "What is the current auth token format?",
-        "cross_session_question": "What was confirmed as the auth token format in the earlier discussion?",
-        "paraphrase_planted": "Credential issuers sign stateless session credentials using {value}.",
-        "paraphrase_question": "Which cryptographic token scheme verifies client authorization claims?",
+        "cross_session_question": "What was confirmed as the auth token format in the earlier "
+        "discussion?",
+        "paraphrase_planted": "Credential issuers sign stateless session credentials using "
+        "{value}.",
+        "paraphrase_question": "Which cryptographic token scheme verifies client authorization "
+        "claims?",
         "distractors": [
             "The session cookie name is standardized as __Secure-NovaSession.",
             "Client developer API keys use the prefix sk_live_9942a.",
@@ -123,7 +141,8 @@ DOMAINS: list[dict] = [
         "wrong_value": "50 requests per minute",
         "planted_template": "The gateway config sets the API rate limit to {value}.",
         "old_template": "We initially capped the API rate limit at {value}.",
-        "reversed_template": "Correction: we adjusted gateway capacity; the API rate limit is now {value}.",
+        "reversed_template": "Correction: we adjusted gateway capacity; the API rate limit is "
+        "now {value}.",
         "question": "What is the API rate limit?",
         "current_question": "What is the current API rate limit?",
         "cross_session_question": "What was set as the API rate limit in the earlier discussion?",
@@ -148,12 +167,16 @@ DOMAINS: list[dict] = [
         "wrong_value": "100 milliseconds",
         "planted_template": "The client config establishes that the downstream timeout is {value}.",
         "old_template": "We initially agreed the downstream timeout is {value}.",
-        "reversed_template": "Correction: we revised the latency budget, so the downstream timeout is now {value}.",
+        "reversed_template": "Correction: we revised the latency budget, so the downstream "
+        "timeout is now {value}.",
         "question": "What is the downstream timeout?",
         "current_question": "What is the current downstream timeout?",
-        "cross_session_question": "What was established as the downstream timeout in the earlier discussion?",
-        "paraphrase_planted": "Socket callers abort unanswered remote procedure calls after {value}.",
-        "paraphrase_question": "What duration threshold triggers an egress request deadline cancellation?",
+        "cross_session_question": "What was established as the downstream timeout in the "
+        "earlier discussion?",
+        "paraphrase_planted": "Socket callers abort unanswered remote procedure calls after "
+        "{value}.",
+        "paraphrase_question": "What duration threshold triggers an egress request deadline "
+        "cancellation?",
         "distractors": [
             "The initial TCP handshake connection timeout is 150 milliseconds.",
             "The top-level edge gateway timeout is set to 5000 milliseconds.",
@@ -217,26 +240,27 @@ def validate_case(case: Case) -> None:
             all_msgs.append(msg)
 
     if case.expected.source_msg_id is not None and case.expected.source_msg_id not in msg_ids:
-        raise ValueError(
-            f"source_msg_id {case.expected.source_msg_id} not found in case {case.id}"
-        )
+        raise ValueError(f"source_msg_id {case.expected.source_msg_id} not found in case {case.id}")
 
     if case.expected.key_fact is not None:
         key_fact_lower = case.expected.key_fact.lower()
         containing_msg_ids = [m.id for m in all_msgs if key_fact_lower in m.text.lower()]
         if not containing_msg_ids:
             raise ValueError(
-                f"key_fact '{case.expected.key_fact}' does not appear in any message for case {case.id}"
+                f"key_fact '{case.expected.key_fact}' does not appear in any message for case "
+                f"{case.id}"
             )
         if case.expected.source_msg_id is not None:
             if case.expected.source_msg_id not in containing_msg_ids:
                 raise ValueError(
-                    f"key_fact '{case.expected.key_fact}' missing from source_msg_id {case.expected.source_msg_id}"
+                    f"key_fact '{case.expected.key_fact}' missing from source_msg_id "
+                    f"{case.expected.source_msg_id}"
                 )
             for mid in containing_msg_ids:
                 if mid != case.expected.source_msg_id and not mid.startswith("planted_"):
                     raise ValueError(
-                        f"key_fact '{case.expected.key_fact}' leaked in message {mid} for case {case.id}"
+                        f"key_fact '{case.expected.key_fact}' leaked in message {mid} for case "
+                        f"{case.id}"
                     )
 
     expected_dropped = compute_context_dropped(case.sessions, case.expected.source_msg_id)
@@ -266,11 +290,13 @@ def validate_cases(cases: list[Case]) -> None:
     if len(cases) % 2 == 0:
         if dev_count != test_count:
             raise ValueError(
-                f"Dev/test split is not 50/50: {dev_count} dev, {test_count} test out of {len(cases)} cases"
+                f"Dev/test split is not 50/50: {dev_count} dev, {test_count} test out of "
+                f"{len(cases)} cases"
             )
     elif abs(dev_count - test_count) > 1:
         raise ValueError(
-            f"Dev/test split is not 50/50: {dev_count} dev, {test_count} test out of {len(cases)} cases"
+            f"Dev/test split is not 50/50: {dev_count} dev, {test_count} test out of "
+            f"{len(cases)} cases"
         )
 
 
@@ -301,9 +327,7 @@ def generate(
     cases: list[Case] = []
     base_time = datetime(2026, 10, 1, 9, 0, tzinfo=UTC)
     domain_rng = random.Random(seed * 1_000_003 + 17)
-    domain_orders = [
-        domain_rng.sample(range(len(DOMAINS)), len(DOMAINS)) for _ in SCENARIOS
-    ]
+    domain_orders = [domain_rng.sample(range(len(DOMAINS)), len(DOMAINS)) for _ in SCENARIOS]
 
     for i in range(n):
         target_split = Split.DEV if i % 2 == 0 else Split.TEST

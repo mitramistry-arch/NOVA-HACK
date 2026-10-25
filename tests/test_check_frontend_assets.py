@@ -37,7 +37,9 @@ def test_frontend_asset_check_fails_closed_for_missing_output(tmp_path: Path) ->
 
 
 def test_frontend_asset_check_rejects_mixed_case_api_key_header(tmp_path: Path) -> None:
-    root = _write_bundle(tmp_path / "dist", 'fetch("/api", { headers: { "x-Api-Key": "secret" } });')
+    root = _write_bundle(
+        tmp_path / "dist", 'fetch("/api", { headers: { "x-Api-Key": "secret" } });'
+    )
     assert any("API-key header" in error for error in check_assets(root, environment={}))
 
 
