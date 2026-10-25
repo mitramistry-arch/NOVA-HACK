@@ -6,6 +6,18 @@ from dataclasses import dataclass
 from nova.audit.logger import AuditError
 from nova.core.tenant import InvalidTenantError
 from nova.extraction.extractor import ExtractionError
+from nova.identity.errors import (
+    AuthenticationRequired,
+    AuthorizationDenied,
+    CSRFError,
+    IdentityConfigError,
+    IdentityError,
+    IdentityMappingError,
+    OIDCError,
+    OriginRejected,
+    RateLimited,
+    TenantNotProvisioned,
+)
 from nova.providers.errors import (
     ProviderAuthError,
     ProviderBudgetError,
@@ -53,6 +65,18 @@ def map_exception(exc: BaseException) -> Mapped:
     """Translate any exception into a public (status, error, detail); unknowns become 500."""
     if isinstance(exc, PublicError):
         return Mapped(exc.status, exc.error, exc.detail)
+    if isinstance(exc, RateLimited):
+        return Mapped(429, exc.code, exc.public_message)
+    if isinstance(exc, CSRFError | OriginRejected | AuthorizationDenied | IdentityMappingError):
+        return Mapped(403, exc.code, exc.public_message)
+    if isinstance(exc, AuthenticationRequired):
+        return Mapped(401, exc.code, exc.public_message)
+    if isinstance(exc, TenantNotProvisioned | IdentityConfigError):
+        return Mapped(503, exc.code, exc.public_message)
+    if isinstance(exc, OIDCError):
+        return Mapped(502, exc.code, exc.public_message)
+    if isinstance(exc, IdentityError):
+        return Mapped(401, exc.code, exc.public_message)
     if isinstance(exc, ExtractionError):
         return Mapped(422, "ExtractionError", "The AI response could not be turned into memories.")
     if isinstance(exc, VerificationError):

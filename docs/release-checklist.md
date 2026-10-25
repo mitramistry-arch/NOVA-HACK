@@ -19,6 +19,24 @@ source revision and environment intended for release.
 - [ ] Run benchmark smoke test and inspect generated results; do not infer production quality from
       a smoke test alone
 
+## Browser identity and BFF checks (Phase 2)
+
+- [ ] `NOVA_IDENTITY_MODE=oidc` with any required OIDC value missing fails production startup
+- [ ] `NOVA_IDENTITY_MODE=api_key` still serves the API and exposes no `/api/bff/*` route
+- [ ] Sign-in uses authorization code + PKCE; `state` is single use and `nonce` is verified
+- [ ] ID-token signature, issuer, audience, expiry, and `none`-algorithm rejection are exercised
+      against the real provider (not only the fake test provider)
+- [ ] Session cookies are `__Host-`, `Secure`, `HttpOnly`, `SameSite=Lax`, `Path=/`, no `Domain`
+- [ ] Idle (30 min) and absolute (8 h) expiry, logout revocation, and rotation behave as configured
+- [ ] Every mutation rejects a missing/mismatched CSRF token and a foreign `Origin`
+- [ ] A forged `X-Tenant-ID` or `X-API-Key` from the browser has no effect on tenant scope
+- [ ] Two real accounts in two tenants cannot read each other's memories, audit records, or exports
+- [ ] Role denial is enforced for ingest, provider, storage, export, and delete
+- [ ] No backend key, provider key, or session token appears in browser bundles, source maps,
+      logs, local/session storage, or API responses
+- [ ] Edge rate limiting is configured; the in-process limiter is not the only control
+- [ ] `NOVA_IDENTITY_USERS`/`NOVA_IDENTITY_GROUPS` contain only real, reviewed grants
+
 ## Frontend Phase 5 checks
 
 - [ ] `frontend/package-lock.json` is committed and `npm ci` succeeds without modifying the lockfile
@@ -26,7 +44,7 @@ source revision and environment intended for release.
 - [ ] `npm run test:e2e` passes, including the local FastAPI contract smoke test and mobile navigation check
 - [ ] Review desktop and mobile layouts; verify keyboard focus, screen-reader announcements, reduced motion, and verdict labels with text as well as color
 - [ ] Built assets and source maps contain no API keys or credentials; frontend code does not write user content or secrets to local/session storage
-- [ ] Hosted deployment uses a trusted same-origin BFF with real session auth, CSRF protections, and server-side tenant credential mapping; the loopback-only Vite proxy is not exposed publicly
+- [ ] Hosted deployment uses a trusted same-origin BFF with real session auth, CSRF protections, and server-side tenant credential mapping; the loopback-only Vite proxy is not exposed publicly (backend BFF source exists; the frontend still targets `/api` until Phase 7)
 - [ ] UI features map to real API capabilities; no fabricated memory list, activity, analytics, or provider identity is shown
 
 ## Security and deployment checks

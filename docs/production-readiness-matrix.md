@@ -10,6 +10,13 @@ truth** and the disagreement is recorded in §6.
 This document is an honest snapshot, not a certification. A green test suite proves only that the
 tested behaviours hold in one environment. Read §8 before quoting any part of this file.
 
+> **Status update (Phase 2, 2026-10-25).** `SEC-1` — the missing browser identity/BFF boundary — is now
+> implemented and tested in source; `TEST-1` is covered by new HTTP-level isolation tests. The backend
+> suite is now **599 passed** (492 at the Phase 1 baseline plus 107 identity/BFF tests). `CI-1` is still
+> open: the repository-wide `ruff` gate remains red from pre-existing files, although every Phase 2
+> file is lint- and format-clean. See §10 for the exact delta and
+> [`browser-identity-bff.md`](browser-identity-bff.md) for the security model.
+
 ---
 
 ## 1. Baseline: exact commands and outcomes
@@ -159,7 +166,7 @@ phase.
 
 | ID | Gap | Evidence | Depends on | Acceptance criteria | Owner |
 |---|---|---|---|---|---|
-| `SEC-1` | No browser identity, session, or BFF. The only credential is a static deployment API key sent as `X-API-Key`; exposing the current app to a browser means shipping that key to the client. | `api/runtime.py:164-196`; `frontend/src/api.ts:13`; `frontend/README.md` "Hosted deployment"; `frontend/vite.config.ts` proxy comment | — | Authenticated session (secure, HttpOnly, SameSite cookie), CSRF protection, server-side identity→tenant mapping, two-tenant isolation test, no key in browser bundle or storage | **Phase 2** |
+| `SEC-1` | ~~No browser identity, session, or BFF.~~ **Implemented in Phase 2** (`nova/identity/*`, `nova/api/bff.py`). The only credential was a static deployment API key sent as `X-API-Key`; exposing the app to a browser meant shipping that key to the client. | `api/runtime.py:164-196`; `frontend/src/api.ts:13`; `frontend/README.md` "Hosted deployment"; `frontend/vite.config.ts` proxy comment | — | Authenticated session (secure, HttpOnly, SameSite cookie), CSRF protection, server-side identity→tenant mapping, two-tenant isolation test, no key in browser bundle or storage | **Phase 2 — done in source (§10); deployment needs `AD-1`** |
 | `CI-1` | Repository does not satisfy its own PR gate: `ruff check` 87 errors, `ruff format --check` 25 files. | §1.2; `.github/workflows/ci.yml` `lint` job | none (mechanical) | `ruff check .` and `ruff format --check .` both exit 0 with no rule relaxation; no test weakened; landed as one dedicated `chore:` commit so later phase diffs stay reviewable | **Phase 9** (recommend pulling forward before Phase 2) |
 | `FE-2` | Frontend cannot produce a production bundle: `typecheck` fails, so `npm run build` fails before `check:assets`. | §1.2; root cause: `node_modules/vitest/node_modules/vite` **5.4.21** vs root `vite` **6.0.7** — `vitest/config`'s `defineConfig` and `@vitejs/plugin-react` resolve different Vite type identities (`vite.config.ts(30,13)`) | `AD-9` (dependency version policy) | `npm ci` from a committed lockfile; `typecheck`, `lint`, `test`, `build`, `check:assets` all green; bundle scanned for secrets/source maps | **Phase 7** |
 | `FE-3` | Component suite is red and mis-scoped: 3/12 tests fail with "multiple elements" and Vitest collects the Playwright spec. | §1.2; failures at `frontend/tests/App.test.tsx:46,61,71`; `frontend/tsconfig.json:20` includes `e2e` and `vite.config.ts` sets no Vitest `include`/`exclude` | resolution of whether the duplicate element is a UI defect or a stale assertion | Vitest scope excludes `e2e/`; all assertions pass by fixing the real cause, not by loosening queries | **Phase 7** |
@@ -191,7 +198,7 @@ phase.
 | `DOC-5` | The `for_di_arena/` folder the human referenced (target architecture + UI + roadmap) is **not present** in this checkout or in git history. If it exists locally it was never committed. | `find . -iname '*for_di*'` → none; `git log --all --oneline` → single commit | `AD-12` (human) |
 | `DEP-1` | `project.license` uses the legacy TOML table form; the build emits a setuptools deprecation warning with a 2027 deadline. | `pyproject.toml` `license = { text = "Proprietary" }`; build output | Phase 9 |
 | `DEP-2` | `frontend` has no lockfile, so dependency resolution is not reproducible and `npm ci` is impossible. | `frontend/package.json`; no `package-lock.json` | Phase 7 (`FE-1`) |
-| `TEST-1` | `tests/conftest.py` and CI rely on the shared-SQLite default; there is no test asserting that two distinct tenants' memories and audit rows cannot see each other through the HTTP API with two different tenant keys. | `tests/test_api_phase2.py` covers key→tenant mapping and header escalation, not full two-tenant data isolation through `/ingest` + `/ask` + `/audit/{id}` | Phase 2 (natural home, since it owns the auth path) |
+| `TEST-1` | ~~No test asserting two-tenant isolation through the HTTP API.~~ **Covered in Phase 2** by `tests/test_identity_bff.py` (two BFF sessions, separate tenants, memories + audit + export). | `tests/test_api_phase2.py` covers key→tenant mapping and header escalation, not full two-tenant data isolation through `/ingest` + `/ask` + `/audit/{id}` | **Phase 2 — done (§10)** |
 | `UX-1` | No fabricated data exists today (good), but the target UI (dashboard counts, memories table, activity feed, provider/storage settings) has no data source. Any of those screens built before Phase 6 would be invention. | `frontend/src/App.tsx`; `GET /memories` 404 | Phase 7 (blocked by `API-1`) |
 
 ---
@@ -275,3 +282,22 @@ services, ingestion is not durable, and no model-quality evaluation exists. The 
 credible, honestly-labelled engineering baseline with a **blocked** path to release; Phase 2 should
 not start until `CI-1` is green and the human decisions `AD-1`, `AD-3`, `AD-4`, `AD-5`, `AD-9`,
 `AD-11` are answered.
+
+
+---
+
+## 10. Phase 2 delta (browser identity, BFF, tenant authorization)
+
+| Item | Before | After |
+|---|---|---|
+| Browser auth | none — only static API keys | vendor-neutral OIDC (code + PKCE), opaque `__Host-` sessions, CSRF bound to the session, strict origin checks, roles, allowlisted same-origin BFF |
+| Tenant scope for browsers | none possible without shipping a key | derived only from the server-side session row; the BFF injects the tenant credential server-side and strips client credential/tenant headers |
+| API-key clients | supported | unchanged (regression tests assert 200/401/ignored-header behaviour) |
+| Production fail-closed | auth + encryption key | additionally: `NOVA_IDENTITY_MODE=oidc` requires issuer, client id/secret, redirect URI, BFF origin, HTTPS, secure cookies, and at least one grant, or startup raises `ConfigError` |
+| Backend tests | 492 passed | **599 passed** (107 new: sessions, roles, OIDC, config, BFF) |
+| Lint | `ruff check .` red (87 pre-existing errors) | unchanged repository-wide; all new/edited Phase 2 files are lint- and format-clean |
+| `CI-1` | open | still open — deliberately not bundled into this phase |
+
+Still open after Phase 2 (unchanged owners): `EMB-1` (§5), `PROV-1`/`PROV-2`, `STORE-1`/`STORE-2`,
+`API-1`, `ING-1`/`ING-2`, `OBS-1`, `CI-1`/`CI-2`, `EVAL-1`, and the Phase 7 frontend items. The frontend
+still calls `/api/*`; switching it to `/api/bff/*` and the remaining screens belong to Phase 7.
