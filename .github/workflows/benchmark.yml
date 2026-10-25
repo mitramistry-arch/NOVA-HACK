@@ -1,0 +1,113 @@
+name: benchmark
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      n:
+        description: "Number of cases (1-10000)"
+        required: false
+        default: "150"
+      split:
+        description: "Dataset split"
+        required: false
+        type: choice
+        options: [dev, test]
+        default: "dev"
+      systems:
+        description: "Comma-separated systems (baseline,rag,anchor)"
+        required: false
+        default: "baseline,rag"
+      llm:
+        description: "LLM mode (real is not implemented yet and fails)"
+        required: false
+        type: choice
+        options: [fake, real]
+        default: "fake"
+      seed:
+        description: "Random seed"
+        required: false
+        default: "7"
+
+jobs:
+  benchmark-pr:
+    name: Benchmark (PR smoke run)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Run benchmark (fake LLM, n=30, dev split)
+        run: |
+          python -m benchmark.runner \
+            --seed 7 \
+            --n 30 \
+            --split dev \
+            --systems baseline,rag \
+            --llm fake \
+            --limit 30
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-pr-results
+          path: benchmark/results/
+          retention-days: 7
+
+  benchmark-full:
+    name: Benchmark (full manual run)
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Validate inputs
+        env:
+          INPUT_N: ${{ github.event.inputs.n }}
+          INPUT_SPLIT: ${{ github.event.inputs.split }}
+          INPUT_SYSTEMS: ${{ github.event.inputs.systems }}
+          INPUT_LLM: ${{ github.event.inputs.llm }}
+          INPUT_SEED: ${{ github.event.inputs.seed }}
+        run: python -m benchmark.validate_inputs
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Run benchmark
+        env:
+          INPUT_N: ${{ github.event.inputs.n || '150' }}
+          INPUT_SPLIT: ${{ github.event.inputs.split || 'dev' }}
+          INPUT_SYSTEMS: ${{ github.event.inputs.systems || 'baseline,rag' }}
+          INPUT_LLM: ${{ github.event.inputs.llm || 'fake' }}
+          INPUT_SEED: ${{ github.event.inputs.seed || '7' }}
+        run: |
+          python -m benchmark.runner \
+            --seed "$INPUT_SEED" \
+            --n "$INPUT_N" \
+            --split "$INPUT_SPLIT" \
+            --systems "$INPUT_SYSTEMS" \
+            --llm "$INPUT_LLM"
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-full-results
+          path: benchmark/results/
+          retention-days: 30
